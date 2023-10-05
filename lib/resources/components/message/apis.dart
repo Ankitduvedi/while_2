@@ -7,7 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:http/http.dart';
-import 'package:while_app/data/model/message.dart';
+// import 'package:while_app/data/model/message.dart';
 import 'package:while_app/resources/components/message/models/chat_user.dart';
 
 import 'models/community_message.dart';
