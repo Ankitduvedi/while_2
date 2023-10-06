@@ -106,7 +106,7 @@ class AddCommunityScreen {
                         borderRadius: BorderRadius.circular(8)),
                     elevation: 4,
                   ),
-                  label: const Text('camera',
+                  label: const Text('Camera',
                       style: TextStyle(color: Colors.black)),
                   onPressed: () async {
                     final ImagePicker picker = ImagePicker();
@@ -116,7 +116,7 @@ class AddCommunityScreen {
                         source: ImageSource.camera, imageQuality: 70);
                   },
                   icon: const Icon(Icons.camera_alt_rounded,
-                      color: Colors.blueAccent, size: 26)),
+                      color: Colors.black, size: 26)),
               const SizedBox(
                 width: 20,
               ),
@@ -139,8 +139,7 @@ class AddCommunityScreen {
                     image = await picker.pickImage(
                         source: ImageSource.gallery, imageQuality: 70);
                   },
-                  icon: const Icon(Icons.camera_alt_rounded,
-                      color: Colors.blueAccent, size: 26)),
+                  icon: const Icon(Icons.photo, color: Colors.black, size: 26)),
             ]),
           ],
         ),
