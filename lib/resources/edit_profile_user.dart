@@ -383,7 +383,11 @@ class _ProfileScreenState extends State<EditUserProfileScreen> {
                           Navigator.pop(context);
                         }
                       },
-                      child: Image.asset('images/camera.png')),
+                      child: Icon(
+                        Icons.camera_alt,
+                        color: Colors.black,
+                        size: mq.width * .2,
+                      )),
                 ],
               )
             ],
