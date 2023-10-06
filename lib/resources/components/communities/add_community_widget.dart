@@ -97,22 +97,51 @@ class AddCommunityScreen {
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15))),
             ),
-            IconButton(
-                onPressed: () async {
-                  final ImagePicker picker = ImagePicker();
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              // image from camera
+              TextButton.icon(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(255, 245, 234, 234),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8)),
+                    elevation: 4,
+                  ),
+                  label: const Text('camera',
+                      style: TextStyle(color: Colors.black)),
+                  onPressed: () async {
+                    final ImagePicker picker = ImagePicker();
 
-                  // Pick an image
-                  image = await picker.pickImage(
-                      source: ImageSource.camera, imageQuality: 70);
-                  if (image != null) {
-                    log('Image Path: ${image!.path}');
+                    // Pick an image
+                    image = await picker.pickImage(
+                        source: ImageSource.camera, imageQuality: 70);
+                  },
+                  icon: const Icon(Icons.camera_alt_rounded,
+                      color: Colors.blueAccent, size: 26)),
+              const SizedBox(
+                width: 20,
+              ),
+              //image from gallery
+              TextButton.icon(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(255, 245, 234, 234),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8)),
+                    elevation: 4,
+                  ),
+                  label: const Text(
+                    'Gallery',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  onPressed: () async {
+                    final ImagePicker picker = ImagePicker();
 
-                    // await APIs.communitySendChatImage(
-                    //     widget.user, File(image.path));
-                  }
-                },
-                icon: const Icon(Icons.camera_alt_rounded,
-                    color: Colors.blueAccent, size: 26)),
+                    // Pick an image
+                    image = await picker.pickImage(
+                        source: ImageSource.gallery, imageQuality: 70);
+                  },
+                  icon: const Icon(Icons.camera_alt_rounded,
+                      color: Colors.blueAccent, size: 26)),
+            ]),
           ],
         ),
 
