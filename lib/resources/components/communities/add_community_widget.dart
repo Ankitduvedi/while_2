@@ -22,6 +22,7 @@ class AddCommunityScreen {
       context: context,
       builder: (_) => AlertDialog(
         scrollable: true,
+        elevation: 2,
         contentPadding:
             const EdgeInsets.only(left: 14, right: 14, top: 20, bottom: 10),
 
@@ -117,42 +118,48 @@ class AddCommunityScreen {
 
         //actions
         actions: [
-          //cancel button
-          MaterialButton(
-              onPressed: () {
-                //hide alert dialog
-                Navigator.pop(context);
-              },
-              child: const Text('Discard',
-                  style:
-                      TextStyle(color: Colors.deepPurpleAccent, fontSize: 16))),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              //cancel button
+              MaterialButton(
+                  onPressed: () {
+                    //hide alert dialog
+                    Navigator.pop(context);
+                  },
+                  child: const Text('Discard',
+                      style: TextStyle(
+                          color: Colors.deepPurpleAccent, fontSize: 16))),
+              //create button
+              MaterialButton(
+                  onPressed: () async {
+                    if (type != '' && name != '') {
+                      final time =
+                          DateTime.now().millisecondsSinceEpoch.toString();
+                      final String id = uuid.v4();
+                      final CommunityUser community = CommunityUser(
+                          image: '',
+                          about: about,
+                          name: name,
+                          createdAt: time,
+                          id: id,
+                          email: APIs.me.email,
+                          type: type,
+                          noOfUsers: '1',
+                          domain: domain,
+                          admin: APIs.me.name);
+                      APIs.addCommunities(community, File(image!.path));
 
-          //add button
-          MaterialButton(
-              onPressed: () async {
-                if (type != '' && name != '') {
-                  final time = DateTime.now().millisecondsSinceEpoch.toString();
-                  final String id = uuid.v4();
-                  final CommunityUser community = CommunityUser(
-                      image: '',
-                      about: about,
-                      name: name,
-                      createdAt: time,
-                      id: id,
-                      email: APIs.me.email,
-                      type: type,
-                      noOfUsers: '1',
-                      domain: domain,
-                      admin: APIs.me.name);
-                  APIs.addCommunities(community, File(image!.path));
-
-                  Navigator.pop(context);
-                }
-              },
-              child: const Text(
-                'Create',
-                style: TextStyle(color: Colors.deepPurpleAccent, fontSize: 16),
-              ))
+                      Navigator.pop(context);
+                    }
+                  },
+                  child: const Text(
+                    'Create',
+                    style:
+                        TextStyle(color: Colors.deepPurpleAccent, fontSize: 16),
+                  ))
+            ],
+          ),
         ],
       ),
     );
