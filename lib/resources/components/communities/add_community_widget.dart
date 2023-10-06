@@ -122,42 +122,55 @@ class AddCommunityScreen {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               //cancel button
-              MaterialButton(
-                  onPressed: () {
-                    //hide alert dialog
-                    Navigator.pop(context);
-                  },
-                  child: const Text('Discard',
-                      style: TextStyle(
-                          color: Colors.deepPurpleAccent, fontSize: 16))),
-              //create button
-              MaterialButton(
-                  onPressed: () async {
-                    if (type != '' && name != '') {
-                      final time =
-                          DateTime.now().millisecondsSinceEpoch.toString();
-                      final String id = uuid.v4();
-                      final CommunityUser community = CommunityUser(
-                          image: '',
-                          about: about,
-                          name: name,
-                          createdAt: time,
-                          id: id,
-                          email: APIs.me.email,
-                          type: type,
-                          noOfUsers: '1',
-                          domain: domain,
-                          admin: APIs.me.name);
-                      APIs.addCommunities(community, File(image!.path));
-
+              SizedBox(
+                width: 90,
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color.fromARGB(255, 244, 182, 182),
+                    ),
+                    onPressed: () {
+                      //hide alert dialog
                       Navigator.pop(context);
-                    }
-                  },
-                  child: const Text(
-                    'Create',
-                    style:
-                        TextStyle(color: Colors.deepPurpleAccent, fontSize: 16),
-                  ))
+                    },
+                    child: const Text('Discard',
+                        style: TextStyle(color: Colors.black, fontSize: 16))),
+              ),
+              //create button
+              const SizedBox(
+                width: 20,
+              ),
+              SizedBox(
+                width: 90,
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color.fromARGB(255, 216, 239, 133),
+                    ),
+                    onPressed: () async {
+                      if (type != '' && name != '') {
+                        final time =
+                            DateTime.now().millisecondsSinceEpoch.toString();
+                        final String id = uuid.v4();
+                        final CommunityUser community = CommunityUser(
+                            image: '',
+                            about: about,
+                            name: name,
+                            createdAt: time,
+                            id: id,
+                            email: APIs.me.email,
+                            type: type,
+                            noOfUsers: '1',
+                            domain: domain,
+                            admin: APIs.me.name);
+                        APIs.addCommunities(community, File(image!.path));
+
+                        Navigator.pop(context);
+                      }
+                    },
+                    child: const Text(
+                      'Create',
+                      style: TextStyle(color: Colors.black, fontSize: 16),
+                    )),
+              )
             ],
           ),
         ],
