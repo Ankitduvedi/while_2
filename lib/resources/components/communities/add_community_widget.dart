@@ -127,6 +127,8 @@ class AddCommunityScreen {
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color.fromARGB(255, 244, 182, 182),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8)),
                     ),
                     onPressed: () {
                       //hide alert dialog
@@ -143,7 +145,9 @@ class AddCommunityScreen {
                 width: 90,
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color.fromARGB(255, 216, 239, 133),
+                      backgroundColor: const Color.fromARGB(255, 174, 239, 133),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8)),
                     ),
                     onPressed: () async {
                       if (type != '' && name != '') {
