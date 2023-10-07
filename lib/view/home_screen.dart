@@ -6,7 +6,7 @@ import 'package:while_app/resources/colors.dart';
 import 'package:while_app/theme/pallete.dart';
 import 'package:while_app/view/create_screen.dart';
 import 'package:while_app/view/feed_screen.dart';
-import 'package:while_app/view/profile_screen.dart';
+import 'package:while_app/view/user_profile_screen.dart';
 import 'package:while_app/view/reels_screen.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:while_app/view/social/social_home_screen.dart';
