@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:while_app/resources/components/message/apis.dart';
 
 late Size mq;
 
@@ -17,6 +18,7 @@ class StoryScreenState extends State<StoryScreen>
   late Stream<QuerySnapshot> peopleStream;
   late Stream<QuerySnapshot> pagesStream;
   late TabController _tabController;
+  late String userId; // Add the user's ID here
 
   @override
   void initState() {
@@ -28,6 +30,9 @@ class StoryScreenState extends State<StoryScreen>
 
     // Initialize the TabController
     _tabController = TabController(length: 2, vsync: this);
+
+    // Replace 'yourUserId' with the actual user ID (you can get it from Firebase Authentication)
+    userId = APIs.me.id;
   }
 
   @override
@@ -89,34 +94,65 @@ class StoryScreenState extends State<StoryScreen>
 
               final peopleDocs = snapshot.data!.docs;
 
-              return ListView.builder(
-                itemCount: peopleDocs.length,
-                itemBuilder: (context, index) {
-                  final person =
-                      peopleDocs[index].data() as Map<String, dynamic>;
+              // Fetch the list of people that the current user is following
+              return StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collection('users')
+                    .doc(userId)
+                    .collection('my_users')
+                    .snapshots(),
+                builder: (context, followingSnapshot) {
+                  if (followingSnapshot.connectionState ==
+                      ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  if (followingSnapshot.hasError) {
+                    return Center(
+                        child: Text('Error: ${followingSnapshot.error}'));
+                  }
 
-                  return ListTile(
-                    leading: ClipRRect(
-                      borderRadius: BorderRadius.circular(mq.height * .03),
-                      child: CachedNetworkImage(
-                        width: mq.height * .055,
-                        height: mq.height * .055,
-                        fit: BoxFit.fill,
-                        imageUrl: person['image'],
-                        errorWidget: (context, url, error) =>
-                            const CircleAvatar(
-                                child: Icon(CupertinoIcons.person)),
-                      ),
-                    ),
-                    title: Text(person['name']),
-                    subtitle: Text(person['email']),
-                    trailing: ElevatedButton(
-                      onPressed: () {
-                        // Implement the follow functionality for people here
-                        // You can add the person to your list of followed people in Firestore
-                      },
-                      child: const Text('Follow'),
-                    ),
+                  final followingDocs = followingSnapshot.data!.docs
+                      .map((doc) => doc.id)
+                      .toList();
+
+                  // Filter out the people who are already followed by the user
+                  final filteredPeople = peopleDocs.where((personDoc) {
+                    final person = personDoc.data() as Map<String, dynamic>;
+                    final personId = person['id'];
+                    return personId != userId &&
+                        !followingDocs.contains(personId);
+                  }).toList();
+
+                  return ListView.builder(
+                    itemCount: filteredPeople.length,
+                    itemBuilder: (context, index) {
+                      final person =
+                          filteredPeople[index].data() as Map<String, dynamic>;
+
+                      return ListTile(
+                        leading: ClipRRect(
+                          borderRadius: BorderRadius.circular(mq.height * .03),
+                          child: CachedNetworkImage(
+                            width: mq.height * .055,
+                            height: mq.height * .055,
+                            fit: BoxFit.fill,
+                            imageUrl: person['image'],
+                            errorWidget: (context, url, error) =>
+                                const CircleAvatar(
+                                    child: Icon(CupertinoIcons.person)),
+                          ),
+                        ),
+                        title: Text(person['name']),
+                        subtitle: Text(person['email']),
+                        trailing: ElevatedButton(
+                          onPressed: () {
+                            // Implement the follow functionality for people here
+                            // You can add the person to your list of followed people in Firestore
+                          },
+                          child: const Text('Follow'),
+                        ),
+                      );
+                    },
                   );
                 },
               );
