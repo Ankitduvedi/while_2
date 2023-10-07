@@ -11,7 +11,7 @@ import 'package:while_app/view/splash_view.dart';
 import 'package:while_app/view_model/wrapper/wrapper.dart';
 import '../../view/auth/login_screen.dart';
 import '../../view/auth/register_screen.dart';
-import '../../view/profile_screen.dart';
+import '../../view/user_profile_screen.dart';
 import '../../view/settings_page.dart';
 
 class Routes {
@@ -46,7 +46,7 @@ class Routes {
       case RoutesName.createMenu:
         return MaterialPageRoute(
             builder: (BuildContext context) => const CreateMenuScreen());
-       case RoutesName.postPreview:
+      case RoutesName.postPreview:
         if (arguments is File) {
           return MaterialPageRoute(
               builder: (BuildContext context) => PostPreview(file: arguments));

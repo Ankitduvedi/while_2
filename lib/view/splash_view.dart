@@ -3,19 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:while_app/utils/routes/routes_name.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key});
+  const SplashScreen({super.key});
 
   @override
-  _SplashScreenState createState() => _SplashScreenState();
+  SplashScreenState createState() => SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen>
+class SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
   late Animation<double> _fadeAnimation;
   late Animation<double> _bounceAnimation;
-  late Animation<double> _rotationAnimation;
   List<String> letters = [
     'W',
     'H',
@@ -32,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen>
 
     // Initialize the animation controller
     _controller = AnimationController(
-      duration: Duration(seconds: 2),
+      duration: const Duration(seconds: 2),
       vsync: this,
     );
 
@@ -40,14 +39,14 @@ class _SplashScreenState extends State<SplashScreen>
     _scaleAnimation = Tween<double>(begin: 0.5, end: 1.0).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: Interval(0.0, 0.7, curve: Curves.easeOut),
+        curve: const Interval(0.0, 0.7, curve: Curves.easeOut),
       ),
     );
 
     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: Interval(0.7, 1.0, curve: Curves.easeIn),
+        curve: const Interval(0.7, 1.0, curve: Curves.easeIn),
       ),
     );
 
@@ -55,15 +54,7 @@ class _SplashScreenState extends State<SplashScreen>
     _bounceAnimation = Tween<double>(begin: 0, end: 30).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: Interval(0.0, 0.3, curve: Curves.easeOut),
-      ),
-    );
-
-    // Create a rotation animation
-    _rotationAnimation = Tween<double>(begin: 0, end: 360).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: Interval(0.0, 1.0, curve: Curves.linear),
+        curve: const Interval(0.0, 0.3, curve: Curves.easeOut),
       ),
     );
 
@@ -71,7 +62,7 @@ class _SplashScreenState extends State<SplashScreen>
     _controller.forward();
 
     // Start the timer to navigate to the next screen
-    Timer(Duration(seconds: 3), navigationPage);
+    Timer(const Duration(seconds: 3), navigationPage);
 
     // Start animating letters
     animateLetters();
@@ -85,26 +76,16 @@ class _SplashScreenState extends State<SplashScreen>
   void animateLetters() {
     if (_currentIndex < letters.length) {
       Future.delayed(
-        Duration(milliseconds: 300),
+        const Duration(milliseconds: 300),
         () {
           setState(() {
             animatedLetters.add(
-              ScaleTransition(
-                scale: _scaleAnimation, // Apply scale animation to the letter
-                child: FadeTransition(
-                  opacity: _fadeAnimation, // Apply fade animation to the letter
-                  child: RotationTransition(
-                    turns:
-                        _rotationAnimation, // Apply rotation animation to the letter
-                    child: Text(
-                      letters[_currentIndex],
-                      style: TextStyle(
-                        fontSize: 48.0, // Adjust the font size as needed
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
+              Text(
+                letters[_currentIndex],
+                style: const TextStyle(
+                  fontSize: 48.0, // Adjust the font size as needed
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
                 ),
               ),
             );
@@ -129,8 +110,8 @@ class _SplashScreenState extends State<SplashScreen>
       backgroundColor: Colors.black, // Set background color to black
       body: Stack(
         children: [
-          // Animated Background Gradient
-          AnimatedBackgroundGradient(),
+          // Animated Background Particles
+          const AnimatedBackgroundParticles(),
           Center(
             child: AnimatedBuilder(
               animation: _controller,
@@ -157,19 +138,20 @@ class _SplashScreenState extends State<SplashScreen>
   }
 }
 
-class AnimatedBackgroundGradient extends StatefulWidget {
+class AnimatedBackgroundParticles extends StatefulWidget {
+  const AnimatedBackgroundParticles({super.key});
   @override
-  _AnimatedBackgroundGradientState createState() =>
-      _AnimatedBackgroundGradientState();
+  AnimatedBackgroundParticlesState createState() =>
+      AnimatedBackgroundParticlesState();
 }
 
-class _AnimatedBackgroundGradientState
-    extends State<AnimatedBackgroundGradient> {
+class AnimatedBackgroundParticlesState
+    extends State<AnimatedBackgroundParticles> {
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
-      duration: Duration(seconds: 2),
-      decoration: BoxDecoration(
+      duration: const Duration(seconds: 2),
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
