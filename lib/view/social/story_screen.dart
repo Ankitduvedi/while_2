@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:while_app/resources/components/message/apis.dart';
+import 'package:while_app/resources/components/message/helper/dialogs.dart';
 
 late Size mq;
 
@@ -145,9 +146,13 @@ class StoryScreenState extends State<StoryScreen>
                         title: Text(person['name']),
                         subtitle: Text(person['email']),
                         trailing: ElevatedButton(
-                          onPressed: () {
-                            // Implement the follow functionality for people here
-                            // You can add the person to your list of followed people in Firestore
+                          onPressed: () async {
+                            await APIs.addChatUser(person['email'])
+                                .then((value) {
+                              if (value) {
+                                Dialogs.showSnackbar(context, 'User Added');
+                              }
+                            });
                           },
                           child: const Text('Follow'),
                         ),
@@ -237,9 +242,14 @@ class StoryScreenState extends State<StoryScreen>
                         title: Text(page['name']),
                         subtitle: Text(page['domain']),
                         trailing: ElevatedButton(
-                          onPressed: () {
-                            // Implement the follow functionality for communities here
-                            // You can add the community to your list of followed communities in Firestore
+                          onPressed: () async {
+                            await APIs.addUserToCommunity(page['name'])
+                                .then((value) {
+                              if (value) {
+                                Dialogs.showSnackbar(
+                                    context, 'Community Added');
+                              }
+                            });
                           },
                           child: const Text('Follow'),
                         ),
