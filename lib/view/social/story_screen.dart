@@ -1,14 +1,18 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+late Size mq;
 
 class StoryScreen extends StatefulWidget {
   const StoryScreen({Key? key}) : super(key: key);
 
   @override
-  _StoryScreenState createState() => _StoryScreenState();
+  StoryScreenState createState() => StoryScreenState();
 }
 
-class _StoryScreenState extends State<StoryScreen>
+class StoryScreenState extends State<StoryScreen>
     with SingleTickerProviderStateMixin {
   late Stream<QuerySnapshot> peopleStream;
   late Stream<QuerySnapshot> pagesStream;
@@ -35,6 +39,7 @@ class _StoryScreenState extends State<StoryScreen>
 
   @override
   Widget build(BuildContext context) {
+    mq = MediaQuery.of(context).size;
     return Scaffold(
       appBar: TabBar(
         controller: _tabController,
@@ -76,7 +81,7 @@ class _StoryScreenState extends State<StoryScreen>
             stream: peopleStream,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               }
               if (snapshot.hasError) {
                 return Center(child: Text('Error: ${snapshot.error}'));
@@ -91,9 +96,17 @@ class _StoryScreenState extends State<StoryScreen>
                       peopleDocs[index].data() as Map<String, dynamic>;
 
                   return ListTile(
-                    leading: CircleAvatar(
-                      backgroundImage: NetworkImage(
-                          person['image']), // Add the profile image URL
+                    leading: ClipRRect(
+                      borderRadius: BorderRadius.circular(mq.height * .03),
+                      child: CachedNetworkImage(
+                        width: mq.height * .055,
+                        height: mq.height * .055,
+                        fit: BoxFit.fill,
+                        imageUrl: person['image'],
+                        errorWidget: (context, url, error) =>
+                            const CircleAvatar(
+                                child: Icon(CupertinoIcons.person)),
+                      ),
                     ),
                     title: Text(person['name']),
                     subtitle: Text(person['email']),
@@ -130,7 +143,7 @@ class _StoryScreenState extends State<StoryScreen>
             stream: pagesStream,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               }
               if (snapshot.hasError) {
                 return Center(child: Text('Error: ${snapshot.error}'));
@@ -144,9 +157,17 @@ class _StoryScreenState extends State<StoryScreen>
                   final page = pagesDocs[index].data() as Map<String, dynamic>;
 
                   return ListTile(
-                    leading: CircleAvatar(
-                      backgroundImage: NetworkImage(
-                          page['image']), // Add the profile image URL
+                    leading: ClipRRect(
+                      borderRadius: BorderRadius.circular(mq.height * .03),
+                      child: CachedNetworkImage(
+                        width: mq.height * .055,
+                        height: mq.height * .055,
+                        fit: BoxFit.fill,
+                        imageUrl: page['image'],
+                        errorWidget: (context, url, error) =>
+                            const CircleAvatar(
+                                child: Icon(CupertinoIcons.person)),
+                      ),
                     ),
                     title: Text(page['name']),
                     subtitle: Text(page['domain']),
@@ -155,7 +176,7 @@ class _StoryScreenState extends State<StoryScreen>
                         // Implement the follow functionality for pages here
                         // You can add the page to your list of followed pages in Firestore
                       },
-                      child: Text('Follow'),
+                      child: const Text('Follow'),
                     ),
                   );
                 },
