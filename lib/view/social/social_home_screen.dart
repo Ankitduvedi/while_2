@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:while_app/resources/components/communities/add_community_widget.dart';
 import 'package:while_app/resources/components/message/home_screen.dart';
 import 'package:while_app/view/social/notification.dart';
+import 'package:while_app/view/social/status_screen.dart';
 import 'package:while_app/view/social/story_screen.dart';
 
 import '../../resources/components/communities/community_screen.dart';
@@ -148,7 +149,7 @@ class _SocialScreenState extends State<SocialScreen>
                   isSearching: isSearchingHasValue,
                   value: value,
                 ),
-                const Text('Callsss'),
+                StatusScreen(),
               ],
             ),
           ),
