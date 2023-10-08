@@ -31,7 +31,7 @@ class _ChatUserCardState extends State<ChatUserCard> {
   Widget build(BuildContext context) {
     mq = MediaQuery.of(context).size;
     return Card(
-      margin: EdgeInsets.symmetric(horizontal: mq.width * .04, vertical: 1),
+      margin: const EdgeInsets.symmetric(vertical: 0),
       color: Colors.white,
       elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),

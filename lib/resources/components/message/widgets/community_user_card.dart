@@ -32,9 +32,9 @@ class _ChatCommunityCardState extends ConsumerState<ChatCommunityCard> {
     mq = MediaQuery.of(context).size;
     log(widget.user.name);
     return Card(
-      margin: EdgeInsets.symmetric(horizontal: mq.width * .04, vertical: 4),
+      margin: const EdgeInsets.symmetric(vertical: 0),
       color: Colors.white,
-      elevation: 2.5,
+      elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       child: InkWell(
           onTap: () {
