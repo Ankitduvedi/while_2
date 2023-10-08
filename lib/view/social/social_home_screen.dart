@@ -123,7 +123,7 @@ class _SocialScreenState extends State<SocialScreen>
                 indicatorColor: Colors.white,
                 tabs: const [
                   Tab(
-                    text: 'Status',
+                    text: 'Connect',
                   ),
                   Tab(
                     text: 'Chats',
@@ -132,7 +132,7 @@ class _SocialScreenState extends State<SocialScreen>
                     text: 'Community',
                   ),
                   Tab(
-                    text: 'Calls',
+                    text: 'Status',
                   ),
                 ],
               ),
