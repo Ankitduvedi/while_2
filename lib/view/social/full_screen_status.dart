@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+late Size mq;
+
 class FullStatusScreen extends StatelessWidget {
   final Map<String, dynamic> status;
 
@@ -7,13 +9,15 @@ class FullStatusScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    mq = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Status'),
+        title: Text(status['userName'],
+            style: const TextStyle(color: Colors.black)),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           // Use Hero widget to create the shared element transition
           Hero(
@@ -21,7 +25,7 @@ class FullStatusScreen extends StatelessWidget {
                 'status_${status['statusId']}', // Use the same tag as in StatusScreen
             child: Container(
               width: double.infinity,
-              height: 300, // Adjust the size as needed
+              height: mq.height * 0.8, // Adjust the size as needed
               decoration: BoxDecoration(
                 // Display the full status here, e.g., an image or video
                 image: DecorationImage(
