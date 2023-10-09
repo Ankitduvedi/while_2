@@ -17,7 +17,7 @@ class StatusScreenState extends State<StatusScreen> {
   final TextEditingController _statusTextController = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   late User _currentUser;
-
+  List<String> friends = [];
   @override
   void initState() {
     super.initState();
