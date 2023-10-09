@@ -15,6 +15,7 @@ import 'package:while_app/view_model/post_provider.dart';
 import 'package:while_app/view_model/profile_controller.dart';
 import 'utils/routes/routes.dart';
 import 'view_model/reel_controller.dart';
+import 'firebase_options.dart';
 
 final userProvider = river.StreamProvider((ref) {
   return FirebaseFirestore.instance
@@ -31,7 +32,9 @@ void main() async {
   //     SystemUiOverlay.top,
   //   ],
   // );
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+     options: DefaultFirebaseOptions.currentPlatform,
+  );
   Provider.debugCheckInvalidValueType = null;
   runApp(const river.ProviderScope(child: MyApp()));
 }
