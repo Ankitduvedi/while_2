@@ -24,19 +24,20 @@ class FullStatusScreen extends StatefulWidget {
 class _FullStatusScreenState extends State<FullStatusScreen> {
   int currentIndex = 0;
   Timer? statusTimer;
-  PageController pageController = PageController();
+  PageController? pageController;
 
   @override
   void initState() {
     super.initState();
     currentIndex = widget.initialIndex;
+    pageController = PageController(initialPage: widget.initialIndex);
     startTimer();
   }
 
   @override
   void dispose() {
     statusTimer?.cancel();
-    pageController.dispose();
+    pageController!.dispose();
     super.dispose();
   }
 
