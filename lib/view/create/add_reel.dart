@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:video_compress/video_compress.dart';
-// import 'package:video_compress/video_compress.dart';
 import 'package:while_app/resources/components/round_button.dart';
 import 'package:while_app/resources/components/text_container_widget.dart';
 import 'package:while_app/resources/components/video_player.dart';
@@ -22,7 +21,7 @@ class AddReel extends StatefulWidget {
 class _AddReelState extends State<AddReel> {
   late Subscription _subscription;
   bool isloading = false;
-  
+
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
 
@@ -32,7 +31,6 @@ class _AddReelState extends State<AddReel> {
     _subscription = VideoCompress.compressProgress$.subscribe((progress) {
       debugPrint('progress: $progress');
       isloading = false;
-      
     });
   }
 
@@ -86,8 +84,6 @@ class _AddReelState extends State<AddReel> {
       Utils.toastMessage(error.toString());
     });
   }
-
-  
 
   @override
   Widget build(BuildContext context) {

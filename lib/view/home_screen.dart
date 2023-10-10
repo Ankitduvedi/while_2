@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:while_app/repository/firebase_repository.dart';
-import 'package:while_app/resources/colors.dart';
 import 'package:while_app/theme/pallete.dart';
 import 'package:while_app/view/create_screen.dart';
 import 'package:while_app/view/feed_screen.dart';
@@ -37,7 +36,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   static final List<Widget> _widgetOptions = <Widget>[
     const FeedScreen(),
-    ReelsScreen(),
+    const ReelsScreen(),
     const CreateScreen(),
     const ProfileScreen()
   ];
@@ -59,10 +58,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               IconButton(
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => SocialScreen(),
+                      builder: (context) => const SocialScreen(),
                     ));
                   },
-                  icon: const Icon(Icons.message)),
+                  icon: const Icon(
+                    Icons.message,
+                    color: Colors.black,
+                  )),
               PopupMenuButton(
                   icon: const Icon(
                     Icons.more_vert,
@@ -80,40 +82,40 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             ],
           ),
           extendBody: true,
-          backgroundColor: AppColors.theme1Color,
+          backgroundColor: Color.fromARGB(255, 234, 33, 33),
           bottomNavigationBar: Container(
             decoration: BoxDecoration(
-                color: AppColors.buttonColor,
-                borderRadius: BorderRadius.circular(30)),
-            margin: const EdgeInsets.fromLTRB(15, 0, 15, 15),
+                color: Color.fromARGB(255, 18, 18, 18),
+                borderRadius: BorderRadius.circular(0)),
+            margin: const EdgeInsets.fromLTRB(0, 0, 0, 0),
             child: Padding(
               padding: const EdgeInsets.all(10),
               child: GNav(
                   onTabChange: onTapChange,
-                  activeColor: AppColors.buttonColor,
+                  activeColor: Colors.black,
                   tabBackgroundColor: currentTheme.primaryColor,
                   padding: const EdgeInsets.all(5),
-                  tabs: [
-                    const GButton(
-                      // iconColor: currentTheme.primaryColor,
+                  tabs: const [
+                    GButton(
+                      iconColor: Colors.white,
                       icon: Icons.home,
                       text: 'Home',
                     ),
 
                     // textColor: currentTheme ==),
                     GButton(
-                      iconColor: currentTheme.primaryColor,
+                      iconColor: Colors.white,
                       icon: Icons.movie_creation_outlined,
                       text: 'Reels',
                       iconSize: 25,
                     ),
                     GButton(
-                      iconColor: currentTheme.primaryColor,
+                      iconColor: Colors.white,
                       icon: Icons.add,
                       text: 'Create',
                     ),
                     GButton(
-                      iconColor: currentTheme.primaryColor,
+                      iconColor: Colors.white,
                       icon: Icons.account_circle,
                       text: 'User Profile',
                     ),
