@@ -25,7 +25,14 @@ class _PostPreviewState extends State<PostPreview> {
   TextEditingController caption = TextEditingController();
   bool isLoading = false;
   String? cateogry;
-  List<String> cateogries=['App Development', 'Web Development', 'Space', 'Science', 'Maths', 'Physics'];
+  List<String> cateogries = [
+    'App Development',
+    'Web Development',
+    'Space',
+    'Science',
+    'Maths',
+    'Physics'
+  ];
   @override
   Widget build(BuildContext context) {
     var h = MediaQuery.of(context).size.height;
@@ -57,7 +64,8 @@ class _PostPreviewState extends State<PostPreview> {
                   context: context,
                   builder: (context) {
                     return Container(
-                      padding:const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 30),
                       height: h / 3,
                       width: w,
                       margin: const EdgeInsets.only(
@@ -65,20 +73,25 @@ class _PostPreviewState extends State<PostPreview> {
                         right: 20,
                         bottom: 20,
                       ),
-                      decoration:const BoxDecoration(
+                      decoration: const BoxDecoration(
                           borderRadius: BorderRadius.all(
                             Radius.circular(10),
                           ),
                           color: Colors.white),
-                      child: ListView.builder(itemBuilder: (context, index) {
-                        return ListTile(onTap: () {
-                          setState(() {
-                            cateogry=cateogries[index];
-                          });
-                          Navigator.of(context).pop();
-                        },title: Text(cateogries[index]),);
-                        
-                      },itemCount: cateogries.length,),
+                      child: ListView.builder(
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                            onTap: () {
+                              setState(() {
+                                cateogry = cateogries[index];
+                              });
+                              Navigator.of(context).pop();
+                            },
+                            title: Text(cateogries[index]),
+                          );
+                        },
+                        itemCount: cateogries.length,
+                      ),
                     );
                   },
                 );
@@ -92,18 +105,18 @@ class _PostPreviewState extends State<PostPreview> {
                     borderRadius: const BorderRadius.all(Radius.circular(10))),
                 child: Row(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
-                    Icon(
+                    const Icon(
                       Icons.category,
                       color: Colors.grey,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     Text(
-                      cateogry?? 'Select Cateogry',
+                      cateogry ?? 'Select Cateogry',
                       style: GoogleFonts.openSans(
                           fontSize: 15,
                           color: const Color.fromARGB(255, 65, 63, 63)),
@@ -127,42 +140,41 @@ class _PostPreviewState extends State<PostPreview> {
                 loading: isLoading,
                 title: "Post",
                 onPress: () async {
-                  if(cateogry==null){
-                    Utils.flushBarErrorMessage('Please select a cateogry', context);
-                  }
-                  else if(caption.text.isEmpty){
+                  if (cateogry == null) {
+                    Utils.flushBarErrorMessage(
+                        'Please select a cateogry', context);
+                  } else if (caption.text.isEmpty) {
                     Utils.flushBarErrorMessage('Please add a caption', context);
-                  }
-                  else{
+                  } else {
                     try {
-                    setState(() {
-                      isLoading = true;
-                    });
-                    final datetime = DateTime.now();
-                    firebase_storage.Reference storageRef =
-                        firebase_storage.FirebaseStorage.instance.ref(
-                            'content/${FirebaseSessionController().uid}/post/$datetime');
-                    firebase_storage.UploadTask uploadTask =
-                        storageRef.putFile(File(provider.post!.path).absolute);
-                    await Future.value(uploadTask);
-                    final newUrl = await storageRef.getDownloadURL();
-                    FirebaseFirestore.instance
-                        .collection('Posts')
-                        .doc(FirebaseAuth.instance.currentUser!.uid)
-                        .collection(FirebaseAuth.instance.currentUser!.email!)
-                        .add({
-                      "caption": caption.text.trim(),
-                      "postUrl": newUrl
-                    }).then((value) {
                       setState(() {
-                        isLoading = false;
+                        isLoading = true;
                       });
-                      Utils.toastMessage("Done...");
-                      Navigator.pop(context);
-                    });
-                  } on FirebaseAuthException catch (e) {
-                    Utils.snackBar(e.message!, context);
-                  }
+                      final datetime = DateTime.now();
+                      firebase_storage.Reference storageRef =
+                          firebase_storage.FirebaseStorage.instance.ref(
+                              'content/${FirebaseSessionController().uid}/post/$datetime');
+                      firebase_storage.UploadTask uploadTask = storageRef
+                          .putFile(File(provider.post!.path).absolute);
+                      await Future.value(uploadTask);
+                      final newUrl = await storageRef.getDownloadURL();
+                      FirebaseFirestore.instance
+                          .collection('Posts')
+                          .doc(FirebaseAuth.instance.currentUser!.uid)
+                          .collection(FirebaseAuth.instance.currentUser!.email!)
+                          .add({
+                        "caption": caption.text.trim(),
+                        "postUrl": newUrl
+                      }).then((value) {
+                        setState(() {
+                          isLoading = false;
+                        });
+                        Utils.toastMessage("Done...");
+                        Navigator.pop(context);
+                      });
+                    } on FirebaseAuthException catch (e) {
+                      Utils.snackBar(e.message!, context);
+                    }
                   }
                 })
           ],
