@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'dart:io';
+import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,6 +10,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:while_app/resources/components/message/apis.dart';
 import 'package:while_app/view/social/full_screen_status.dart';
+import 'package:intl/intl.dart';
 
 late Size mq;
 
@@ -25,13 +27,18 @@ class StatusScreenState extends State<StatusScreenn> {
   List<String> friends = [];
   late String userId;
   late Stream<QuerySnapshot> peopleStream;
+  int currentIndex = 0;
+  Timer? statusTimer;
   @override
   void initState() {
     super.initState();
     _currentUser = _auth.currentUser!;
     userId = APIs.me.id;
-    peopleStream =
-        FirebaseFirestore.instance.collection('statuses').snapshots();
+    peopleStream = FirebaseFirestore.instance
+        .collection('statuses')
+        .orderBy('userId')
+        .orderBy('timestamp', descending: true)
+        .snapshots();
   }
 
   @override
@@ -79,8 +86,24 @@ class StatusScreenState extends State<StatusScreenn> {
               return ListView.builder(
                 itemCount: filteredPeople.length,
                 itemBuilder: (context, index) {
+                  List<QueryDocumentSnapshot<Object?>> querySnapshotList =
+                      filteredPeople; // Your list of QueryDocumentSnapshots
+
+                  List<Map<String, dynamic>> resultList =
+                      querySnapshotList.map((snapshot) {
+                    // Extract data from the QueryDocumentSnapshot
+                    Map<String, dynamic> data =
+                        snapshot.data() as Map<String, dynamic>;
+                    return data;
+                  }).toList();
                   final person =
                       filteredPeople[index].data() as Map<String, dynamic>;
+                  final timestamp = person['timestamp'] as Timestamp;
+                  final dateTime = timestamp
+                      .toDate(); // Convert Firestore timestamp to DateTime
+                  final formattedDate = DateFormat.yMd()
+                      .add_Hms()
+                      .format(dateTime); // Format the DateTime as a string
 
                   return Hero(
                     tag: 'status_${person['statusId']}',
@@ -90,8 +113,10 @@ class StatusScreenState extends State<StatusScreenn> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>
-                                FullStatusScreen(status: person),
+                            builder: (context) => FullStatusScreen(
+                              statuses: resultList,
+                              initialIndex: index,
+                            ),
                           ),
                         );
                       },
@@ -108,7 +133,7 @@ class StatusScreenState extends State<StatusScreenn> {
                         ),
                       ),
                       title: Text(person['userName']),
-                      subtitle: Text(person['timestamp'].toString()),
+                      subtitle: Text(formattedDate),
                     ),
                   );
                 },
