@@ -109,7 +109,6 @@ class StatusScreenState extends State<StatusScreenn> {
                     tag: 'status_${person['statusId']}',
                     child: ListTile(
                       onTap: () {
-                        print(index.toString());
                         // Navigate to the full status view screen
                         Navigator.push(
                           context,

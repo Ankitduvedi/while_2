@@ -18,10 +18,10 @@ class FullStatusScreen extends StatefulWidget {
   });
 
   @override
-  _FullStatusScreenState createState() => _FullStatusScreenState();
+  FullStatusScreenState createState() => FullStatusScreenState();
 }
 
-class _FullStatusScreenState extends State<FullStatusScreen> {
+class FullStatusScreenState extends State<FullStatusScreen> {
   int currentIndex = 0;
   Timer? statusTimer;
   PageController? pageController;
@@ -42,20 +42,21 @@ class _FullStatusScreenState extends State<FullStatusScreen> {
   }
 
   void startTimer() {
-    statusTimer = Timer.periodic(Duration(seconds: 10), (Timer timer) {
+    statusTimer = Timer.periodic(const Duration(seconds: 5), (Timer timer) {
       if (currentIndex < widget.statuses.length - 1) {
         setState(() {
           currentIndex++;
         });
+        pageController!.animateToPage(
+          currentIndex,
+          duration:
+              const Duration(milliseconds: 300), // Optional animation duration
+          curve: Curves.easeInOut, // Optional animation curve
+        );
       } else {
         Navigator.pop(context);
       }
     });
-  }
-
-  void resetTimer() {
-    statusTimer?.cancel();
-    startTimer();
   }
 
   @override
@@ -67,26 +68,40 @@ class _FullStatusScreenState extends State<FullStatusScreen> {
     final formattedDate = DateFormat.yMd().add_Hms().format(dateTime);
 
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        backgroundColor: Colors.black,
         title: Text(
           status['userName'],
-          style: const TextStyle(color: Colors.black),
+          style: const TextStyle(color: Colors.white),
         ),
       ),
       body: GestureDetector(
-        onTap: resetTimer,
-        onHorizontalDragEnd: (details) {
-          if (details.velocity.pixelsPerSecond.dx > 0 && currentIndex > 0) {
-            setState(() {
-              currentIndex--;
-              resetTimer();
-            });
-          } else if (details.velocity.pixelsPerSecond.dx < 0 &&
-              currentIndex < widget.statuses.length - 1) {
+        onTap: () {
+          // Reset the timer and navigate to the next status manually
+          statusTimer?.cancel();
+          if (currentIndex < widget.statuses.length - 1) {
             setState(() {
               currentIndex++;
-              resetTimer();
             });
+            pageController!.animateToPage(
+              currentIndex,
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeInOut,
+            );
+            startTimer(); // Start the timer again
+          } else {
+            Navigator.pop(context);
           }
         },
         child: PageView.builder(
@@ -95,7 +110,6 @@ class _FullStatusScreenState extends State<FullStatusScreen> {
           onPageChanged: (index) {
             setState(() {
               currentIndex = index;
-              resetTimer();
             });
           },
           itemBuilder: (context, index) {
@@ -104,6 +118,7 @@ class _FullStatusScreenState extends State<FullStatusScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                // Display the full status here, e.g., an image or video
                 CachedNetworkImage(
                   width: double.infinity,
                   height: mq.height * .7,
@@ -115,12 +130,12 @@ class _FullStatusScreenState extends State<FullStatusScreen> {
                 const SizedBox(height: 16.0),
                 Text(
                   status['statusText'],
-                  style: const TextStyle(fontSize: 18.0),
+                  style: const TextStyle(fontSize: 18.0, color: Colors.white),
                 ),
                 const SizedBox(height: 16.0),
                 Text(
                   formattedDate,
-                  style: const TextStyle(fontSize: 14.0),
+                  style: const TextStyle(fontSize: 14.0, color: Colors.white),
                 ),
               ],
             );
