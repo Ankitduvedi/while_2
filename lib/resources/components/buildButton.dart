@@ -19,7 +19,7 @@ Widget buildButton({required String text, required int value}) =>
               height: 2,
             ),
             Text(
-              '$text',
+              text,
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             ),
           ],

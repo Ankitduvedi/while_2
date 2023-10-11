@@ -36,7 +36,7 @@ class ProfileController with ChangeNotifier {
 
     if (pickedFile != null) {
       if (check == "Profile Picture") {
-        print('//////////////profile updated ////////////');
+        // print('//////////////profile updated ////////////');
         _profileimage = File(pickedFile.path);
         uploadProfileImage(context);
         notifyListeners();

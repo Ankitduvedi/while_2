@@ -5,10 +5,12 @@ import 'package:video_player/video_player.dart';
 import 'package:while_app/controller/feed_item.dart';
 import 'package:while_app/controller/videos_lists.dart';
 import 'package:while_app/data/model/video_model.dart';
+import '../utils/data_provider.dart';
+import 'package:provider/provider.dart' as provi;
 
 class ReelsScreen extends ConsumerStatefulWidget {
   const ReelsScreen({super.key});
-
+  // final Stream video
   @override
   ConsumerState<ReelsScreen> createState() => _ReelsScreenState();
 }
@@ -26,18 +28,13 @@ class _ReelsScreenState extends ConsumerState<ReelsScreen> {
   @override
   Widget build(BuildContext context) {
     // final currentTheme = ref.watch(themeNotifierProvider);
-    List<VideoPlayerController> _videoControllers = [];
-    @override
-    void dispose() {
-      for (var controller in _videoControllers) {
-        controller.dispose();
-      }
-      _pageController.dispose();
-      super.dispose();
-    }
-
+    List<VideoPlayerController> videoControllers = [];
+    Stream<QuerySnapshot> str =
+        provi.Provider.of<DataProvider>(context).videoStream;
     return StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection('videos').snapshots(),
+        stream: str,
+        // stream: FirebaseFirestore.instance.collection('videos').snapshots(),
+        // initialData: ,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
@@ -53,22 +50,20 @@ class _ReelsScreenState extends ConsumerState<ReelsScreen> {
 
           final List<Video> videoList = VideoList.getVideoList(snapshot.data!);
           // print(videoList);
-          return Scaffold(
-            body: PageView.builder(
-              controller: _pageController,
-              scrollDirection: Axis.vertical,
-              itemCount: videoList.length,
-              onPageChanged: (int newIndex) {
-                _videoControllers[_currentPage].pause();
-                setState(() {
-                  _currentPage = newIndex;
-                });
-              },
-              itemBuilder: (context, index) {
-                final videoData = videoList[index];
-                return FeedItem(video: videoData);
-              },
-            ),
+          return PageView.builder(
+            controller: _pageController,
+            scrollDirection: Axis.vertical,
+            itemCount: videoList.length,
+            onPageChanged: (int newIndex) {
+              videoControllers[_currentPage].pause();
+              setState(() {
+                _currentPage = newIndex;
+              });
+            },
+            itemBuilder: (context, index) {
+              final videoData = videoList[index];
+              return FeedItem(video: videoData);
+            },
           );
         });
   }

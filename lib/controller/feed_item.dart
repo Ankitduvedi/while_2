@@ -40,7 +40,7 @@ class _FeedItemState extends State<FeedItem> {
         .collection('videos')
         .doc(widget.video.videoRef)
         .get();
-    print(doc);
+
     if ((doc.data()! as dynamic)['likes'].contains(user!.uid)) {
       await FirebaseFirestore.instance
           .collection('videos')
@@ -214,7 +214,7 @@ class _FeedItemState extends State<FeedItem> {
                 ),
                 child: ClipRRect(
                     borderRadius: BorderRadius.circular(25.0),
-                    child: Image(
+                    child: const Image(
                       image: NetworkImage(
                         "https://images.unsplash.com/photo-1682685797498-3bad2c6e161a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
                       ),
@@ -240,7 +240,7 @@ class _FeedItemState extends State<FeedItem> {
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(25.0),
-          child: Image(
+          child: const Image(
             image: NetworkImage(
                 "https://images.unsplash.com/photo-1682685797498-3bad2c6e161a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"),
             fit: BoxFit.cover,

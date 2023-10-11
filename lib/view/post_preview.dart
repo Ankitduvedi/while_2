@@ -92,14 +92,14 @@ class _PostPreviewState extends State<PostPreview> {
                     borderRadius: const BorderRadius.all(Radius.circular(10))),
                 child: Row(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
-                    Icon(
+                    const Icon(
                       Icons.category,
                       color: Colors.grey,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     Text(

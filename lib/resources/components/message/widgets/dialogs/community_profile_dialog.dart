@@ -56,7 +56,7 @@ class CommunityProfileDialog extends StatelessWidget {
                     top: 6,
                     child: MaterialButton(
                       onPressed: () {
-                        print('pressed///////////////');
+                        // print('pressed///////////////');
                         //for hiding image dialog
                         // Navigator.pop(context);
 

@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:while_app/repository/firebase_repository.dart';
 import 'package:while_app/resources/components/message/apis.dart';
 import 'package:while_app/theme/pallete.dart';
+import 'package:while_app/utils/data_provider.dart';
 import 'package:while_app/utils/routes/routes_name.dart';
 import 'package:while_app/view_model/current_user_provider.dart';
 import 'package:while_app/view_model/firebasedata.dart';
@@ -41,7 +42,6 @@ void main() async {
 
 class MyApp extends river.ConsumerWidget {
   const MyApp({super.key});
-
   @override
   Widget build(BuildContext context, river.WidgetRef ref) {
     SystemUiOverlayStyle systemUiOverlayStyle = const SystemUiOverlayStyle(
@@ -73,7 +73,8 @@ class MyApp extends river.ConsumerWidget {
         Provider(create: (_) => CurrentUserProvider()),
         Provider(
           create: (_) => FireBaseDataProvider(),
-        )
+        ),
+        ChangeNotifierProvider(create: (context) => DataProvider(),)
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
