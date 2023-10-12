@@ -243,7 +243,7 @@ class StoryScreenState extends State<StoryScreen>
                         subtitle: Text(page['domain']),
                         trailing: ElevatedButton(
                           onPressed: () async {
-                            await APIs.addUserToCommunity(page['name'])
+                            await APIs.addUserToCommunity(page['id'])
                                 .then((value) {
                               if (value) {
                                 Dialogs.showSnackbar(

@@ -233,89 +233,133 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       height: 15,
                     ),
 
-                    StreamBuilder(
-                        stream:
-                            APIs.getCommunityParticipantsInfo(widget.user.id),
-                        builder: (context, snapshot) {
-                          switch (snapshot.connectionState) {
-                            //if data is loading
-                            case ConnectionState.waiting:
-                            case ConnectionState.none:
-                              return const SizedBox();
+                    SingleChildScrollView(
+                      child: StreamBuilder(
+                          stream:
+                              APIs.getCommunityParticipantsInfo(widget.user.id),
+                          builder: (context, snapshot) {
+                            switch (snapshot.connectionState) {
+                              //if data is loading
+                              case ConnectionState.waiting:
+                              case ConnectionState.none:
+                                return const SizedBox();
 
-                            //if some or all data is loaded then show it
-                            case ConnectionState.active:
-                            case ConnectionState.done:
-                              final data = snapshot.data?.docs;
-                              list = data
-                                      ?.map((e) => ChatUser.fromJson(e.data()))
-                                      .toList() ??
-                                  [];
+                              //if some or all data is loaded then show it
+                              case ConnectionState.active:
+                              case ConnectionState.done:
+                                final data = snapshot.data?.docs;
+                                list = data
+                                        ?.map(
+                                            (e) => ChatUser.fromJson(e.data()))
+                                        .toList() ??
+                                    [];
 
-                              if (list.isNotEmpty) {
-                                log(list.length.toString());
-                                return ListView.builder(
-                                  itemCount: snapshot.data!.docs.length,
-                                  shrinkWrap: true,
-                                  itemBuilder: (context, index) {
-                                    return Padding(
-                                      padding: const EdgeInsets.only(top: 8.0),
-                                      child: Card(
-                                          margin: const EdgeInsets.only(
-                                              left: 0, right: 0),
-                                          color: Colors.white,
-                                          elevation: 2,
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(15)),
-                                          child: ListTile(
-                                            leading: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                              child: CachedNetworkImage(
-                                                width: 42,
-                                                height: 42,
-                                                imageUrl: list[index].image,
-                                                fit: BoxFit.fill,
-                                                placeholder: (context, url) =>
-                                                    const Padding(
-                                                  padding: EdgeInsets.all(8.0),
-                                                  child:
-                                                      CircularProgressIndicator(
-                                                          strokeWidth: 2),
-                                                ),
-                                                errorWidget:
-                                                    (context, url, error) =>
-                                                        const Icon(Icons.image,
-                                                            size: 70),
-                                              ),
-                                            ),
-                                            title: Text(list[index].name),
-                                            trailing: widget.user.email ==
-                                                    list[index].email
-                                                ? const Text('Admin')
-                                                : IconButton(
-                                                    icon: const Icon(
-                                                      Icons.remove_circle,
-                                                      color: Colors.red,
-                                                    ),
-                                                    onPressed: () {},
-                                                  ),
+                                if (list.isNotEmpty) {
+                                  log(list.length.toString());
+                                  return ListView.builder(
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    itemCount: snapshot.data!.docs.length,
+                                    shrinkWrap: true,
+                                    itemBuilder: (context, index) {
+                                      return Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 8.0),
+                                        child: Card(
+                                            margin: const EdgeInsets.only(
+                                                left: 0, right: 0),
+                                            color: Colors.white,
+                                            elevation: 2,
                                             shape: RoundedRectangleBorder(
                                                 borderRadius:
-                                                    BorderRadius.circular(10)),
-                                          )),
-                                    );
-                                  },
-                                );
-                              } else {
-                                return const Text(
-                                  'No Data to show',
-                                  style: TextStyle(color: Colors.grey),
-                                );
-                              }
-                          }
-                        }),
+                                                    BorderRadius.circular(15)),
+                                            child: ListTile(
+                                              onLongPress: () {
+                                                // Show a dialog with the option to delete the user
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return AlertDialog(
+                                                      title: const Text(
+                                                          'Delete User'),
+                                                      content: const Text(
+                                                          'Are you sure you want to delete this participant?'),
+                                                      actions: [
+                                                        OutlinedButton(
+                                                          onPressed: () {
+                                                            // Delete user logic here
+                                                            // You can call an API to delete the user from the community
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pop(); // Close the dialog
+                                                          },
+                                                          child: const Text(
+                                                              'Remove User'),
+                                                        ),
+                                                        TextButton(
+                                                          onPressed: () {
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pop(); // Close the dialog
+                                                          },
+                                                          child: const Text(
+                                                              'Cancel'),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  },
+                                                );
+                                              },
+                                              leading: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
+                                                child: CachedNetworkImage(
+                                                  width: 42,
+                                                  height: 42,
+                                                  imageUrl: list[index].image,
+                                                  fit: BoxFit.fill,
+                                                  placeholder: (context, url) =>
+                                                      const Padding(
+                                                    padding:
+                                                        EdgeInsets.all(8.0),
+                                                    child:
+                                                        CircularProgressIndicator(
+                                                            strokeWidth: 2),
+                                                  ),
+                                                  errorWidget: (context, url,
+                                                          error) =>
+                                                      const Icon(Icons.image,
+                                                          size: 70),
+                                                ),
+                                              ),
+                                              title: Text(list[index].name),
+                                              trailing: widget.user.email ==
+                                                      list[index].email
+                                                  ? const Text('Admin')
+                                                  : IconButton(
+                                                      icon: const Icon(
+                                                        Icons.remove_circle,
+                                                        color: Colors.red,
+                                                      ),
+                                                      onPressed: () {},
+                                                    ),
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10)),
+                                            )),
+                                      );
+                                    },
+                                  );
+                                } else {
+                                  return const Text(
+                                    'No Data to show',
+                                    style: TextStyle(color: Colors.grey),
+                                  );
+                                }
+                            }
+                          }),
+                    ),
                     const SizedBox(
                       height: 30,
                     ),

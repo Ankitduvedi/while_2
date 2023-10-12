@@ -6,8 +6,8 @@ import 'package:while_app/resources/components/community_detail_opportunities_wi
 import 'package:while_app/resources/components/community_detail_quiz_widget.dart';
 import 'package:while_app/resources/components/community_detail_resources_widget%20.dart';
 import 'package:while_app/resources/components/message/apis.dart';
-import 'package:while_app/resources/components/message/profile_screen.dart';
-import 'package:while_app/resources/components/message/widgets/profileCommunity.dart';
+import 'package:while_app/resources/components/message/profile_screen_community_admin.dart';
+import 'package:while_app/resources/components/message/widgets/profileCommunity_user.dart';
 
 import 'cchat.dart';
 import 'models/community_user.dart';

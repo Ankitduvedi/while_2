@@ -149,8 +149,7 @@ class _SocialScreenState extends State<SocialScreen>
                   isSearching: isSearchingHasValue,
                   value: value,
                 ),
-
-                const StatusScreen(),
+                const StatusScreenn(),
               ],
             ),
           ),

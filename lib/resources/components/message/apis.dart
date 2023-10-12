@@ -136,40 +136,29 @@ class APIs {
     }
   }
 
-  static Future<bool> addUserToCommunity(String name) async {
-    final data = await firestore
+  static Future<bool> addUserToCommunity(String id) async {
+    firestore
+        .collection('users')
+        .doc(user.uid)
+        .collection('my_communities')
+        .doc(id)
+        .set({
+      'id': id,
+    });
+    firestore
         .collection('communities')
-        .where('name', isEqualTo: name)
-        .get();
+        .doc(id)
+        .collection('participants')
+        .doc(user.uid)
+        .set(me.toJson());
+    firestore
+        .collection('communities')
+        .doc(id)
+        .collection('participants')
+        .doc(user.uid)
+        .update({'designation': 'user'});
 
-    log('data: ${data.docs}');
-
-    if (data.docs.isNotEmpty && data.docs.first.id != user.uid) {
-      //user exists
-
-      log('community exists: ${data.docs.first.data()}');
-
-      firestore
-          .collection('users')
-          .doc(user.uid)
-          .collection('my_communities')
-          .doc(data.docs.first.id)
-          .set({
-        'id': data.docs.first.id,
-      });
-      firestore
-          .collection('communities')
-          .doc(data.docs.first.id)
-          .collection('participants')
-          .doc(user.uid)
-          .set(me.toJson());
-
-      return true;
-    } else {
-      //user doesn't exists
-
-      return false;
-    }
+    return true;
   }
 
   // for getting current user info
