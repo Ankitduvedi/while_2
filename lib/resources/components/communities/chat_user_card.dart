@@ -2,14 +2,14 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../apis.dart';
-import '../chat_screen.dart';
-import '../helper/my_date_util.dart';
+import '../message/apis.dart';
+import '../message/chat_screen.dart';
+import '../message/helper/my_date_util.dart';
 
-import '../models/chat_user.dart';
-import '../models/message.dart';
+import '../message/models/chat_user.dart';
+import '../message/models/message.dart';
 
-import 'dialogs/profile_dialog.dart';
+import '../message/widgets/dialogs/profile_dialog.dart';
 
 late Size mq;
 

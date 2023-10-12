@@ -2,8 +2,8 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import '../message/apis.dart';
 import '../message/helper/dialogs.dart';
-import '../message/models/community_user.dart';
-import '../message/widgets/community_user_card.dart';
+import 'community_user.dart';
+import 'community_user_card.dart';
 
 late Size mq;
 

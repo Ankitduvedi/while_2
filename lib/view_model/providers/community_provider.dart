@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:while_app/resources/components/message/apis.dart';
-import 'package:while_app/resources/components/message/models/community_user.dart';
+import 'package:while_app/resources/components/communities/community_user.dart';
 
 class CommunityProviders extends StateNotifier<CommunityUser> {
   CommunityProviders()

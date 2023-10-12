@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 
-import '../apis.dart';
-import '../helper/dialogs.dart';
-import '../helper/my_date_util.dart';
-import '../models/community_message.dart';
+import '../message/apis.dart';
+import '../message/helper/dialogs.dart';
+import '../message/helper/my_date_util.dart';
+import 'community_message.dart';
 
 late Size mq;
 

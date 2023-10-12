@@ -10,9 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:while_app/resources/components/message/models/chat_user.dart';
 
-import 'apis.dart';
-import 'helper/dialogs.dart';
-import 'models/community_user.dart';
+import '../message/apis.dart';
+import '../message/helper/dialogs.dart';
+import 'community_user.dart';
 
 late Size mq;
 

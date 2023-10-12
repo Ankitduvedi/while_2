@@ -2,15 +2,15 @@ import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:while_app/resources/components/community_detail_opportunities_widget.dart';
-import 'package:while_app/resources/components/community_detail_quiz_widget.dart';
-import 'package:while_app/resources/components/community_detail_resources_widget%20.dart';
+import 'package:while_app/resources/components/communities/community_detail_opportunities_widget.dart';
+import 'package:while_app/resources/components/communities/community_detail_quiz_widget.dart';
+import 'package:while_app/resources/components/communities/community_detail_resources_widget%20.dart';
 import 'package:while_app/resources/components/message/apis.dart';
-import 'package:while_app/resources/components/message/profile_screen_community_admin.dart';
+import 'package:while_app/resources/components/communities/profile_screen_community_admin.dart';
 import 'package:while_app/resources/components/message/widgets/profileCommunity_user.dart';
 
 import 'cchat.dart';
-import 'models/community_user.dart';
+import 'community_user.dart';
 
 late Size mq;
 

@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:while_app/resources/components/message/widgets/chat_user_card.dart';
+import 'package:while_app/resources/components/communities/chat_user_card.dart';
 import 'apis.dart';
 import 'helper/dialogs.dart';
 import 'models/chat_user.dart';

@@ -4,12 +4,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../apis.dart';
-import '../cdetail.dart';
-import '../helper/my_date_util.dart';
-import '../models/community_message.dart';
-import '../models/community_user.dart';
-import 'dialogs/community_profile_dialog.dart';
+import '../message/apis.dart';
+import 'cdetail.dart';
+import '../message/helper/my_date_util.dart';
+import 'community_message.dart';
+import 'community_user.dart';
+import 'community_profile_dialog.dart';
 
 late Size mq;
 

@@ -6,7 +6,7 @@ import 'package:while_app/resources/components/message/models/chat_user.dart';
 import 'dart:io';
 
 import '../apis.dart';
-import '../models/community_user.dart';
+import '../../communities/community_user.dart';
 
 late Size mq;
 
