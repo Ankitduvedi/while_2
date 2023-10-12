@@ -6,7 +6,7 @@ import 'package:while_app/view/social/notification.dart';
 import 'package:while_app/view/social/status_screen.dart';
 import 'package:while_app/view/social/story_screen.dart';
 
-import '../../resources/components/communities/community_screen.dart';
+import '../../resources/components/communities/community_home_screen.dart';
 
 class SocialScreen extends StatefulWidget {
   const SocialScreen({

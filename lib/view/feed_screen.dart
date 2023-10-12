@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:while_app/resources/components/classroom/classroom_home_screen.dart';
 import 'package:while_app/theme/pallete.dart';
 import 'package:while_app/view/social/social_home_screen.dart';
 
@@ -35,6 +36,16 @@ class _FeedScreenState extends ConsumerState<FeedScreen> {
               },
               icon: const Icon(
                 Icons.message,
+                color: Colors.black,
+              )),
+          IconButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const ClassroomScreen(),
+                ));
+              },
+              icon: const Icon(
+                Icons.menu_book,
                 color: Colors.black,
               )),
         ],
