@@ -13,9 +13,9 @@ class _CircleAnimationState extends State<CircleAnimation>
   late AnimationController controller;
   @override
   void initState() {
-    // TODO: implement initState
+  
     controller = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 5000));
+        vsync: this, duration: const Duration(milliseconds: 5000));
     controller.forward();
     controller.repeat();
     super.initState();
@@ -23,7 +23,7 @@ class _CircleAnimationState extends State<CircleAnimation>
 
   @override
   void dispose() {
-    // TODO: implement dispose
+ 
     controller.dispose();
     super.dispose();
   }
@@ -31,11 +31,11 @@ class _CircleAnimationState extends State<CircleAnimation>
   @override
   Widget build(BuildContext context) {
     return RotationTransition(
-      child: widget.child,
-        turns: Tween(
+      turns: Tween(
       begin: 0.0,
       end: 1.0,
       
-    ).animate(controller));
+    ).animate(controller),
+      child: widget.child);
   }
 }

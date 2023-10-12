@@ -10,7 +10,7 @@ import 'package:while_app/utils/routes/routes_name.dart';
 import 'package:while_app/view_model/session_controller.dart';
 
 class PostProvider extends ChangeNotifier {
-  final databaseReference = FirebaseDatabase.instance.reference();
+  final databaseReference = FirebaseDatabase.instance.ref();
   DatabaseReference ref = FirebaseDatabase.instance.ref().child('Users');
   firebase_storage.FirebaseStorage storage =
       firebase_storage.FirebaseStorage.instance;

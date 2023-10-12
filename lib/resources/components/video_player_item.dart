@@ -15,7 +15,7 @@ class _VideoPlayerItemState extends State<VideoPlayerItem> {
 
   @override
   void initState() {
-    videoPlayerController = VideoPlayerController.network(widget.videoUrl)
+    videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(widget.videoUrl))
       ..initialize().then((value) {
         videoPlayerController.play();
         videoPlayerController.setVolume(1);
@@ -35,7 +35,7 @@ class _VideoPlayerItemState extends State<VideoPlayerItem> {
     return Container(
       height: size.height,
       width: size.width,
-      decoration: BoxDecoration(color: Colors.black),
+      decoration: const BoxDecoration(color: Colors.black),
       child: VideoPlayer(videoPlayerController),
     );
   }

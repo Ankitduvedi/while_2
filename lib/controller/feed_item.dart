@@ -41,7 +41,7 @@ class _FeedItemState extends State<FeedItem> {
         .collection('videos')
         .doc(widget.video.videoRef)
         .get();
-    print(doc);
+
     if ((doc.data()! as dynamic)['likes'].contains(user!.uid)) {
       await FirebaseFirestore.instance
           .collection('videos')

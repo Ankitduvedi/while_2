@@ -42,10 +42,9 @@ class _AddReelState extends State<AddReel> {
 
   _compressVideo(String videoPath) async {
     final compressedVideo = await VideoCompress.compressVideo(videoPath,
-        quality: VideoQuality.MediumQuality, deleteOrigin: false);
+        quality: VideoQuality.LowQuality, deleteOrigin: false);
     return compressedVideo!.file;
   }
-
   void uploadVideo(BuildContext context, String title, String des, String path,
       List likes, int shares) async {
     setState(() {
