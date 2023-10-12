@@ -25,11 +25,12 @@ class _FeedItemState extends State<FeedItem> {
 
   @override
   void initState() {
-    _controller = VideoPlayerController.networkUrl(Uri.parse(widget.video.videoUrl))
-      ..initialize().then((value) {
-        _controller.play();
-        _controller.setVolume(1);
-      });
+    _controller =
+        VideoPlayerController.networkUrl(Uri.parse(widget.video.videoUrl))
+          ..initialize().then((value) {
+            _controller.play();
+            _controller.setVolume(1);
+          });
     likeTapped = false;
     super.initState();
   }

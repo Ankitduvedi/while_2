@@ -1,68 +1,142 @@
+import 'dart:developer';
 import 'dart:io';
+import 'dart:async';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:while_app/resources/components/message/apis.dart';
 import 'package:while_app/view/social/full_screen_status.dart';
+import 'package:intl/intl.dart';
 
-class StatusScreen extends StatefulWidget {
-  const StatusScreen({super.key});
+late Size mq;
+
+class StatusScreenn extends StatefulWidget {
+  const StatusScreenn({super.key});
   @override
   StatusScreenState createState() => StatusScreenState();
 }
 
-class StatusScreenState extends State<StatusScreen> {
+class StatusScreenState extends State<StatusScreenn> {
   final TextEditingController _statusTextController = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   late User _currentUser;
-
+  List<String> friends = [];
+  late String userId;
+  late Stream<QuerySnapshot> peopleStream;
+  int currentIndex = 0;
+  Timer? statusTimer;
   @override
   void initState() {
     super.initState();
     _currentUser = _auth.currentUser!;
+    userId = APIs.me.id;
+    peopleStream = FirebaseFirestore.instance
+        .collection('statuses')
+        .orderBy('userId')
+        .orderBy('timestamp', descending: true)
+        .snapshots();
   }
 
   @override
   Widget build(BuildContext context) {
+    mq = MediaQuery.of(context).size;
+    log('////');
     return Scaffold(
       body: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection('statuses').snapshots(),
+        stream: peopleStream,
         builder: (context, snapshot) {
-          if (!snapshot.hasData) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
+          if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          }
 
-          final statusDocs = snapshot.data!.docs;
+          final peopleDocs = snapshot.data!.docs;
+          // Fetch the list of people that the current user is following
+          return StreamBuilder<QuerySnapshot>(
+            stream: FirebaseFirestore.instance
+                .collection('users')
+                .doc(userId)
+                .collection('my_users')
+                .snapshots(),
+            builder: (context, followingSnapshot) {
+              if (followingSnapshot.connectionState ==
+                  ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              if (followingSnapshot.hasError) {
+                return Center(child: Text('Error: ${followingSnapshot.error}'));
+              }
 
-          return ListView.builder(
-            itemCount: statusDocs.length,
-            itemBuilder: (context, index) {
-              final status = statusDocs[index].data() as Map<String, dynamic>;
+              final followingDocs =
+                  followingSnapshot.data!.docs.map((doc) => doc.id).toList();
 
-              return Hero(
-                tag: 'status_${status['statusId']}',
-                child: ListTile(
-                  onTap: () {
-                    // Navigate to the full status view screen
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => FullStatusScreen(status: status),
+              // Filter out the people who are already followed by the user
+              final filteredPeople = peopleDocs.where((personDoc) {
+                final person = personDoc.data() as Map<String, dynamic>;
+                final personId = person['userId'];
+                return personId == userId || followingDocs.contains(personId);
+              }).toList();
+              log(filteredPeople.toString());
+              return ListView.builder(
+                itemCount: filteredPeople.length,
+                itemBuilder: (context, index) {
+                  List<QueryDocumentSnapshot<Object?>> querySnapshotList =
+                      filteredPeople; // Your list of QueryDocumentSnapshots
+
+                  List<Map<String, dynamic>> resultList =
+                      querySnapshotList.map((snapshot) {
+                    // Extract data from the QueryDocumentSnapshot
+                    Map<String, dynamic> data =
+                        snapshot.data() as Map<String, dynamic>;
+                    return data;
+                  }).toList();
+                  final person =
+                      filteredPeople[index].data() as Map<String, dynamic>;
+                  final timestamp = person['timestamp'] as Timestamp;
+                  final dateTime = timestamp
+                      .toDate(); // Convert Firestore timestamp to DateTime
+                  final formattedDate = DateFormat.yMd()
+                      .add_Hms()
+                      .format(dateTime); // Format the DateTime as a string
+
+                  return Hero(
+                    tag: 'status_${person['statusId']}',
+                    child: ListTile(
+                      onTap: () {
+                        // Navigate to the full status view screen
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => FullStatusScreen(
+                              statuses: resultList,
+                              initialIndex: index,
+                            ),
+                          ),
+                        );
+                      },
+                      leading: ClipRRect(
+                        borderRadius: BorderRadius.circular(mq.height * .03),
+                        child: CachedNetworkImage(
+                          width: mq.height * .055,
+                          height: mq.height * .055,
+                          fit: BoxFit.fill,
+                          imageUrl: person['profileImg'],
+                          errorWidget: (context, url, error) =>
+                              const CircleAvatar(
+                                  child: Icon(CupertinoIcons.person)),
+                        ),
                       ),
-                    );
-                  },
-                  leading: CircleAvatar(
-                    backgroundImage: NetworkImage(status[
-                        'profileImg']), // Replace with the user's profile image URL
-                  ),
-                  title: Text(
-                    status['userName'], // Replace with the user's name
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  subtitle: Text(status['statusText']),
-                ),
+                      title: Text(person['userName']),
+                      subtitle: Text(formattedDate),
+                    ),
+                  );
+                },
               );
             },
           );
@@ -72,7 +146,9 @@ class StatusScreenState extends State<StatusScreen> {
         onPressed: () {
           _showStatusInputDialog(context);
         },
-        child: const Icon(Icons.add),
+        child: const Icon(
+          Icons.add,
+        ),
       ),
     );
   }
