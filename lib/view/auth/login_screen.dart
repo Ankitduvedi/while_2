@@ -132,7 +132,13 @@ class LoginScreen extends StatelessWidget {
                     SizedBox(height: h * 0.02),
                     Row(
                       children: [
-                        const Text("Don't have an account? "),
+                        const Text(
+                          "Don't have an account? ",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        SizedBox(
+                          width: h * .02,
+                        ),
                         InkWell(
                           onTap: () {
                             Navigator.pushNamed(context, RoutesName.signUp);
