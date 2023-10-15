@@ -32,6 +32,7 @@ class ClassroomCardState extends ConsumerState<ClassroomCard> {
         elevation: 2,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         child: InkWell(
+
             // onTap: () {
             //   // for navigating to chat screen
 
@@ -41,32 +42,27 @@ class ClassroomCardState extends ConsumerState<ClassroomCard> {
             //           builder: (_) => CCommunityDetailScreen(user: widget.user)));
             // },
             child: ListTile(
-          //user name
-          title: Text(widget.user.name),
-
-          //last message
-          subtitle: Text(widget.user.admin),
-
-          //last message time
-          trailing: _message == null
-              ? null //show nothing when no message is sent
-              : _message!.read.isEmpty && _message!.fromId != APIs.user.uid
-                  ?
-                  //show for unread message
-                  Container(
-                      width: 15,
-                      height: 15,
-                      decoration: BoxDecoration(
-                          color: Colors.greenAccent.shade400,
-                          borderRadius: BorderRadius.circular(10)),
-                    )
-                  :
-                  //message sent time
-                  Text(
-                      MyDateUtil.getLastMessageTime(
-                          context: context, time: _message!.sent),
-                      style: const TextStyle(color: Colors.black54),
+                //user name
+                title: Text(widget.user.name),
+                //Subject
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(
+                      height: 5,
                     ),
-        )));
+                    Text(widget.user.about),
+                    const SizedBox(
+                      height: 4,
+                    ),
+                    Text("${widget.user.noOfUsers.toString()} participants"),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                  ],
+                ),
+
+                //last message time
+                trailing: Text(widget.user.admin))));
   }
 }
