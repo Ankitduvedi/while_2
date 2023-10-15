@@ -44,7 +44,7 @@ class _CCommunityDetailScreenState extends State<CCommunityDetailScreen> {
         user: widget.user,
       ),
       const CommunityDetailResources(),
-      const CommunityDetailOpportunities(),
+      OpportunitiesScreen(),
       const CommunityDetailQuiz(),
     ];
     return Scaffold(
