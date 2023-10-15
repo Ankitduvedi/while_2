@@ -30,6 +30,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final _formKey = GlobalKey<FormState>();
   String? _image;
 
+  // Initialize the TextEditingController in your state
+  TextEditingController _textFieldController = TextEditingController();
+
+// Later, when you want to access the edited text:
+
   @override
   Widget build(BuildContext context) {
     mq = MediaQuery.of(context).size;
@@ -282,8 +287,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     return AlertDialog(
                                                       title: const Text(
                                                           'Delete User'),
-                                                      content: const Text(
-                                                          'Are you sure you want to delete this participant?'),
+                                                      content: TextFormField(
+                      initialValue: widget.user.admin,
+                      onSaved: (val) => community.email = val ?? '',
+                      validator: (val) => val != null && val.isNotEmpty
+                          ? null
+                          : 'Required Field',
+                      decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.info_outline,
+                              color: Colors.blue),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12)),
+                          hintText: 'eg. Feeling Happy',
+                          label: const Text('Email')),
+                    ),
                                                       actions: [
                                                         OutlinedButton(
                                                           onPressed: () {
@@ -303,7 +320,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                                 .pop(); // Close the dialog
                                                           },
                                                           child: const Text(
-                                                              'Cancel'),
+                                                              'Update'),
                                                         ),
                                                       ],
                                                     );
@@ -336,13 +353,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               trailing: widget.user.email ==
                                                       list[index].email
                                                   ? const Text('Admin')
-                                                  : IconButton(
-                                                      icon: const Icon(
-                                                        Icons.remove_circle,
-                                                        color: Colors.red,
-                                                      ),
-                                                      onPressed: () {},
-                                                    ),
+                                                  : Text(_textFieldController
+                                                      .text),
                                               shape: RoundedRectangleBorder(
                                                   borderRadius:
                                                       BorderRadius.circular(
