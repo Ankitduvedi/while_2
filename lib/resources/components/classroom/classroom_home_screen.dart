@@ -31,7 +31,43 @@ class ClassroomScreenState extends State<ClassroomScreen> {
         padding: const EdgeInsets.only(bottom: 10),
         child: FloatingActionButton(
             onPressed: () {
-              _addCommunityDialog();
+              // _addCommunityDialog();
+              showModalBottomSheet(
+                  context: context,
+                  builder: (context) {
+                    return Container(
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(30),
+                            topRight: Radius.circular(30)),
+                      ),
+                      child: const SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 20,
+                            ),
+                            ListTile(
+                              leading: Icon(
+                                Icons.download_outlined,
+                                color: Colors.black,
+                                size: 30,
+                              ),
+                              title: Text("Saved"),
+                            ),
+                            ListTile(
+                              leading: Icon(
+                                Icons.money,
+                                color: Colors.black,
+                                size: 30,
+                              ),
+                              title: Text("change a plan"),
+                            )
+                          ],
+                        ),
+                      ),
+                    );
+                  });
             },
             child: const Icon(Icons.add_comment_rounded)),
       ),
@@ -146,22 +182,22 @@ class ClassroomScreenState extends State<ClassroomScreen> {
 
           //add button
           MaterialButton(
-              onPressed: () async {
-                //hide alert dialog
-                Navigator.pop(context);
-                if (name.isNotEmpty) {
-                  await APIs.addUserToCommunity(name).then((value) {
-                    if (!value) {
-                      Dialogs.showSnackbar(
-                          context, 'Community does not Exists!');
-                    }
-                  });
-                }
-              },
-              child: const Text(
-                'Add',
-                style: TextStyle(color: Colors.deepPurpleAccent, fontSize: 16),
-              ))
+            onPressed: () async {
+              //hide alert dialog
+              Navigator.pop(context);
+              if (name.isNotEmpty) {
+                await APIs.addUserToCommunity(name).then((value) {
+                  if (!value) {
+                    Dialogs.showSnackbar(context, 'Community does not Exists!');
+                  }
+                });
+              }
+            },
+            child: const Text(
+              'Add',
+              style: TextStyle(color: Colors.deepPurpleAccent, fontSize: 16),
+            ),
+          )
         ],
       ),
     );

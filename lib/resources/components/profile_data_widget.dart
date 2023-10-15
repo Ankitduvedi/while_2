@@ -22,9 +22,6 @@ class _ProfileDataWidgetState extends State<ProfileDataWidget> {
   @override
   Widget build(BuildContext context) {
     mq = MediaQuery.of(context).size;
-    log('//////');
-    log(APIs.me.image);
-
     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
     var nh = MediaQuery.of(context).viewPadding.top;
