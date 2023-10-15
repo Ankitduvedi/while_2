@@ -53,7 +53,7 @@ class ClassroomScreenState extends State<ClassroomScreen> {
                                 color: Colors.black,
                                 size: 30,
                               ),
-                              title: Text("Saved"),
+                              title: Text("Join Class"),
                             ),
                             ListTile(
                               leading: Icon(
@@ -61,7 +61,7 @@ class ClassroomScreenState extends State<ClassroomScreen> {
                                 color: Colors.black,
                                 size: 30,
                               ),
-                              title: Text("change a plan"),
+                              title: Text("Create Class"),
                             )
                           ],
                         ),
