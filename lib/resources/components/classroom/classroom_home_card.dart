@@ -29,7 +29,7 @@ class ClassroomCardState extends ConsumerState<ClassroomCard> {
     log(widget.user.name);
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-      color: Color.fromARGB(255, 239, 238, 224),
+      color: const Color.fromARGB(255, 239, 238, 224),
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       child: InkWell(

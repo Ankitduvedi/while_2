@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:while_app/resources/components/classroom/add_classroom_widget.dart';
 import 'package:while_app/resources/components/classroom/classroom_home_card.dart';
 import 'package:while_app/resources/components/communities/community_user.dart';
 import '../message/apis.dart';
@@ -51,8 +52,12 @@ class ClassroomScreenState extends State<ClassroomScreen> {
                             },
                             title: const Text("Join Class"),
                           ),
-                          const ListTile(
-                            title: Text("Create Class"),
+                          ListTile(
+                            onTap: () {
+                              Navigator.of(context).pop();
+                              AddClassScreen().addCommunityDialog(context);
+                            },
+                            title: const Text("Create Class"),
                           )
                         ],
                       ),
