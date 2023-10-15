@@ -39,7 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
         height: h / 1.2,
         width: w,
         decoration: const BoxDecoration(
-            color: Colors.white,
+            color: Colors.black,
             boxShadow: [
               BoxShadow(
                 color: Colors.black87,
@@ -109,7 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 10,
                 ),
                 RoundButton(
-                  loading: false,
+                    loading: false,
                     title: 'Login',
                     onPress: () async {
                       if (_emailController.text.isEmpty) {
@@ -138,7 +138,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     const Text("Don't have an account? "),
                     InkWell(
                         onTap: () {
-                          Navigator.pushNamed(context, RoutesName.signUp);  
+                          Navigator.pushNamed(context, RoutesName.signUp);
                         },
                         child: const Text("Sign Up",
                             style: TextStyle(

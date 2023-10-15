@@ -40,7 +40,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           height: h / 1.2,
           width: w,
           decoration: const BoxDecoration(
-              color: Colors.white,
+              color: Colors.black,
               boxShadow: [
                 BoxShadow(
                   color: Colors.black87,
@@ -111,7 +111,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               .signInWithEmailAndPassword(
                                   _emailController.text.toString(),
                                   _passwordController.text.toString(),
-                                   _nameController.text.toString(),
+                                  _nameController.text.toString(),
                                   context);
                           Navigator.of(context).pop();
                           Utils.toastMessage('Response submitted');

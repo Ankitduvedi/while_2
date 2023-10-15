@@ -23,21 +23,11 @@ class _FeedScreenState extends ConsumerState<FeedScreen> {
         backgroundColor: currentTheme.scaffoldBackgroundColor,
         elevation: 0.0,
         actions: [
-          Switch.adaptive(
-            value: ref.watch(themeNotifierProvider.notifier).mode ==
-                ThemeMode.dark,
-            onChanged: (value) => themeToggler(ref),
-          ),
-          IconButton(
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const SocialScreen(),
-                ));
-              },
-              icon: const Icon(
-                Icons.message,
-                color: Colors.black,
-              )),
+          // Switch.adaptive(
+          //   value: ref.watch(themeNotifierProvider.notifier).mode ==
+          //       ThemeMode.light,
+          //   onChanged: (value) => themeToggler(ref),
+          // ),
           IconButton(
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
@@ -46,6 +36,16 @@ class _FeedScreenState extends ConsumerState<FeedScreen> {
               },
               icon: const Icon(
                 Icons.menu_book,
+                color: Colors.black,
+              )),
+          IconButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const SocialScreen(),
+                ));
+              },
+              icon: const Icon(
+                Icons.message,
                 color: Colors.black,
               )),
         ],
