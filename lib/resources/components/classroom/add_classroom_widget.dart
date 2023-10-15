@@ -47,7 +47,7 @@ class AddClassScreen {
               maxLines: null,
               onChanged: (value) => name = value,
               decoration: InputDecoration(
-                  hintText: 'Name',
+                  hintText: 'Class name',
                   prefixIcon:
                       const Icon(Icons.email, color: Colors.deepPurpleAccent),
                   border: OutlineInputBorder(
@@ -61,7 +61,7 @@ class AddClassScreen {
               maxLines: null,
               onChanged: (value) => about = value,
               decoration: InputDecoration(
-                  hintText: 'About',
+                  hintText: 'Subject',
                   prefixIcon:
                       const Icon(Icons.email, color: Colors.deepPurpleAccent),
                   border: OutlineInputBorder(
@@ -75,7 +75,7 @@ class AddClassScreen {
               maxLines: null,
               onChanged: (value) => domain = value,
               decoration: InputDecoration(
-                  hintText: 'Domain',
+                  hintText: 'Room',
                   prefixIcon:
                       const Icon(Icons.email, color: Colors.deepPurpleAccent),
                   border: OutlineInputBorder(
@@ -88,56 +88,12 @@ class AddClassScreen {
               maxLines: null,
               onChanged: (value) => type = value,
               decoration: InputDecoration(
-                  hintText: 'Primary/Secondary',
+                  hintText: 'Section',
                   prefixIcon:
                       const Icon(Icons.email, color: Colors.deepPurpleAccent),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15))),
             ),
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              // image from camera
-              TextButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(255, 245, 234, 234),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8)),
-                    elevation: 4,
-                  ),
-                  label: const Text('Camera',
-                      style: TextStyle(color: Colors.black)),
-                  onPressed: () async {
-                    final ImagePicker picker = ImagePicker();
-
-                    // Pick an image
-                    image = await picker.pickImage(
-                        source: ImageSource.camera, imageQuality: 70);
-                  },
-                  icon: const Icon(Icons.camera_alt_rounded,
-                      color: Colors.black, size: 26)),
-              const SizedBox(
-                width: 20,
-              ),
-              //image from gallery
-              TextButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(255, 245, 234, 234),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8)),
-                    elevation: 4,
-                  ),
-                  label: const Text(
-                    'Gallery',
-                    style: TextStyle(color: Colors.black),
-                  ),
-                  onPressed: () async {
-                    final ImagePicker picker = ImagePicker();
-
-                    // Pick an image
-                    image = await picker.pickImage(
-                        source: ImageSource.gallery, imageQuality: 70);
-                  },
-                  icon: const Icon(Icons.photo, color: Colors.black, size: 26)),
-            ]),
           ],
         ),
 

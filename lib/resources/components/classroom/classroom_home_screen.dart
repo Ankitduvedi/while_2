@@ -54,7 +54,7 @@ class ClassroomScreenState extends State<ClassroomScreen> {
                           ),
                           ListTile(
                             onTap: () {
-                              Navigator.of(context).pop();
+                              // Navigator.of(context).pop();
                               AddClassScreen().addCommunityDialog(context);
                             },
                             title: const Text("Create Class"),
