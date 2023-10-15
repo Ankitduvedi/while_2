@@ -23,11 +23,11 @@ class _FeedScreenState extends ConsumerState<FeedScreen> {
         backgroundColor: currentTheme.scaffoldBackgroundColor,
         elevation: 0.0,
         actions: [
-          Switch.adaptive(
-            value: ref.watch(themeNotifierProvider.notifier).mode ==
-                ThemeMode.light,
-            onChanged: (value) => themeToggler(ref),
-          ),
+          // Switch.adaptive(
+          //   value: ref.watch(themeNotifierProvider.notifier).mode ==
+          //       ThemeMode.light,
+          //   onChanged: (value) => themeToggler(ref),
+          // ),
           IconButton(
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
