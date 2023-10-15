@@ -1,8 +1,6 @@
 import 'dart:developer';
 import 'dart:io';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:while_app/resources/components/communities/community_message.dart';
@@ -50,14 +48,6 @@ class _CChatScreenState extends State<CChatScreen> {
           }
         },
         child: Scaffold(
-          //app bar
-          // appBar: AppBar(
-          //   automaticallyImplyLeading: false,
-          //   flexibleSpace: _appBar(),
-          //   backgroundColor: Colors.deepPurpleAccent,
-          //   toolbarHeight: 60,
-          // ),
-
           backgroundColor: Colors.white,
 
           //body
@@ -136,87 +126,6 @@ class _CChatScreenState extends State<CChatScreen> {
     );
   }
 
-  // app bar widget
-  Widget _appBar() {
-    return Container(
-      margin: const EdgeInsets.only(top: 40),
-      child: InkWell(
-          onTap: () {
-            // Navigator.push(
-            //     context,
-            //     MaterialPageRoute(
-            //         builder: (_) => ViewProfileScreen(user: widget.user)));
-          },
-          child: StreamBuilder(
-              stream: APIs.getCommunityInfo(widget.user),
-              builder: (context, snapshot) {
-                final data = snapshot.data?.docs;
-                final list = data
-                        ?.map((e) => CommunityUser.fromJson(e.data()))
-                        .toList() ??
-                    [];
-
-                return Row(
-                  children: [
-                    //back button
-                    IconButton(
-                        onPressed: () => Navigator.pop(context),
-                        icon: const Icon(Icons.arrow_back,
-                            color: Colors.black54)),
-
-                    //user profile picture
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(mq.height * .03),
-                      child: CachedNetworkImage(
-                        width: mq.height * .05,
-                        height: mq.height * .05,
-                        imageUrl:
-                            list.isNotEmpty ? list[0].image : widget.user.image,
-                        errorWidget: (context, url, error) =>
-                            const CircleAvatar(
-                                child: Icon(CupertinoIcons.person)),
-                      ),
-                    ),
-
-                    //for adding some space
-                    const SizedBox(width: 10),
-
-                    //user name & last seen time
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        //user name
-                        Text(list.isNotEmpty ? list[0].name : widget.user.name,
-                            style: const TextStyle(
-                                fontSize: 16,
-                                color: Colors.black87,
-                                fontWeight: FontWeight.w500)),
-
-                        //for adding some space
-                        // const SizedBox(height: 2),
-
-                        //last seen time of user
-                        // Text(
-                        //     list.isNotEmpty
-                        //         ? list[0].isOnline
-                        //             ? 'Online'
-                        //             : MyDateUtil.getLastActiveTime(
-                        //                 context: context,
-                        //                 lastActive: list[0].lastActive)
-                        //         : MyDateUtil.getLastActiveTime(
-                        //             context: context,
-                        //             lastActive: widget.user.lastActive),
-                        //     style: const TextStyle(
-                        //         fontSize: 13, color: Colors.black54)),
-                      ],
-                    )
-                  ],
-                );
-              })),
-    );
-  }
-
   // bottom chat input field
   Widget _chatInput(BuildContext context) {
     log('////height');
@@ -247,16 +156,16 @@ class _CChatScreenState extends State<CChatScreen> {
                       child: TextField(
                     controller: _textController,
                     keyboardType: TextInputType.multiline,
-                    style: const TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.black),
                     maxLines: null,
                     onTap: () {
                       if (_showEmoji) setState(() => _showEmoji = !_showEmoji);
                     },
                     decoration: const InputDecoration(
-                        counterStyle: TextStyle(color: Colors.white),
-                        fillColor: Colors.white,
+                        counterStyle: TextStyle(color: Colors.black),
+                        fillColor: Colors.black,
                         hintText: 'Type Something...',
-                        hintStyle: TextStyle(color: Colors.white),
+                        hintStyle: TextStyle(color: Colors.black),
                         border: InputBorder.none),
                   )),
 
@@ -312,13 +221,6 @@ class _CChatScreenState extends State<CChatScreen> {
           MaterialButton(
             onPressed: () {
               if (_textController.text.isNotEmpty) {
-                // if (_list.isEmpty) {
-                //on first message (add user to my_user collection of chat user)
-                // APIs.sendFirstMessage(
-                //     widget.user, _textController.text, Type.text);
-                // } else {
-                //simply send message
-                log(_textController.text);
                 APIs.sendCommunityMessage(
                     widget.user, _textController.text, Types.text);
                 // }
@@ -329,7 +231,7 @@ class _CChatScreenState extends State<CChatScreen> {
             padding:
                 const EdgeInsets.only(top: 10, bottom: 10, right: 5, left: 10),
             shape: const CircleBorder(),
-            color: Colors.green,
+            color: const Color.fromARGB(255, 76, 175, 173),
             child: const Icon(Icons.send, color: Colors.white, size: 28),
           )
         ],
