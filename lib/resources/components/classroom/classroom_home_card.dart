@@ -51,7 +51,6 @@ class ClassroomCardState extends ConsumerState<ClassroomCard> {
                   [];
               if (list.isNotEmpty) {
                 _message = list[0];
-                log('message ${_message!.msg}');
               }
 
               return ListTile(
