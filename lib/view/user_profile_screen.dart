@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:while_app/resources/components/profile_data_widget.dart';
-import 'package:while_app/view/uploaded_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -56,9 +55,9 @@ class ProfileScreen extends StatelessWidget {
               Expanded(
                 child: TabBarView(
                   children: [
-                    UploadedScreen(),
-                    Text("second"),
-                    Text("thirdsss"),
+                    Center(child: Text("Become a Content creator")),
+                    Center(child: Text("Become a Mentor")),
+                    Center(child: Text("Become a Freelancer")),
                   ],
                 ),
               ),

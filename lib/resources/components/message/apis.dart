@@ -691,8 +691,42 @@ class APIs {
   static Future<void> addClassroom(CommunityUser chatUser) async {
     final refe = FirebaseFirestore.instance.collection('classroom');
     await refe.doc(chatUser.id).set(chatUser.toJson()).then((value) {
-      // addUserToCommunity(chatUser.name);
+      addUserToClassroom(chatUser.name);
       log('sa');
     });
+  }
+
+  // for getting id's of joined classroom from firestore database
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getClassroomId() {
+    return firestore
+        .collection('users')
+        .doc(user.uid)
+        .collection('my_class')
+        .snapshots();
+  }
+
+  static Future<bool> addUserToClassroom(String id) async {
+    firestore
+        .collection('users')
+        .doc(user.uid)
+        .collection('my_class')
+        .doc(id)
+        .set({
+      'id': id,
+    });
+    // firestore
+    //     .collection('communities')
+    //     .doc(id)
+    //     .collection('participants')
+    //     .doc(user.uid)
+    //     .set(me.toJson());
+    // firestore
+    //     .collection('communities')
+    //     .doc(id)
+    //     .collection('participants')
+    //     .doc(user.uid)
+    //     .update({'designation': 'user'});
+
+    return true;
   }
 }
