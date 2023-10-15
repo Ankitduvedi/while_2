@@ -91,7 +91,7 @@ class SignUpScreen extends StatelessWidget {
                       hintText: 'Password',
                     ),
                     SizedBox(
-                      height: h * 0.085,
+                      height: h * 0.045,
                     ),
                     RoundButton(
                       loading: false,
