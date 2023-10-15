@@ -31,40 +31,30 @@ class ClassroomScreenState extends State<ClassroomScreen> {
         padding: const EdgeInsets.only(bottom: 10),
         child: FloatingActionButton(
             onPressed: () {
-              // _addCommunityDialog();
               showModalBottomSheet(
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20))),
                   context: context,
                   builder: (context) {
-                    return Container(
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(30),
-                            topRight: Radius.circular(30)),
-                      ),
-                      child: const SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 20,
-                            ),
-                            ListTile(
-                              leading: Icon(
-                                Icons.download_outlined,
-                                color: Colors.black,
-                                size: 30,
-                              ),
-                              title: Text("Join Class"),
-                            ),
-                            ListTile(
-                              leading: Icon(
-                                Icons.money,
-                                color: Colors.black,
-                                size: 30,
-                              ),
-                              title: Text("Create Class"),
-                            )
-                          ],
-                        ),
+                    return SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          ListTile(
+                            onTap: () {
+                              Navigator.of(context).pop();
+                              _addCommunityDialog();
+                            },
+                            title: const Text("Join Class"),
+                          ),
+                          const ListTile(
+                            title: Text("Create Class"),
+                          )
+                        ],
                       ),
                     );
                   });
