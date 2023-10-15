@@ -288,19 +288,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                       title: const Text(
                                                           'Delete User'),
                                                       content: TextFormField(
-                      initialValue: widget.user.admin,
-                      onSaved: (val) => community.email = val ?? '',
-                      validator: (val) => val != null && val.isNotEmpty
-                          ? null
-                          : 'Required Field',
-                      decoration: InputDecoration(
-                          prefixIcon: const Icon(Icons.info_outline,
-                              color: Colors.blue),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12)),
-                          hintText: 'eg. Feeling Happy',
-                          label: const Text('Email')),
-                    ),
+                                                        initialValue:
+                                                            list[index].designation,
+                                                        onSaved: (val) =>
+                                                            community.email =
+                                                                val ?? '',
+                                                        validator: (val) => val !=
+                                                                    null &&
+                                                                val.isNotEmpty
+                                                            ? null
+                                                            : 'Required Field',
+                                                        decoration: InputDecoration(
+                                                            prefixIcon: const Icon(
+                                                                Icons
+                                                                    .info_outline,
+                                                                color: Colors
+                                                                    .blue),
+                                                            border: OutlineInputBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            12)),
+                                                            hintText:
+                                                                'eg. Feeling Happy',
+                                                            label: const Text(
+                                                                'Email')),
+                                                      ),
                                                       actions: [
                                                         OutlinedButton(
                                                           onPressed: () {
