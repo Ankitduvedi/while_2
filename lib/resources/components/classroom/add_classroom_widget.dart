@@ -1,6 +1,6 @@
 import 'package:uuid/uuid.dart';
 import 'package:flutter/material.dart';
-import 'package:while_app/resources/components/communities/community_user.dart';
+import 'package:while_app/resources/components/message/models/classroom_user.dart';
 import '../message/apis.dart';
 
 const uuid = Uuid();
@@ -134,17 +134,16 @@ class AddClassScreen {
                         final time =
                             DateTime.now().millisecondsSinceEpoch.toString();
                         final String id = uuid.v4();
-                        final CommunityUser community = CommunityUser(
-                            image: '',
+                        final Class community = Class(
                             about: about,
                             name: name,
                             createdAt: time,
                             id: id,
                             email: APIs.me.email,
                             type: type,
-                            noOfUsers: '1',
-                            domain: domain,
-                            admin: APIs.me.name);
+                            noOfUsers: 1,
+                            admin: APIs.me.name,
+                            clas: '');
                         APIs.addClassroom(
                           community,
                         );
