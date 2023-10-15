@@ -1,7 +1,5 @@
-import 'dart:io';
 import 'package:uuid/uuid.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:while_app/resources/components/communities/community_user.dart';
 import '../message/apis.dart';
 
@@ -13,7 +11,6 @@ class AddClassScreen {
     String type = '';
     String domain = '';
     String about = '';
-    XFile? image;
 
     showDialog(
       context: context,
@@ -148,7 +145,9 @@ class AddClassScreen {
                             noOfUsers: '1',
                             domain: domain,
                             admin: APIs.me.name);
-                        APIs.addCommunities(community, File(image!.path));
+                        APIs.addClassroom(
+                          community,
+                        );
 
                         Navigator.pop(context);
                       }

@@ -686,4 +686,13 @@ class APIs {
         .collection('participants')
         .snapshots();
   }
+
+  ////////////// classroom
+  static Future<void> addClassroom(CommunityUser chatUser) async {
+    final refe = FirebaseFirestore.instance.collection('classroom');
+    await refe.doc(chatUser.id).set(chatUser.toJson()).then((value) {
+      // addUserToCommunity(chatUser.name);
+      log('sa');
+    });
+  }
 }
