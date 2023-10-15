@@ -691,7 +691,7 @@ class APIs {
   static Future<void> addClassroom(CommunityUser chatUser) async {
     final refe = FirebaseFirestore.instance.collection('classroom');
     await refe.doc(chatUser.id).set(chatUser.toJson()).then((value) {
-      addUserToClassroom(chatUser.name);
+      addUserToClassroom(chatUser.id);
       log('sa');
     });
   }
@@ -728,5 +728,20 @@ class APIs {
     //     .update({'designation': 'user'});
 
     return true;
+  }
+
+  // for getting all user communities from firestore database
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getAllUserClass(
+      List<String> communityIds) {
+    log('\nCommunityIds: $communityIds');
+
+    return firestore
+        .collection('classroom')
+        .where('id',
+            whereIn: communityIds.isEmpty
+                ? ['']
+                : communityIds) //because empty list throws an error
+        // .where('id', isNotEqualTo: user.uid)
+        .snapshots();
   }
 }

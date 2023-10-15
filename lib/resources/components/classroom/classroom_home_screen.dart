@@ -13,7 +13,6 @@ class ClassroomScreen extends StatefulWidget {
   const ClassroomScreen({
     super.key,
   });
-
   @override
   State<ClassroomScreen> createState() => ClassroomScreenState();
 }
@@ -68,7 +67,7 @@ class ClassroomScreenState extends State<ClassroomScreen> {
       ),
       //body
       body: StreamBuilder(
-        stream: APIs.getCommunityId(),
+        stream: APIs.getClassroomId(),
 
         //get id of only known users
         builder: (context, snapshot) {
@@ -82,7 +81,7 @@ class ClassroomScreenState extends State<ClassroomScreen> {
             case ConnectionState.active:
             case ConnectionState.done:
               return StreamBuilder(
-                stream: APIs.getAllUserCommunities(
+                stream: APIs.getAllUserClass(
                     snapshot.data?.docs.map((e) => e.id).toList() ?? []),
 
                 //get only those communities, who's ids are provided
