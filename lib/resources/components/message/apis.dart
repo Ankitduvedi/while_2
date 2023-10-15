@@ -590,7 +590,7 @@ class APIs {
     chatUser.image = imageUrl;
     final refe = FirebaseFirestore.instance.collection('communities');
     await refe.doc(chatUser.id).set(chatUser.toJson()).then((value) {
-      addUserToCommunity(chatUser.name);
+      addUserToCommunity(chatUser.id);
     });
   }
 

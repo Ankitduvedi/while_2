@@ -142,7 +142,7 @@ class AddClassScreen {
                             email: APIs.me.email,
                             type: type,
                             noOfUsers: 1,
-                            admin: APIs.me.name,
+                            admin: 'Ankit asda ',
                             clas: '');
                         APIs.addClassroom(
                           community,
