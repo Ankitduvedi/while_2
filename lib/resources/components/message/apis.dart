@@ -9,6 +9,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:http/http.dart';
 // import 'package:while_app/data/model/message.dart';
 import 'package:while_app/resources/components/message/models/chat_user.dart';
+import 'package:while_app/resources/components/message/models/classroom_user.dart';
 
 import '../communities/community_message.dart';
 import '../communities/community_user.dart';
@@ -589,7 +590,7 @@ class APIs {
     chatUser.image = imageUrl;
     final refe = FirebaseFirestore.instance.collection('communities');
     await refe.doc(chatUser.id).set(chatUser.toJson()).then((value) {
-      addUserToCommunity(chatUser.name);
+      addUserToCommunity(chatUser.id);
     });
   }
 
@@ -688,7 +689,7 @@ class APIs {
   }
 
   ////////////// classroom
-  static Future<void> addClassroom(CommunityUser chatUser) async {
+  static Future<void> addClassroom(Class chatUser) async {
     final refe = FirebaseFirestore.instance.collection('classroom');
     await refe.doc(chatUser.id).set(chatUser.toJson()).then((value) {
       addUserToClassroom(chatUser.id);

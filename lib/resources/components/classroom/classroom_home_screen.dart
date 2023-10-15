@@ -2,7 +2,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:while_app/resources/components/classroom/add_classroom_widget.dart';
 import 'package:while_app/resources/components/classroom/classroom_home_card.dart';
-import 'package:while_app/resources/components/communities/community_user.dart';
+import 'package:while_app/resources/components/message/models/classroom_user.dart';
 import '../message/apis.dart';
 import '../message/helper/dialogs.dart';
 
@@ -18,7 +18,7 @@ class ClassroomScreen extends StatefulWidget {
 }
 
 class ClassroomScreenState extends State<ClassroomScreen> {
-  List<CommunityUser> _list = [];
+  List<Class> _list = [];
 
   @override
   Widget build(BuildContext context) {
@@ -97,10 +97,9 @@ class ClassroomScreenState extends State<ClassroomScreen> {
                     case ConnectionState.done:
                       final data = snapshot.data?.docs;
 
-                      _list = data
-                              ?.map((e) => CommunityUser.fromJson(e.data()))
-                              .toList() ??
-                          [];
+                      _list =
+                          data?.map((e) => Class.fromJson(e.data())).toList() ??
+                              [];
                       log(_list.toString());
 
                       if (_list.isNotEmpty) {
@@ -146,7 +145,7 @@ class ClassroomScreenState extends State<ClassroomScreen> {
               color: Colors.deepPurpleAccent,
               size: 28,
             ),
-            Text('Add Community')
+            Text('Add Class')
           ],
         ),
 
@@ -155,7 +154,7 @@ class ClassroomScreenState extends State<ClassroomScreen> {
           maxLines: null,
           onChanged: (value) => name = value,
           decoration: InputDecoration(
-              hintText: 'Community Name',
+              hintText: 'Class Name',
               prefixIcon:
                   const Icon(Icons.email, color: Colors.deepPurpleAccent),
               border:
