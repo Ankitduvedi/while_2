@@ -34,7 +34,7 @@ void main() async {
   //   ],
   // );
   await Firebase.initializeApp(
-     options: DefaultFirebaseOptions.currentPlatform,
+    options: DefaultFirebaseOptions.currentPlatform,
   );
   Provider.debugCheckInvalidValueType = null;
   runApp(const river.ProviderScope(child: MyApp()));
@@ -74,12 +74,13 @@ class MyApp extends river.ConsumerWidget {
         Provider(
           create: (_) => FireBaseDataProvider(),
         ),
-        ChangeNotifierProvider(create: (context) => DataProvider(),)
+        ChangeNotifierProvider(
+          create: (context) => DataProvider(),
+        )
       ],
-      child: MaterialApp(
+      child: const MaterialApp(
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
-        theme: ref.watch(themeNotifierProvider),
         initialRoute: RoutesName.splash,
         onGenerateRoute: Routes.generateRoute,
       ),

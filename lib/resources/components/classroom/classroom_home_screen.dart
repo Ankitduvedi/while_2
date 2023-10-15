@@ -114,7 +114,7 @@ class ClassroomScreenState extends State<ClassroomScreen> {
                             });
                       } else {
                         return const Center(
-                          child: Text('No Connections Found!',
+                          child: Text('Create or Join your first class',
                               style: TextStyle(fontSize: 20)),
                         );
                       }
