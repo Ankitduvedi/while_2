@@ -137,6 +137,7 @@ class _ProfileScreenState extends State<EditUserProfileScreen> {
                     // name input field
                     TextFormField(
                       initialValue: widget.user.name,
+                      
                       onSaved: (val) => user.name = val ?? '',
                       validator: (val) => val != null && val.isNotEmpty
                           ? null
