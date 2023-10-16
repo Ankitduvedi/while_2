@@ -14,6 +14,7 @@ class ChatUser {
     required this.phoneNumber,
     required this.place,
     required this.profession,
+    required this.designation
   });
   late String image;
   late String about;
@@ -29,6 +30,7 @@ class ChatUser {
   late String gender;
   late String profession;
   late String place;
+  late String designation;
 
   ChatUser.fromJson(Map<String, dynamic> json) {
     image = json['image'] ?? '';
@@ -45,6 +47,8 @@ class ChatUser {
     gender = json['gender'] ?? '';
     profession = json['profession'] ?? '';
     place = json['place'] ?? '';
+    designation = json['designation'] ?? '';
+
   }
 
   Map<String, dynamic> toJson() {
@@ -63,6 +67,8 @@ class ChatUser {
     data['gender'] = gender;
     data['profession'] = profession;
     data['place'] = place;
+    data['designation'] = designation;
+    
 
     return data;
   }

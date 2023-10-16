@@ -26,6 +26,8 @@ class FirebaseAuthMethods {
     phoneNumber: '',
     place: '',
     profession: '',
+    designation: 'Member',
+
   );
 
   Stream<User?> get authState => FirebaseAuth.instance.authStateChanges();

@@ -48,6 +48,8 @@ class _ProfileScreenState extends State<EditUserProfileScreen> {
       phoneNumber: '',
       place: '',
       profession: '',
+    designation: 'Member',
+
     );
     return GestureDetector(
       // for hiding keyboard

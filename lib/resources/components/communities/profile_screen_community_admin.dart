@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -38,6 +39,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     mq = MediaQuery.of(context).size;
+    String designation ="";
     List<ChatUser> list = [];
     final CommunityUser community = CommunityUser(
         image: '',
@@ -285,22 +287,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                   context: context,
                                                   builder: (context) {
                                                     return AlertDialog(
-                                                      title: const Text(
-                                                          'Delete User'),
+                                                      title: Text(
+                                                          list[index].name),
                                                       content: TextFormField(
-                      initialValue: widget.user.admin,
-                      onSaved: (val) => community.email = val ?? '',
-                      validator: (val) => val != null && val.isNotEmpty
-                          ? null
-                          : 'Required Field',
-                      decoration: InputDecoration(
-                          prefixIcon: const Icon(Icons.info_outline,
-                              color: Colors.blue),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12)),
-                          hintText: 'eg. Feeling Happy',
-                          label: const Text('Email')),
-                    ),
+                                                        initialValue:
+                                                            list[index]
+                                                                .designation,
+                                                        onSaved: (val) =>
+                                                           designation =
+                                                                val ?? '',
+                                                        validator: (val) => val !=
+                                                                    null &&
+                                                                val.isNotEmpty
+                                                            ? null
+                                                            : 'Required Field',
+                                                        decoration: InputDecoration(
+                                                            prefixIcon: const Icon(
+                                                                Icons
+                                                                    .info_outline,
+                                                                color: Colors
+                                                                    .blue),
+                                                            border: OutlineInputBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            12)),
+                                                            hintText:
+                                                                'eg. Feeling Happy',
+                                                            label: const Text(
+                                                                'Designation')),
+                                                      ),
                                                       actions: [
                                                         OutlinedButton(
                                                           onPressed: () {
@@ -313,11 +329,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                           child: const Text(
                                                               'Remove User'),
                                                         ),
+                                                        //upddate button
                                                         TextButton(
                                                           onPressed: () {
                                                             Navigator.of(
                                                                     context)
-                                                                .pop(); // Close the dialog
+                                                                .pop();
+                                                                FirebaseFirestore.instance.collection('communities').doc(community.id).collection('participants').doc(list[index].id).update({'designation':designation});
+                                                                // Close the dialog
                                                           },
                                                           child: const Text(
                                                               'Update'),

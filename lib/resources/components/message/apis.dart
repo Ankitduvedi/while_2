@@ -43,6 +43,7 @@ class APIs {
     phoneNumber: '',
     place: '',
     profession: '',
+    designation: 'Member',
   );
 
   // to return current user
@@ -152,13 +153,6 @@ class APIs {
         .collection('participants')
         .doc(user.uid)
         .set(me.toJson());
-    firestore
-        .collection('communities')
-        .doc(id)
-        .collection('participants')
-        .doc(user.uid)
-        .update({'designation': 'user'});
-
     return true;
   }
 
@@ -198,6 +192,8 @@ class APIs {
       phoneNumber: '',
       place: '',
       profession: '',
+    designation: 'Member',
+
     );
     log(' users given id is ///// : ${newUser.name}');
     await firestore.collection('users').doc(user.uid).set(chatUser.toJson());
@@ -221,6 +217,7 @@ class APIs {
       gender: '',
       phoneNumber: '',
       place: '',
+    designation: 'Member',
       profession: '',
     );
 
