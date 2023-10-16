@@ -327,6 +327,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                       actions: [
                                                         OutlinedButton(
                                                           onPressed: () {
+                                                            FirebaseFirestore
+                                                                  .instance
+                                                                  .collection(
+                                                                      'communities')
+                                                                  .doc(community
+                                                                      .id)
+                                                                  .collection(
+                                                                      'participants')
+                                                                  .doc(list[
+                                                                          index]
+                                                                      .id)
+                                                                  .delete();
+                                                                  FirebaseFirestore
+                                                                  .instance
+                                                                  .collection(
+                                                                      'users')
+                                                                  .doc(list[index]
+                                                                      .id)
+                                                                  .collection(
+                                                                      'my_communities')
+                                                                  .doc(community
+                                                                      .id)
+                                                                  .delete();
                                                             // Delete user logic here
                                                             // You can call an API to delete the user from the community
                                                             Navigator.of(
