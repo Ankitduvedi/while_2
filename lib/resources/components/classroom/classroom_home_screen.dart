@@ -24,7 +24,13 @@ class ClassroomScreenState extends State<ClassroomScreen> {
   Widget build(BuildContext context) {
     mq = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.qr_code_scanner_outlined))
+        ],
+      ),
       //floating button to add new user
 
       floatingActionButton: Padding(

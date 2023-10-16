@@ -1,10 +1,9 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:while_app/resources/components/classroom/class_detail_home.dart';
 import 'package:while_app/resources/components/message/models/classroom_user.dart';
 import '../communities/community_message.dart';
-import '../message/apis.dart';
-import '../message/helper/my_date_util.dart';
 
 late Size mq;
 
@@ -32,15 +31,14 @@ class ClassroomCardState extends ConsumerState<ClassroomCard> {
         elevation: 2,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         child: InkWell(
+            onTap: () {
+              // for navigating to chat screen
 
-            // onTap: () {
-            //   // for navigating to chat screen
-
-            //   Navigator.push(
-            //       context,
-            //       MaterialPageRoute(
-            //           builder: (_) => CCommunityDetailScreen(user: widget.user)));
-            // },
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (_) => ClassDetailScreen(clas: widget.user)));
+            },
             child: ListTile(
                 //user name
                 title: Text(widget.user.name),

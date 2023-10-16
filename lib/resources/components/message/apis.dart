@@ -192,8 +192,7 @@ class APIs {
       phoneNumber: '',
       place: '',
       profession: '',
-    designation: 'Member',
-
+      designation: 'Member',
     );
     log(' users given id is ///// : ${newUser.name}');
     await firestore.collection('users').doc(user.uid).set(chatUser.toJson());
@@ -217,7 +216,7 @@ class APIs {
       gender: '',
       phoneNumber: '',
       place: '',
-    designation: 'Member',
+      designation: 'Member',
       profession: '',
     );
 
@@ -712,19 +711,18 @@ class APIs {
         .set({
       'id': id,
     });
-    // firestore
-    //     .collection('communities')
-    //     .doc(id)
-    //     .collection('participants')
-    //     .doc(user.uid)
-    //     .set(me.toJson());
+    firestore
+        .collection('classroom')
+        .doc(id)
+        .collection('participants')
+        .doc(user.uid)
+        .set(me.toJson());
     // firestore
     //     .collection('communities')
     //     .doc(id)
     //     .collection('participants')
     //     .doc(user.uid)
     //     .update({'designation': 'user'});
-
     return true;
   }
 
@@ -741,5 +739,36 @@ class APIs {
                 : communityIds) //because empty list throws an error
         // .where('id', isNotEqualTo: user.uid)
         .snapshots();
+  }
+
+  // for getting all messages of a specific conversation of class from firestore database
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getAllClassMessages(
+      Class clas) {
+    return firestore
+        .collection('classroom')
+        .doc(clas.id)
+        .collection('chat')
+        .orderBy('sent', descending: true)
+        .snapshots();
+  }
+
+  //class participants info
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getClassParticipantsInfo(
+      String id) {
+    return firestore
+        .collection('communities')
+        .doc(id)
+        .collection('participants')
+        .snapshots();
+  }
+
+  ///// update class info
+  static Future<void> updateClassInfo(Class clas) async {
+    await firestore.collection('classroom').doc(clas.id).update({
+      'name': clas.name,
+      'about': clas.about,
+      'email': clas.email,
+      'domain': clas.about,
+    });
   }
 }

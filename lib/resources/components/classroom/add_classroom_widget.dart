@@ -31,7 +31,7 @@ class AddClassScreen {
               size: 28,
             ),
             SizedBox(width: 15),
-            Text('Create Community')
+            Text('Create Class')
           ],
         ),
 
