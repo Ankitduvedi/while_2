@@ -29,6 +29,7 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   final _formKey = GlobalKey<FormState>();
+  final _formKey2 = GlobalKey<FormState>();
   String? _image;
 
   // Initialize the TextEditingController in your state
@@ -39,7 +40,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     mq = MediaQuery.of(context).size;
-    String designation ="";
+    String designation = "";
     List<ChatUser> list = [];
     final CommunityUser community = CommunityUser(
         image: '',
@@ -289,33 +290,39 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     return AlertDialog(
                                                       title: Text(
                                                           list[index].name),
-                                                      content: TextFormField(
-                                                        initialValue:
-                                                            list[index]
-                                                                .designation,
-                                                        onSaved: (val) =>
-                                                           designation =
-                                                                val ?? '',
-                                                        validator: (val) => val !=
-                                                                    null &&
-                                                                val.isNotEmpty
-                                                            ? null
-                                                            : 'Required Field',
-                                                        decoration: InputDecoration(
-                                                            prefixIcon: const Icon(
-                                                                Icons
-                                                                    .info_outline,
-                                                                color: Colors
-                                                                    .blue),
-                                                            border: OutlineInputBorder(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            12)),
-                                                            hintText:
-                                                                'eg. Feeling Happy',
-                                                            label: const Text(
-                                                                'Designation')),
+                                                      content: Form(
+                                                        key: _formKey2,
+                                                        child: TextFormField(
+                                                          initialValue:
+                                                              list[index]
+                                                                  .designation,
+                                                          onSaved: (val) {
+                                                            setState(() {
+                                                              designation =
+                                                                  val!;
+                                                            });
+                                                          },
+                                                          validator: (val) => val !=
+                                                                      null &&
+                                                                  val.isNotEmpty
+                                                              ? null
+                                                              : 'Required Field',
+                                                          decoration: InputDecoration(
+                                                              prefixIcon: const Icon(
+                                                                  Icons
+                                                                      .info_outline,
+                                                                  color: Colors
+                                                                      .blue),
+                                                              border: OutlineInputBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              12)),
+                                                              hintText:
+                                                                  'eg. Feeling Happy',
+                                                              label: const Text(
+                                                                  'Designation')),
+                                                        ),
                                                       ),
                                                       actions: [
                                                         OutlinedButton(
@@ -332,11 +339,33 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                         //upddate button
                                                         TextButton(
                                                           onPressed: () {
-                                                            Navigator.of(
-                                                                    context)
-                                                                .pop();
-                                                                FirebaseFirestore.instance.collection('communities').doc(community.id).collection('participants').doc(list[index].id).update({'designation':designation});
-                                                                // Close the dialog
+                                                            if (_formKey2
+                                                                .currentState!
+                                                                .validate()) {
+                                                              _formKey2
+                                                                  .currentState!
+                                                                  .save();
+
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop();
+                                                              FirebaseFirestore
+                                                                  .instance
+                                                                  .collection(
+                                                                      'communities')
+                                                                  .doc(community
+                                                                      .id)
+                                                                  .collection(
+                                                                      'participants')
+                                                                  .doc(list[
+                                                                          index]
+                                                                      .id)
+                                                                  .update({
+                                                                'designation':
+                                                                    designation
+                                                              });
+                                                              // Close the dialog
+                                                            }
                                                           },
                                                           child: const Text(
                                                               'Update'),
@@ -372,8 +401,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               trailing: widget.user.email ==
                                                       list[index].email
                                                   ? const Text('Admin')
-                                                  : Text(_textFieldController
-                                                      .text),
+                                                  : Text(
+                                                      list[index].designation),
                                               shape: RoundedRectangleBorder(
                                                   borderRadius:
                                                       BorderRadius.circular(
