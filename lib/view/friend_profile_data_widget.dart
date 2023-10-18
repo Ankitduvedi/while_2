@@ -95,7 +95,7 @@ class FriendProfileDataWidgetState extends State<FriendProfileDataWidget> {
                     ),
                     Positioned(
                         top: nh + h / 7 + 5,
-                        left: w / 2.5,
+                        left: w / 2.25,
                         child: const Text(
                           "Followers",
                           style: TextStyle(fontWeight: FontWeight.w500),
@@ -126,7 +126,7 @@ class FriendProfileDataWidgetState extends State<FriendProfileDataWidget> {
                             ))),
                     Positioned(
                         top: nh + h / 7 + 24,
-                        left: w / 2.5,
+                        left: w / 2.25,
                         child: const Text(
                           "300",
                           style: TextStyle(fontWeight: FontWeight.w500),
