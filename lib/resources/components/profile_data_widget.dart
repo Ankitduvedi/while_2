@@ -1,9 +1,11 @@
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:while_app/resources/components/message/apis.dart';
 import 'package:while_app/resources/components/message/models/chat_user.dart';
+import 'package:while_app/view/friend_profile_following_screen.dart';
 import 'bottom_options_sheet.dart';
 
 late Size mq;
@@ -93,18 +95,47 @@ class _ProfileDataWidgetState extends State<ProfileDataWidget> {
                             ),
                     ),
                     Positioned(
-                        top: nh + h / 7 + 5,
-                        left: w / 2.5,
+                        top: nh + h / 7.5,
+                        left: w / 2.25,
+                        child: TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) =>
+                                        (FriendProfileFollowingScreen(
+                                          chatUser: APIs.me,
+                                        ))));
+                          },
+                          child: const Text(
+                            'Followers',
+                            style: TextStyle(color: Colors.black),
+                          ),
+                        )),
+                    Positioned(
+                        top: nh + h / 6.6,
+                        left: w / 1.6,
                         child: const Text(
-                          "Followers",
+                          "3",
                           style: TextStyle(fontWeight: FontWeight.w500),
                         )),
                     Positioned(
-                        top: nh + h / 7 + 5,
-                        left: w / 1.5,
-                        child: const Text(
-                          "Following",
-                          style: TextStyle(fontWeight: FontWeight.w500),
+                        top: nh + h / 6,
+                        left: w / 2.25,
+                        child: TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) =>
+                                        (FriendProfileFollowingScreen(
+                                          chatUser: APIs.me,
+                                        ))));
+                          },
+                          child: const Text(
+                            'Following',
+                            style: TextStyle(color: Colors.black),
+                          ),
                         )),
                     Positioned(
                         top: nh + h / 7.5,
@@ -124,19 +155,28 @@ class _ProfileDataWidgetState extends State<ProfileDataWidget> {
                               color: Colors.black,
                             ))),
                     Positioned(
-                        top: nh + h / 7 + 24,
-                        left: w / 2.5,
-                        child: const Text(
-                          "300",
-                          style: TextStyle(fontWeight: FontWeight.w500),
-                        )),
-                    Positioned(
-                        top: nh + h / 7 + 24,
-                        left: w / 1.5,
-                        child: const Text(
-                          "320",
-                          style: TextStyle(fontWeight: FontWeight.w500),
-                        )),
+                        top: nh + h / 5.4,
+                        left: w / 1.6,
+                        child: StreamBuilder(
+                            stream: FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(APIs.me.id)
+                                .collection('my_users')
+                                .snapshots(),
+                            builder: (context, snapshot) {
+                              switch (snapshot.connectionState) {
+                                //if data is loading
+                                case ConnectionState.waiting:
+                                case ConnectionState.none:
+                                  return const SizedBox();
+
+                                //if some or all data is loaded then show it
+                                case ConnectionState.active:
+                                case ConnectionState.done:
+                                  return Text(
+                                      snapshot.data!.docs.length.toString());
+                              }
+                            })),
                     Positioned(
                       top: nh + h / 7 + w / 8 + 30,
                       child: Container(

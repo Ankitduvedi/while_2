@@ -159,12 +159,12 @@ class FriendProfileDataWidgetState extends State<FriendProfileDataWidget> {
                     Positioned(
                         top: nh + h / 5.4,
                         left: w / 1.6,
-                        child: FutureBuilder(
-                            future: FirebaseFirestore.instance
+                        child: StreamBuilder(
+                            stream: FirebaseFirestore.instance
                                 .collection('users')
                                 .doc(widget.chatUser.id)
                                 .collection('my_users')
-                                .get(),
+                                .snapshots(),
                             builder: (context, snapshot) {
                               switch (snapshot.connectionState) {
                                 //if data is loading
