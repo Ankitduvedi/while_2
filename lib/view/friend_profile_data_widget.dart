@@ -117,23 +117,23 @@ class FriendProfileDataWidgetState extends State<FriendProfileDataWidget> {
                           },
                           child: const Text('Following'),
                         )),
-                    Positioned(
-                        top: nh + h / 7.5,
-                        left: w / 1.15,
-                        child: IconButton(
-                            onPressed: () {
-                              showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return MoreOptions(
-                                      user: user,
-                                    );
-                                  });
-                            },
-                            icon: const Icon(
-                              Icons.more_vert,
-                              color: Colors.black,
-                            ))),
+                    // Positioned(
+                    //     top: nh + h / 7.5,
+                    //     left: w / 1.15,
+                    //     child: IconButton(
+                    //         onPressed: () {
+                    //           showModalBottomSheet(
+                    //               context: context,
+                    //               builder: (context) {
+                    //                 return MoreOptions(
+                    //                   user: user,
+                    //                 );
+                    //               });
+                    //         },
+                    //         icon: const Icon(
+                    //           Icons.more_vert,
+                    //           color: Colors.black,
+                    //         ))),
                     Positioned(
                         top: nh + h / 7 + 24,
                         left: w / 2.25,
