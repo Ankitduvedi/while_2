@@ -96,15 +96,8 @@ class FriendProfileDataWidgetState extends State<FriendProfileDataWidget> {
                             ),
                     ),
                     Positioned(
-                        top: nh + h / 7 + 5,
+                        top: nh + h / 7.5,
                         left: w / 2.25,
-                        child: const Text(
-                          "Followers",
-                          style: TextStyle(fontWeight: FontWeight.w500),
-                        )),
-                    Positioned(
-                        top: nh + h / 7 + 5,
-                        left: w / 1.5,
                         child: TextButton(
                           onPressed: () {
                             Navigator.push(
@@ -115,7 +108,35 @@ class FriendProfileDataWidgetState extends State<FriendProfileDataWidget> {
                                           chatUser: widget.chatUser,
                                         ))));
                           },
-                          child: const Text('Following'),
+                          child: const Text(
+                            'Followers',
+                            style: TextStyle(color: Colors.black),
+                          ),
+                        )),
+                    Positioned(
+                        top: nh + h / 6.6,
+                        left: w / 1.6,
+                        child: const Text(
+                          "3",
+                          style: TextStyle(fontWeight: FontWeight.w500),
+                        )),
+                    Positioned(
+                        top: nh + h / 6,
+                        left: w / 2.25,
+                        child: TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) =>
+                                        (FriendProfileFollowingScreen(
+                                          chatUser: widget.chatUser,
+                                        ))));
+                          },
+                          child: const Text(
+                            'Following',
+                            style: TextStyle(color: Colors.black),
+                          ),
                         )),
                     // Positioned(
                     //     top: nh + h / 7.5,
@@ -134,16 +155,10 @@ class FriendProfileDataWidgetState extends State<FriendProfileDataWidget> {
                     //           Icons.more_vert,
                     //           color: Colors.black,
                     //         ))),
+
                     Positioned(
-                        top: nh + h / 7 + 24,
-                        left: w / 2.25,
-                        child: const Text(
-                          "320",
-                          style: TextStyle(fontWeight: FontWeight.w500),
-                        )),
-                    Positioned(
-                        top: nh + h / 7 + 24,
-                        left: w / 1.5,
+                        top: nh + h / 5.4,
+                        left: w / 1.6,
                         child: FutureBuilder(
                             future: FirebaseFirestore.instance
                                 .collection('users')
