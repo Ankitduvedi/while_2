@@ -80,7 +80,7 @@ class ProfileDialog extends StatelessWidget {
                         shape: const CircleBorder(),
                         // child: const Icon(Icons.info_outline,
                         //     color: Colors.blue, size: 30),
-                        child: Text(data.name),
+                        child: const Text('Profile'),
                       );
                     },
                   ),

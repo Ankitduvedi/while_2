@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:while_app/resources/components/bottom_options_sheet.dart';
@@ -128,16 +129,32 @@ class FriendProfileDataWidgetState extends State<FriendProfileDataWidget> {
                         top: nh + h / 7 + 24,
                         left: w / 2.25,
                         child: const Text(
-                          "300",
+                          "320",
                           style: TextStyle(fontWeight: FontWeight.w500),
                         )),
                     Positioned(
                         top: nh + h / 7 + 24,
                         left: w / 1.5,
-                        child: const Text(
-                          "320",
-                          style: TextStyle(fontWeight: FontWeight.w500),
-                        )),
+                        child: FutureBuilder(
+                            future: FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(widget.chatUser.id)
+                                .collection('my_users')
+                                .get(),
+                            builder: (context, snapshot) {
+                              switch (snapshot.connectionState) {
+                                //if data is loading
+                                case ConnectionState.waiting:
+                                case ConnectionState.none:
+                                  return const SizedBox();
+
+                                //if some or all data is loaded then show it
+                                case ConnectionState.active:
+                                case ConnectionState.done:
+                                  return Text(
+                                      snapshot.data!.docs.length.toString());
+                              }
+                            })),
                     Positioned(
                       top: nh + h / 7 + w / 8 + 30,
                       child: Container(
