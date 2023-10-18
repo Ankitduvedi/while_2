@@ -123,6 +123,9 @@ class UserProfileFollowingScreenState
                               title: Text(person.name),
                               subtitle: Text(person.email),
                               trailing: ElevatedButton(
+                                style: TextButton.styleFrom(
+                                    elevation: 2,
+                                    backgroundColor: Colors.white),
                                 onPressed: () async {
                                   await APIs.addChatUser(person.email)
                                       .then((value) {
@@ -132,7 +135,10 @@ class UserProfileFollowingScreenState
                                     }
                                   });
                                 },
-                                child: const Text('Follow'),
+                                child: const Text(
+                                  'Unfollow',
+                                  style: TextStyle(color: Colors.black),
+                                ),
                               ),
                             );
                           },
