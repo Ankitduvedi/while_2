@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:while_app/resources/components/communities/community_user.dart';
+import 'package:while_app/view/friend_profile_screen%20copy.dart';
 import 'package:while_app/view_model/providers/community_provider.dart';
 
 import '../../models/chat_user.dart';
@@ -63,15 +64,16 @@ class ProfileDialog extends StatelessWidget {
                       final CommunityUser data = ref.watch(communityProvider);
                       return MaterialButton(
                         onPressed: () {
-                          ref.watch(communityProvider.notifier);
                           // for hiding image dialog
-                          // Navigator.pop(context);
+                          Navigator.pop(context);
 
                           //move to view profile screen
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (_) => ProfileScreen(user: user)));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => FriendProfileScreen(
+                                        chatUser: user,
+                                      )));
                         },
                         minWidth: 0,
                         padding: const EdgeInsets.all(0),

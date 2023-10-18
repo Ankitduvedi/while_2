@@ -1,12 +1,12 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-class Video{
-  final String videoRef; // the one who will like the video
-  final String uploadedBy;// user id ofd the one who made the upload
+class Video {
+  final String videoRef;
+  final String uploadedBy;
   final String videoUrl;
   final String title;
   final String description;
-  final List likes; // better as a list rather than a counter
+  final List likes;
   final int shares;
+
   Video({
     required this.videoRef,
     required this.uploadedBy,
@@ -16,4 +16,16 @@ class Video{
     required this.likes,
     required this.shares,
   });
+
+  factory Video.fromMap(Map<String, dynamic> map) {
+    return Video(
+      videoRef: map['videoRef'] as String,
+      uploadedBy: map['uploadedBy'] as String,
+      videoUrl: map['videoUrl'] as String,
+      title: map['title'] as String,
+      description: map['description'] as String,
+      likes: List.from(map['likes']),
+      shares: map['shares'] as int,
+    );
+  }
 }
