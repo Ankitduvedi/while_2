@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:while_app/resources/components/bottom_options_sheet.dart';
 import 'package:while_app/resources/components/message/apis.dart';
 import 'package:while_app/resources/components/message/models/chat_user.dart';
+import 'package:while_app/view/friend_profile_following_screen.dart';
 
 late Size mq;
 
@@ -104,9 +105,15 @@ class FriendProfileDataWidgetState extends State<FriendProfileDataWidget> {
                     Positioned(
                         top: nh + h / 7 + 5,
                         left: w / 1.5,
-                        child: const Text(
-                          "Following",
-                          style: TextStyle(fontWeight: FontWeight.w500),
+                        child: TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) =>
+                                        (const FriendProfileFollowingScreen())));
+                          },
+                          child: const Text('Following'),
                         )),
                     Positioned(
                         top: nh + h / 7.5,
