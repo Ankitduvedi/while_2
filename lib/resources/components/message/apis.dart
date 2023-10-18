@@ -235,6 +235,16 @@ class APIs {
         .snapshots();
   }
 
+  // for getting id's of known users from firestore database
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getFriendsUsersId(
+      ChatUser users) {
+    return firestore
+        .collection('users')
+        .doc(users.id)
+        .collection('my_users')
+        .snapshots();
+  }
+
   // for getting all users from firestore database
   static Stream<QuerySnapshot<Map<String, dynamic>>> getAllUsers(
       List<String> userIds) {

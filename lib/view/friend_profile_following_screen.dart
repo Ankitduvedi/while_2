@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:while_app/resources/components/message/apis.dart';
 import 'package:while_app/resources/components/message/helper/dialogs.dart';
 import 'package:while_app/resources/components/message/models/chat_user.dart';
+import 'package:while_app/resources/components/message/widgets/dialogs/profile_dialog.dart';
 
 late Size mq;
 
 //home screen -- where all available contacts are shown
 class FriendProfileFollowingScreen extends StatefulWidget {
-  const FriendProfileFollowingScreen({
-    super.key,
-  });
+  const FriendProfileFollowingScreen({super.key, required this.chatUser});
+  final ChatUser chatUser;
 
   @override
   State<FriendProfileFollowingScreen> createState() =>
@@ -57,7 +57,7 @@ class FriendProfileFollowingScreenState
 
       //body
       body: StreamBuilder(
-        stream: APIs.getMyUsersId(),
+        stream: APIs.getFriendsUsersId(widget.chatUser),
 
         //get id of only known users
         builder: (context, snapshot) {
@@ -99,17 +99,25 @@ class FriendProfileFollowingScreenState
                             final person = _list[index];
 
                             return ListTile(
-                              leading: ClipRRect(
-                                borderRadius:
-                                    BorderRadius.circular(mq.height * .03),
-                                child: CachedNetworkImage(
-                                  width: mq.height * .055,
-                                  height: mq.height * .055,
-                                  fit: BoxFit.fill,
-                                  imageUrl: person.image,
-                                  errorWidget: (context, url, error) =>
-                                      const CircleAvatar(
-                                          child: Icon(CupertinoIcons.person)),
+                              leading: InkWell(
+                                onTap: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (_) =>
+                                          ProfileDialog(user: person));
+                                },
+                                child: ClipRRect(
+                                  borderRadius:
+                                      BorderRadius.circular(mq.height * .03),
+                                  child: CachedNetworkImage(
+                                    width: mq.height * .055,
+                                    fit: BoxFit.fill,
+                                    height: mq.height * .055,
+                                    imageUrl: person.image,
+                                    errorWidget: (context, url, error) =>
+                                        const CircleAvatar(
+                                            child: Icon(CupertinoIcons.person)),
+                                  ),
                                 ),
                               ),
                               title: Text(person.name),

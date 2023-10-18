@@ -111,7 +111,9 @@ class FriendProfileDataWidgetState extends State<FriendProfileDataWidget> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (_) =>
-                                        (const FriendProfileFollowingScreen())));
+                                        (FriendProfileFollowingScreen(
+                                          chatUser: widget.chatUser,
+                                        ))));
                           },
                           child: const Text('Following'),
                         )),
