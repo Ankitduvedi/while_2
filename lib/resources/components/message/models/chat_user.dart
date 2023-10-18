@@ -1,21 +1,20 @@
 class ChatUser {
-  ChatUser({
-    required this.image,
-    required this.about,
-    required this.name,
-    required this.createdAt,
-    required this.isOnline,
-    required this.id,
-    required this.lastActive,
-    required this.email,
-    required this.pushToken,
-    required this.dateOfBirth,
-    required this.gender,
-    required this.phoneNumber,
-    required this.place,
-    required this.profession,
-    required this.designation
-  });
+  ChatUser(
+      {required this.image,
+      required this.about,
+      required this.name,
+      required this.createdAt,
+      required this.isOnline,
+      required this.id,
+      required this.lastActive,
+      required this.email,
+      required this.pushToken,
+      required this.dateOfBirth,
+      required this.gender,
+      required this.phoneNumber,
+      required this.place,
+      required this.profession,
+      required this.designation});
   late String image;
   late String about;
   late String name;
@@ -37,7 +36,7 @@ class ChatUser {
     about = json['about'] ?? '';
     name = json['name'] ?? '';
     createdAt = json['created_at'] ?? '';
-    isOnline = json['is_online'] ?? '';
+    isOnline = json['is_online'] ?? false;
     id = json['id'] ?? '';
     lastActive = json['last_active'] ?? '';
     email = json['email'] ?? '';
@@ -48,7 +47,6 @@ class ChatUser {
     profession = json['profession'] ?? '';
     place = json['place'] ?? '';
     designation = json['designation'] ?? '';
-
   }
 
   Map<String, dynamic> toJson() {
@@ -68,7 +66,6 @@ class ChatUser {
     data['profession'] = profession;
     data['place'] = place;
     data['designation'] = designation;
-    
 
     return data;
   }

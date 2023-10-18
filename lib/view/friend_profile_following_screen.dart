@@ -10,8 +10,10 @@ late Size mq;
 
 //home screen -- where all available contacts are shown
 class FriendProfileFollowingScreen extends StatefulWidget {
-  const FriendProfileFollowingScreen({super.key, required this.chatUser});
+  const FriendProfileFollowingScreen(
+      {super.key, required this.chatUser, required this.userIds});
   final ChatUser chatUser;
+  final List<String> userIds;
 
   @override
   State<FriendProfileFollowingScreen> createState() =>
@@ -97,6 +99,7 @@ class FriendProfileFollowingScreenState
                           itemCount: _list.length,
                           itemBuilder: (context, index) {
                             final person = _list[index];
+                            // widget.userIds.where(() => true);
 
                             return ListTile(
                               leading: InkWell(
@@ -132,7 +135,9 @@ class FriendProfileFollowingScreenState
                                     }
                                   });
                                 },
-                                child: const Text('Follow'),
+                                child: Text(widget.userIds.contains(person.id)
+                                    ? 'unfollow'
+                                    : 'follow'),
                               ),
                             );
                           },

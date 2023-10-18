@@ -99,13 +99,13 @@ class _ProfileDataWidgetState extends State<ProfileDataWidget> {
                         left: w / 2.25,
                         child: TextButton(
                           onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) =>
-                                        (FriendProfileFollowingScreen(
-                                          chatUser: APIs.me,
-                                        ))));
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (_) =>
+                            //             (FriendProfileFollowingScreen(
+                            //               chatUser: APIs.me,
+                            //             ))));
                           },
                           child: const Text(
                             'Followers',
@@ -124,13 +124,13 @@ class _ProfileDataWidgetState extends State<ProfileDataWidget> {
                         left: w / 2.25,
                         child: TextButton(
                           onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) =>
-                                        (FriendProfileFollowingScreen(
-                                          chatUser: APIs.me,
-                                        ))));
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (_) =>
+                            //             (FriendProfileFollowingScreen(
+                            //               chatUser: APIs.me,
+                            //             ))));
                           },
                           child: const Text(
                             'Following',

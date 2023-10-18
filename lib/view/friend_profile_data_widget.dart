@@ -28,7 +28,7 @@ class FriendProfileDataWidgetState extends State<FriendProfileDataWidget> {
     var w = MediaQuery.of(context).size.width;
     var nh = MediaQuery.of(context).viewPadding.top;
     return StreamBuilder(
-        stream: APIs.getSelfData(),
+        stream: APIs.getMyUsersId(),
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             //if data is loading
@@ -41,7 +41,8 @@ class FriendProfileDataWidgetState extends State<FriendProfileDataWidget> {
             case ConnectionState.done:
               final data = snapshot.data?.docs;
               ChatUser user = ChatUser.fromJson(data![0].data());
-
+              List<String> userIds =
+                  snapshot.data?.docs.map((e) => e.id).toList() ?? [];
               return SizedBox(
                 width: double.infinity,
                 child: Stack(
@@ -106,6 +107,7 @@ class FriendProfileDataWidgetState extends State<FriendProfileDataWidget> {
                                     builder: (_) =>
                                         (FriendProfileFollowingScreen(
                                           chatUser: widget.chatUser,
+                                          userIds: userIds,
                                         ))));
                           },
                           child: const Text(
@@ -131,6 +133,7 @@ class FriendProfileDataWidgetState extends State<FriendProfileDataWidget> {
                                     builder: (_) =>
                                         (FriendProfileFollowingScreen(
                                           chatUser: widget.chatUser,
+                                          userIds: userIds,
                                         ))));
                           },
                           child: const Text(
