@@ -17,6 +17,7 @@ import 'package:while_app/view_model/profile_controller.dart';
 import 'utils/routes/routes.dart';
 import 'view_model/reel_controller.dart';
 import 'firebase_options.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 final userProvider = river.StreamProvider((ref) {
   return FirebaseFirestore.instance
