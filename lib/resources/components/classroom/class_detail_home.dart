@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:while_app/resources/components/classroom/class_timetable.dart';
 import 'package:while_app/resources/components/classroom/profile_screen_class_admin.dart';
 import 'package:while_app/resources/components/communities/cchat.dart';
-import 'package:while_app/resources/components/communities/community_detail_opportunities_widget.dart';
+import 'package:while_app/resources/components/communities/opportunities/community_detail_opportunities_widget.dart';
 import 'package:while_app/resources/components/communities/community_detail_quiz_widget.dart';
 import 'package:while_app/resources/components/communities/community_detail_resources_widget%20.dart';
 import 'package:while_app/resources/components/message/apis.dart';
@@ -41,7 +41,7 @@ class ClassDetailScreenState extends State<ClassDetailScreen> {
       //   user: widget.user,
       // ),
       const CommunityDetailResources(),
-      OpportunitiesScreen(),
+      //OpportunitiesScreen(user: ),
       TimeTable(),
     ];
     return Scaffold(

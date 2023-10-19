@@ -4,17 +4,19 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'dart:io';
 
-import 'package:video_player/video_player.dart';
+//import 'package:video_player/video_player.dart';
+import 'package:while_app/resources/components/communities/resource_image_viewer.dart';
+//import 'package:while_app/resources/components/communities/resource_video_viewer.dart';
 
 class CommunityDetailResources extends StatefulWidget {
   const CommunityDetailResources({Key? key}) : super(key: key);
 
   @override
-  _CommunityDetailResourcesState createState() =>
-      _CommunityDetailResourcesState();
+  CommunityDetailResourcesState createState() =>
+      CommunityDetailResourcesState();
 }
 
-class _CommunityDetailResourcesState extends State<CommunityDetailResources> {
+class CommunityDetailResourcesState extends State<CommunityDetailResources> {
   final FirebaseStorage _storage = FirebaseStorage.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -106,7 +108,7 @@ class _CommunityDetailResourcesState extends State<CommunityDetailResources> {
                   selectedFileType == 'jpeg' ||
                   selectedFileType == 'png')
                 Image.file(selectedFile!, height: 200),
-              if (selectedFileType == 'mp4') VideoPlayerWidget(selectedFile!),
+              //if (selectedFileType == 'mp4') VideoPlayerWidget(selectedFile!),
               if (selectedFileType == 'pdf')
                 const Text(
                     'PDF Preview Placeholder'), // You can replace this with a PDF viewer widget
@@ -171,6 +173,26 @@ class _CommunityDetailResourcesState extends State<CommunityDetailResources> {
                 onTap: () {
                   // Handle the resource item click
                   // You can open or download the resource here
+                  
+        if (resource['type'] == 'jpg' ||
+            resource['type'] == 'jpeg' ||
+            resource['type'] == 'png') {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ImageViewer(resource['url'], resource['title']),
+            ),
+          );
+        // } else if (resource['type'] == 'mp4') {
+        //   Navigator.push(
+        //     context,
+        //     MaterialPageRoute(
+        //       builder: (context) => VideoViewer(resource['url']),
+        //     ),
+        //   );
+        // } else {
+          // Handle other resource types (e.g., PDFs)
+        }
                 },
               );
             },
@@ -188,42 +210,42 @@ class _CommunityDetailResourcesState extends State<CommunityDetailResources> {
   }
 }
 
-class VideoPlayerWidget extends StatefulWidget {
-  final File videoFile;
+// class VideoPlayerWidget extends StatefulWidget {
+//   final File videoFile;
 
-  VideoPlayerWidget(this.videoFile);
+//   VideoPlayerWidget(this.videoFile);
 
-  @override
-  _VideoPlayerWidgetState createState() => _VideoPlayerWidgetState();
-}
+//   @override
+//   _VideoPlayerWidgetState createState() => _VideoPlayerWidgetState();
+// }
 
-class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
-  late VideoPlayerController _controller;
+// class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
+//   late VideoPlayerController _controller;
 
-  @override
-  void initState() {
-    super.initState();
-    _controller = VideoPlayerController.file(widget.videoFile)
-      ..initialize().then((_) {
-        setState(() {});
-      });
-  }
+//   @override
+//   void initState() {
+//     super.initState();
+//     _controller = VideoPlayerController.file(widget.videoFile)
+//       ..initialize().then((_) {
+//         setState(() {});
+//       });
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    if (_controller.value.isInitialized) {
-      return AspectRatio(
-        aspectRatio: _controller.value.aspectRatio,
-        child: VideoPlayer(_controller),
-      );
-    } else {
-      return const CircularProgressIndicator();
-    }
-  }
+//   @override
+//   Widget build(BuildContext context) {
+//     if (_controller.value.isInitialized) {
+//       return AspectRatio(
+//         aspectRatio: _controller.value.aspectRatio,
+//         child: VideoPlayer(_controller),
+//       );
+//     } else {
+//       return const CircularProgressIndicator();
+//     }
+//   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    _controller.dispose();
-  }
-}
+//   @override
+//   void dispose() {
+//     super.dispose();
+//     _controller.dispose();
+//   }
+// }
