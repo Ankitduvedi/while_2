@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import 'package:while_app/resources/colors.dart';
 import 'package:while_app/resources/components/header_widget.dart';
@@ -9,11 +12,43 @@ import 'package:while_app/utils/routes/routes_name.dart';
 import 'package:while_app/utils/utils.dart';
 import '../../repository/firebase_repository.dart';
 
-class LoginScreen extends StatelessWidget {
+GoogleSignIn _googleSignIn = GoogleSignIn(scopes: <String>[
+  'email',
+  'https://www.googleapis.com/auth/contacts.readonly'
+]);
+
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
+  @override
+  State<StatefulWidget> createState() {
+    return LoginScreenState();
+  }
+}
+
+class LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  late GoogleSignInAccount currentUser;
+  @override
+  void initState() {
+    super.initState();
+    _googleSignIn.onCurrentUserChanged.listen((account) {
+      setState(() {
+        currentUser = account!;
+      });
+    });
+    _googleSignIn.signInSilently();
+  }
 
-  LoginScreen({Key? key}) : super(key: key);
+  Future<void> handleSignIn() async {
+    try {
+      await _googleSignIn.signIn();
+    } catch (error) {
+      log("Sign in error" + error.toString());
+    }
+  }
+
+  Future<void> handleSignOut() => _googleSignIn.disconnect();
 
   @override
   Widget build(BuildContext context) {
@@ -145,6 +180,20 @@ class LoginScreen extends StatelessWidget {
                           },
                           child: const Text(
                             "Sign Up",
+                            style: TextStyle(
+                              color: AppColors.theme1Color,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: h * .02,
+                        ),
+                        InkWell(
+                          onTap: () {
+                            handleSignIn();
+                          },
+                          child: const Text(
+                            "Google Sign Up",
                             style: TextStyle(
                               color: AppColors.theme1Color,
                             ),
