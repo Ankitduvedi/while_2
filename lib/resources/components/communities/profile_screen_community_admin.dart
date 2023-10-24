@@ -11,11 +11,10 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:while_app/resources/components/message/models/chat_user.dart';
 
+import '../../../main.dart';
 import '../message/apis.dart';
 import '../message/helper/dialogs.dart';
 import 'community_user.dart';
-
-late Size mq;
 
 //profile screen -- to show signed in user info
 class ProfileScreen extends StatefulWidget {
@@ -39,7 +38,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    mq = MediaQuery.of(context).size;
     String designation = "";
     List<ChatUser> list = [];
     final CommunityUser community = CommunityUser(
@@ -328,28 +326,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                         OutlinedButton(
                                                           onPressed: () {
                                                             FirebaseFirestore
-                                                                  .instance
-                                                                  .collection(
-                                                                      'communities')
-                                                                  .doc(community
-                                                                      .id)
-                                                                  .collection(
-                                                                      'participants')
-                                                                  .doc(list[
-                                                                          index]
-                                                                      .id)
-                                                                  .delete();
-                                                                  FirebaseFirestore
-                                                                  .instance
-                                                                  .collection(
-                                                                      'users')
-                                                                  .doc(list[index]
-                                                                      .id)
-                                                                  .collection(
-                                                                      'my_communities')
-                                                                  .doc(community
-                                                                      .id)
-                                                                  .delete();
+                                                                .instance
+                                                                .collection(
+                                                                    'communities')
+                                                                .doc(community
+                                                                    .id)
+                                                                .collection(
+                                                                    'participants')
+                                                                .doc(list[index]
+                                                                    .id)
+                                                                .delete();
+                                                            FirebaseFirestore
+                                                                .instance
+                                                                .collection(
+                                                                    'users')
+                                                                .doc(list[index]
+                                                                    .id)
+                                                                .collection(
+                                                                    'my_communities')
+                                                                .doc(community
+                                                                    .id)
+                                                                .delete();
                                                             // Delete user logic here
                                                             // You can call an API to delete the user from the community
                                                             Navigator.of(

@@ -5,12 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 
+import '../../../main.dart';
 import '../message/apis.dart';
 import '../message/helper/dialogs.dart';
 import '../message/helper/my_date_util.dart';
 import 'community_message.dart';
-
-late Size mq;
 
 // for showing single message details
 class CommunityMessageCard extends StatefulWidget {
@@ -25,7 +24,6 @@ class CommunityMessageCard extends StatefulWidget {
 class _CommunityMessageCardState extends State<CommunityMessageCard> {
   @override
   Widget build(BuildContext context) {
-    mq = MediaQuery.of(context).size;
     bool isMe = APIs.user.uid == widget.message.fromId;
     return InkWell(
         onLongPress: () {

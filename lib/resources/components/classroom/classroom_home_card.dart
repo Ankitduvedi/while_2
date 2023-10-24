@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:while_app/resources/components/classroom/class_detail_home.dart';
 import 'package:while_app/resources/components/message/models/classroom_user.dart';
-import '../communities/community_message.dart';
+import '../message/models/community_message.dart';
 
 late Size mq;
 

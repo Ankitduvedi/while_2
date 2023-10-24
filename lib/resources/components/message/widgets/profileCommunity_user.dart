@@ -7,7 +7,7 @@ import 'dart:io';
 
 import '../../../../main.dart';
 import '../apis.dart';
-import '../../communities/community_user.dart';
+import '../models/community_user.dart';
 
 class ProfileScreenParticipant extends StatefulWidget {
   final CommunityUser user;

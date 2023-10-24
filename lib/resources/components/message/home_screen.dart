@@ -2,11 +2,10 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:while_app/resources/components/communities/chat_user_card.dart';
+import '../../../main.dart';
 import 'apis.dart';
 import 'helper/dialogs.dart';
 import 'models/chat_user.dart';
-
-late Size mq;
 
 //home screen -- where all available contacts are shown
 class HomeScreenFinal extends StatefulWidget {
@@ -69,7 +68,6 @@ class _HomeScreenFinalState extends State<HomeScreenFinal> {
       }
     }
 
-    mq = MediaQuery.of(context).size;
     return Scaffold(
       //floating button to add new user
 

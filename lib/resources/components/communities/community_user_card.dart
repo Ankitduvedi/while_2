@@ -3,14 +3,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:while_app/main.dart';
 import '../message/apis.dart';
 import 'cdetail.dart';
 import '../message/helper/my_date_util.dart';
-import 'community_message.dart';
-import 'community_user.dart';
+import '../message/models/community_message.dart';
+import '../message/models/community_user.dart';
 import 'community_profile_dialog.dart';
-
-late Size mq;
 
 //card to represent a single user in home screen
 class ChatCommunityCard extends ConsumerStatefulWidget {
@@ -28,7 +27,6 @@ class _ChatCommunityCardState extends ConsumerState<ChatCommunityCard> {
 
   @override
   Widget build(BuildContext context) {
-    mq = MediaQuery.of(context).size;
     log(widget.user.name);
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 0),

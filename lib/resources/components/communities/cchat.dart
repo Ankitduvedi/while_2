@@ -3,12 +3,11 @@ import 'dart:io';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:while_app/resources/components/communities/community_message.dart';
+import 'package:while_app/resources/components/message/models/community_message.dart';
 import 'package:while_app/resources/components/communities/community_message_card.dart';
+import '../../../main.dart';
 import '../message/apis.dart';
-import 'community_user.dart';
-
-late Size mq;
+import '../message/models/community_user.dart';
 
 class CChatScreen extends StatefulWidget {
   final CommunityUser user;
@@ -32,8 +31,6 @@ class _CChatScreenState extends State<CChatScreen> {
 
   @override
   Widget build(BuildContext context) {
-    mq = MediaQuery.of(context).size;
-
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: WillPopScope(

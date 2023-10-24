@@ -1,9 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'community_user.dart';
-
-late Size mq;
+import '../../../main.dart';
+import '../message/models/community_user.dart';
 
 class CommunityProfileDialog extends StatelessWidget {
   const CommunityProfileDialog({super.key, required this.user});
@@ -12,7 +11,6 @@ class CommunityProfileDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    mq = MediaQuery.of(context).size;
     return AlertDialog(
       contentPadding: const EdgeInsets.only(bottom: 20),
       backgroundColor: Colors.white.withOpacity(.9),

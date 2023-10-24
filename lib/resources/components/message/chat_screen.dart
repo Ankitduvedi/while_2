@@ -9,12 +9,11 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:while_app/resources/components/message/widgets/message_card.dart';
 
+import '../../../main.dart';
 import 'apis.dart';
 import 'helper/my_date_util.dart';
 import 'models/chat_user.dart';
 import 'models/message.dart';
-
-late Size mq;
 
 class ChatScreen extends StatefulWidget {
   final ChatUser user;
@@ -38,7 +37,6 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
-    mq = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: WillPopScope(

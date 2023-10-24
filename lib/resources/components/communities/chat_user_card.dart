@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:while_app/main.dart';
 
 import '../message/apis.dart';
 import '../message/chat_screen.dart';
@@ -10,8 +11,6 @@ import '../message/models/chat_user.dart';
 import '../message/models/message.dart';
 
 import '../message/widgets/dialogs/profile_dialog.dart';
-
-late Size mq;
 
 //card to represent a single user in home screen
 class ChatUserCard extends StatefulWidget {
@@ -29,7 +28,6 @@ class _ChatUserCardState extends State<ChatUserCard> {
 
   @override
   Widget build(BuildContext context) {
-    mq = MediaQuery.of(context).size;
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 0),
       color: Colors.white,

@@ -11,8 +11,8 @@ import 'package:http/http.dart';
 import 'package:while_app/resources/components/message/models/chat_user.dart';
 import 'package:while_app/resources/components/message/models/classroom_user.dart';
 
-import '../communities/community_message.dart';
-import '../communities/community_user.dart';
+import 'models/community_message.dart';
+import 'models/community_user.dart';
 import 'models/message.dart';
 
 String userImage = '';

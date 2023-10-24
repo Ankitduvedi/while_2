@@ -9,10 +9,9 @@ import 'package:while_app/resources/components/message/apis.dart';
 import 'package:while_app/resources/components/communities/profile_screen_community_admin.dart';
 import 'package:while_app/resources/components/message/widgets/profileCommunity_user.dart';
 
+import '../../../main.dart';
 import 'cchat.dart';
-import 'community_user.dart';
-
-late Size mq;
+import '../message/models/community_user.dart';
 
 class CCommunityDetailScreen extends StatefulWidget {
   const CCommunityDetailScreen({Key? key, required this.user})
@@ -35,8 +34,6 @@ class _CCommunityDetailScreenState extends State<CCommunityDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    mq = MediaQuery.of(context).size;
-    log('height ${mq.height}');
     var keyboardSpace = MediaQuery.of(context).viewInsets.bottom;
     log(keyboardSpace.toString());
     List items = [
@@ -44,7 +41,9 @@ class _CCommunityDetailScreenState extends State<CCommunityDetailScreen> {
         user: widget.user,
       ),
       const CommunityDetailResources(),
-       OpportunitiesScreen(user:widget.user ,),
+      OpportunitiesScreen(
+        user: widget.user,
+      ),
       const CommunityDetailQuiz(),
     ];
     return Scaffold(
