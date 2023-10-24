@@ -44,6 +44,7 @@ class MyApp extends river.ConsumerWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context, river.WidgetRef ref) {
+    mq = MediaQuery.of(context).size;
     SystemUiOverlayStyle systemUiOverlayStyle = const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.light,

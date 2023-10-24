@@ -7,8 +7,6 @@ import 'package:while_app/resources/components/message/apis.dart';
 import 'package:while_app/view/user_profile_following_screen.dart';
 import 'bottom_options_sheet.dart';
 
-late Size mq;
-
 class ProfileDataWidget extends StatefulWidget {
   const ProfileDataWidget({super.key});
 
@@ -21,8 +19,6 @@ class _ProfileDataWidgetState extends State<ProfileDataWidget> {
 
   @override
   Widget build(BuildContext context) {
-    mq = MediaQuery.of(context).size;
-    var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
     var nh = MediaQuery.of(context).viewPadding.top;
     return SizedBox(
@@ -30,7 +26,7 @@ class _ProfileDataWidgetState extends State<ProfileDataWidget> {
       child: Stack(
         children: [
           Container(
-            height: h / 2.5,
+            height: mq.height / 2.5,
           ),
           Positioned(
             top: nh,
@@ -38,9 +34,9 @@ class _ProfileDataWidgetState extends State<ProfileDataWidget> {
                 child: ClipRRect(
               // borderRadius: BorderRadius.circular(h * .13),
               child: CachedNetworkImage(
-                width: h,
+                width: mq.height,
                 fit: BoxFit.cover,
-                height: h * .13,
+                height: mq.height * .13,
                 imageUrl: APIs.me.image,
                 errorWidget: (context, url, error) =>
                     const CircleAvatar(child: Icon(CupertinoIcons.person)),
@@ -48,7 +44,7 @@ class _ProfileDataWidgetState extends State<ProfileDataWidget> {
             )),
           ),
           Positioned(
-            top: nh + h / 7 - w / 8,
+            top: nh + mq.height / 7 - w / 8,
             left: w / 12,
 
             //profile picture
@@ -56,16 +52,18 @@ class _ProfileDataWidgetState extends State<ProfileDataWidget> {
                 ?
                 //local image
                 ClipRRect(
-                    borderRadius: BorderRadius.circular(h * .1),
+                    borderRadius: BorderRadius.circular(mq.height * .1),
                     child: Image.file(File(_image!),
-                        width: h * .1, height: h * .1, fit: BoxFit.cover))
+                        width: mq.height * .1,
+                        height: mq.height * .1,
+                        fit: BoxFit.cover))
                 :
                 //image from server
                 ClipRRect(
-                    borderRadius: BorderRadius.circular(h * .75),
+                    borderRadius: BorderRadius.circular(mq.height * .75),
                     child: CachedNetworkImage(
-                      width: h * .15,
-                      height: h * .15,
+                      width: mq.height * .15,
+                      height: mq.height * .15,
                       filterQuality: FilterQuality.low,
                       fit: BoxFit.fill,
                       imageUrl: APIs.me.image,
@@ -75,7 +73,7 @@ class _ProfileDataWidgetState extends State<ProfileDataWidget> {
                   ),
           ),
           Positioned(
-              top: nh + h / 7.5,
+              top: nh + mq.height / 7.5,
               left: w / 2.25,
               child: TextButton(
                 onPressed: () {
@@ -92,14 +90,14 @@ class _ProfileDataWidgetState extends State<ProfileDataWidget> {
                 ),
               )),
           Positioned(
-              top: nh + h / 6.6,
+              top: nh + mq.height / 6.6,
               left: w / 1.6,
               child: const Text(
                 "10",
                 style: TextStyle(fontWeight: FontWeight.w500),
               )),
           Positioned(
-              top: nh + h / 6,
+              top: nh + mq.height / 6,
               left: w / 2.25,
               child: TextButton(
                 onPressed: () {
@@ -117,7 +115,7 @@ class _ProfileDataWidgetState extends State<ProfileDataWidget> {
                 ),
               )),
           Positioned(
-              top: nh + h / 7.5,
+              top: nh + mq.height / 7.5,
               left: w / 1.15,
               child: IconButton(
                   onPressed: () {
@@ -134,7 +132,7 @@ class _ProfileDataWidgetState extends State<ProfileDataWidget> {
                     color: Colors.black,
                   ))),
           Positioned(
-              top: nh + h / 5.4,
+              top: nh + mq.height / 5.4,
               left: w / 1.6,
               child: StreamBuilder(
                   stream: FirebaseFirestore.instance
@@ -156,7 +154,7 @@ class _ProfileDataWidgetState extends State<ProfileDataWidget> {
                     }
                   })),
           Positioned(
-            top: nh + h / 7 + w / 8 + 30,
+            top: nh + mq.height / 7 + w / 8 + 30,
             child: Container(
               padding: const EdgeInsets.only(left: 20, right: 20),
               child: Column(
