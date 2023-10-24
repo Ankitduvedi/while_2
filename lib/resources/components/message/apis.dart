@@ -158,6 +158,7 @@ class APIs {
 
   // for getting current user info
   static Future<void> getSelfInfo() async {
+    print('executed//////////////////');
     await firestore.collection('users').doc(user.uid).get().then((user) async {
       if (user.exists) {
         me = ChatUser.fromJson(user.data()!);

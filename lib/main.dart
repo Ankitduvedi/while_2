@@ -7,7 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart' as river;
 import 'package:provider/provider.dart';
 import 'package:while_app/repository/firebase_repository.dart';
 import 'package:while_app/resources/components/message/apis.dart';
-import 'package:while_app/theme/pallete.dart';
+import 'package:while_app/resources/components/message/models/chat_user.dart';
 import 'package:while_app/utils/data_provider.dart';
 import 'package:while_app/utils/routes/routes_name.dart';
 import 'package:while_app/view_model/current_user_provider.dart';
@@ -17,7 +17,6 @@ import 'package:while_app/view_model/profile_controller.dart';
 import 'utils/routes/routes.dart';
 import 'view_model/reel_controller.dart';
 import 'firebase_options.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 final userProvider = river.StreamProvider((ref) {
   return FirebaseFirestore.instance
@@ -25,7 +24,7 @@ final userProvider = river.StreamProvider((ref) {
       .doc(APIs.me.id)
       .snapshots();
 });
-
+late ChatUser me;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // SystemChrome.setEnabledSystemUIMode(
@@ -37,6 +36,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  APIs.getSelfInfo();
   Provider.debugCheckInvalidValueType = null;
   runApp(const river.ProviderScope(child: MyApp()));
 }
