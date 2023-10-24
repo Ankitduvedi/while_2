@@ -5,10 +5,9 @@ import 'package:while_app/resources/components/message/models/chat_user.dart';
 
 import 'dart:io';
 
+import '../../../../main.dart';
 import '../apis.dart';
 import '../../communities/community_user.dart';
-
-late Size mq;
 
 class ProfileScreenParticipant extends StatefulWidget {
   final CommunityUser user;
@@ -26,7 +25,6 @@ class _ProfileScreenState extends State<ProfileScreenParticipant> {
 
   @override
   Widget build(BuildContext context) {
-    mq = MediaQuery.of(context).size;
     List<ChatUser> list = [];
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),

@@ -4,14 +4,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gallery_saver/gallery_saver.dart';
+import 'package:while_app/main.dart';
 
 import '../apis.dart';
 import '../helper/dialogs.dart';
 import '../helper/my_date_util.dart';
 
 import '../models/message.dart';
-
-late Size mq;
 
 // for showing single message details
 class MessageCard extends StatefulWidget {
@@ -26,7 +25,6 @@ class MessageCard extends StatefulWidget {
 class _MessageCardState extends State<MessageCard> {
   @override
   Widget build(BuildContext context) {
-    mq = MediaQuery.of(context).size;
     bool isMe = APIs.user.uid == widget.message.fromId;
     return InkWell(
         onLongPress: () {
