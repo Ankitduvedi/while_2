@@ -7,7 +7,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart' as river;
 import 'package:provider/provider.dart';
 import 'package:while_app/repository/firebase_repository.dart';
 import 'package:while_app/resources/components/message/apis.dart';
-import 'package:while_app/resources/components/message/models/chat_user.dart';
 import 'package:while_app/utils/data_provider.dart';
 import 'package:while_app/utils/routes/routes_name.dart';
 import 'package:while_app/view_model/current_user_provider.dart';
@@ -24,7 +23,7 @@ final userProvider = river.StreamProvider((ref) {
       .doc(APIs.me.id)
       .snapshots();
 });
-late ChatUser me;
+late Size mq;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // SystemChrome.setEnabledSystemUIMode(
