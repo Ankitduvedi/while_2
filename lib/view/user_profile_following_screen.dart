@@ -56,104 +56,107 @@ class UserProfileFollowingScreenState
       ),
 
       //body
-      body: StreamBuilder(
-        stream: APIs.getFriendsUsersId(widget.chatUser),
+      body: SafeArea(
+        child: StreamBuilder(
+          stream: APIs.getFriendsUsersId(widget.chatUser),
 
-        //get id of only known users
-        builder: (context, snapshot) {
-          switch (snapshot.connectionState) {
-            //if data is loading
-            case ConnectionState.waiting:
-            case ConnectionState.none:
-              return const Center(child: CircularProgressIndicator());
+          //get id of only known users
+          builder: (context, snapshot) {
+            switch (snapshot.connectionState) {
+              //if data is loading
+              case ConnectionState.waiting:
+              case ConnectionState.none:
+                return const Center(child: CircularProgressIndicator());
 
-            //if some or all data is loaded then show it
-            case ConnectionState.active:
-            case ConnectionState.done:
-              return StreamBuilder(
-                stream: APIs.getAllUsers(
-                    snapshot.data?.docs.map((e) => e.id).toList() ?? []),
+              //if some or all data is loaded then show it
+              case ConnectionState.active:
+              case ConnectionState.done:
+                return StreamBuilder(
+                  stream: APIs.getAllUsers(
+                      snapshot.data?.docs.map((e) => e.id).toList() ?? []),
 
-                //get only those user, who's ids are provided
-                builder: (context, snapshot) {
-                  switch (snapshot.connectionState) {
-                    //if data is loading
-                    case ConnectionState.waiting:
-                    case ConnectionState.none:
-                    // return const Center(
-                    //     child: CircularProgressIndicator());
+                  //get only those user, who's ids are provided
+                  builder: (context, snapshot) {
+                    switch (snapshot.connectionState) {
+                      //if data is loading
+                      case ConnectionState.waiting:
+                      case ConnectionState.none:
+                      // return const Center(
+                      //     child: CircularProgressIndicator());
 
-                    //if some or all data is loaded then show it
-                    case ConnectionState.active:
-                    case ConnectionState.done:
-                      final data = snapshot.data?.docs;
-                      _list = data
-                              ?.map((e) => ChatUser.fromJson(e.data()))
-                              .toList() ??
-                          [];
+                      //if some or all data is loaded then show it
+                      case ConnectionState.active:
+                      case ConnectionState.done:
+                        final data = snapshot.data?.docs;
+                        _list = data
+                                ?.map((e) => ChatUser.fromJson(e.data()))
+                                .toList() ??
+                            [];
 
-                      if (_list.isNotEmpty) {
-                        return ListView.builder(
-                          itemCount: _list.length,
-                          itemBuilder: (context, index) {
-                            final person = _list[index];
+                        if (_list.isNotEmpty) {
+                          return ListView.builder(
+                            itemCount: _list.length,
+                            itemBuilder: (context, index) {
+                              final person = _list[index];
 
-                            return ListTile(
-                              leading: InkWell(
-                                onTap: () {
-                                  showDialog(
-                                      context: context,
-                                      builder: (_) =>
-                                          ProfileDialog(user: person));
-                                },
-                                child: ClipRRect(
-                                  borderRadius:
-                                      BorderRadius.circular(mq.height * .03),
-                                  child: CachedNetworkImage(
-                                    width: mq.height * .055,
-                                    fit: BoxFit.fill,
-                                    height: mq.height * .055,
-                                    imageUrl: person.image,
-                                    errorWidget: (context, url, error) =>
-                                        const CircleAvatar(
-                                            child: Icon(CupertinoIcons.person)),
+                              return ListTile(
+                                leading: InkWell(
+                                  onTap: () {
+                                    showDialog(
+                                        context: context,
+                                        builder: (_) =>
+                                            ProfileDialog(user: person));
+                                  },
+                                  child: ClipRRect(
+                                    borderRadius:
+                                        BorderRadius.circular(mq.height * .03),
+                                    child: CachedNetworkImage(
+                                      width: mq.height * .055,
+                                      fit: BoxFit.fill,
+                                      height: mq.height * .055,
+                                      imageUrl: person.image,
+                                      errorWidget: (context, url, error) =>
+                                          const CircleAvatar(
+                                              child:
+                                                  Icon(CupertinoIcons.person)),
+                                    ),
                                   ),
                                 ),
-                              ),
-                              title: Text(person.name),
-                              subtitle: Text(person.email),
-                              trailing: ElevatedButton(
-                                style: TextButton.styleFrom(
-                                    elevation: 2,
-                                    backgroundColor: Colors.white),
-                                onPressed: () async {
-                                  await APIs.addChatUser(person.email)
-                                      .then((value) {
-                                    if (value) {
-                                      Dialogs.showSnackbar(
-                                          context, 'User Added');
-                                    }
-                                  });
-                                },
-                                child: const Text(
-                                  'Unfollow',
-                                  style: TextStyle(color: Colors.black),
+                                title: Text(person.name),
+                                subtitle: Text(person.email),
+                                trailing: ElevatedButton(
+                                  style: TextButton.styleFrom(
+                                      elevation: 2,
+                                      backgroundColor: Colors.white),
+                                  onPressed: () async {
+                                    await APIs.addChatUser(person.email)
+                                        .then((value) {
+                                      if (value) {
+                                        Dialogs.showSnackbar(
+                                            context, 'User Added');
+                                      }
+                                    });
+                                  },
+                                  child: const Text(
+                                    'Unfollow',
+                                    style: TextStyle(color: Colors.black),
+                                  ),
                                 ),
-                              ),
-                            );
-                          },
-                        );
-                      } else {
-                        return const Center(
-                          child: Text('No Connections Found!',
-                              style: TextStyle(fontSize: 20)),
-                        );
-                      }
-                  }
-                },
-              );
-          }
-        },
+                              );
+                            },
+                          );
+                        } else {
+                          return const Center(
+                            child: Text('No Connections Found!',
+                                style: TextStyle(fontSize: 20)),
+                          );
+                        }
+                    }
+                  },
+                );
+            }
+          },
+        ),
       ),
     );
   }
