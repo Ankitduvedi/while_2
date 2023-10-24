@@ -6,9 +6,8 @@ import 'package:while_app/resources/components/communities/community_user.dart';
 import 'package:while_app/view/friend_profile_screen%20copy.dart';
 import 'package:while_app/view_model/providers/community_provider.dart';
 
+import '../../../../../main.dart';
 import '../../models/chat_user.dart';
-
-late Size mq;
 
 class ProfileDialog extends StatelessWidget {
   const ProfileDialog({super.key, required this.user});
@@ -17,7 +16,6 @@ class ProfileDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    mq = MediaQuery.of(context).size;
     return AlertDialog(
       contentPadding: const EdgeInsets.only(bottom: 20),
       backgroundColor: Colors.white.withOpacity(.9),

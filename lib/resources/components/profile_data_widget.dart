@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:while_app/resources/components/message/apis.dart';
 import 'package:while_app/view/user_profile_following_screen.dart';
+import '../../main.dart';
 import 'bottom_options_sheet.dart';
 
 class ProfileDataWidget extends StatefulWidget {
@@ -19,7 +20,6 @@ class _ProfileDataWidgetState extends State<ProfileDataWidget> {
 
   @override
   Widget build(BuildContext context) {
-    var w = MediaQuery.of(context).size.width;
     var nh = MediaQuery.of(context).viewPadding.top;
     return SizedBox(
       width: double.infinity,
@@ -44,8 +44,8 @@ class _ProfileDataWidgetState extends State<ProfileDataWidget> {
             )),
           ),
           Positioned(
-            top: nh + mq.height / 7 - w / 8,
-            left: w / 12,
+            top: nh + mq.height / 7 - mq.width / 8,
+            left: mq.width / 12,
 
             //profile picture
             child: _image != null
@@ -74,7 +74,7 @@ class _ProfileDataWidgetState extends State<ProfileDataWidget> {
           ),
           Positioned(
               top: nh + mq.height / 7.5,
-              left: w / 2.25,
+              left: mq.width / 2.25,
               child: TextButton(
                 onPressed: () {
                   Navigator.push(
@@ -91,14 +91,14 @@ class _ProfileDataWidgetState extends State<ProfileDataWidget> {
               )),
           Positioned(
               top: nh + mq.height / 6.6,
-              left: w / 1.6,
+              left: mq.width / 1.6,
               child: const Text(
                 "10",
                 style: TextStyle(fontWeight: FontWeight.w500),
               )),
           Positioned(
               top: nh + mq.height / 6,
-              left: w / 2.25,
+              left: mq.width / 2.25,
               child: TextButton(
                 onPressed: () {
                   // Navigator.push(
@@ -116,7 +116,7 @@ class _ProfileDataWidgetState extends State<ProfileDataWidget> {
               )),
           Positioned(
               top: nh + mq.height / 7.5,
-              left: w / 1.15,
+              left: mq.width / 1.15,
               child: IconButton(
                   onPressed: () {
                     showModalBottomSheet(
@@ -133,7 +133,7 @@ class _ProfileDataWidgetState extends State<ProfileDataWidget> {
                   ))),
           Positioned(
               top: nh + mq.height / 5.4,
-              left: w / 1.6,
+              left: mq.width / 1.6,
               child: StreamBuilder(
                   stream: FirebaseFirestore.instance
                       .collection('users')
@@ -154,7 +154,7 @@ class _ProfileDataWidgetState extends State<ProfileDataWidget> {
                     }
                   })),
           Positioned(
-            top: nh + mq.height / 7 + w / 8 + 30,
+            top: nh + mq.height / 7 + mq.width / 8 + 30,
             child: Container(
               padding: const EdgeInsets.only(left: 20, right: 20),
               child: Column(
