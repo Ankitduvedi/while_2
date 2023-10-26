@@ -1,21 +1,15 @@
 // ignore_for_file: use_build_context_synchronously
-
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:image_picker/image_picker.dart';
+import 'package:while_app/main.dart';
 import 'package:while_app/resources/components/message/models/chat_user.dart';
-import 'package:while_app/view/feed_screen.dart';
 import 'package:while_app/view/home_screen.dart';
-
 import 'components/message/apis.dart';
 import 'components/message/helper/dialogs.dart';
-
-late Size mq;
 
 //profile screen -- to show signed in user info
 class EditUserProfileScreen extends StatefulWidget {
@@ -31,7 +25,6 @@ class _ProfileScreenState extends State<EditUserProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    mq = MediaQuery.of(context).size;
     final ChatUser user = ChatUser(
       image: APIs.me.image,
       about: '',
