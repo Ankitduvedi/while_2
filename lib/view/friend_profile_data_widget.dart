@@ -3,7 +3,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:while_app/resources/components/bottom_options_sheet.dart';
 import 'package:while_app/resources/components/message/apis.dart';
 import 'package:while_app/resources/components/message/models/chat_user.dart';
 import 'package:while_app/view/friend_profile_following_screen.dart';
@@ -39,8 +38,6 @@ class FriendProfileDataWidgetState extends State<FriendProfileDataWidget> {
             //if some or all data is loaded then show it
             case ConnectionState.active:
             case ConnectionState.done:
-              final data = snapshot.data?.docs;
-              ChatUser user = ChatUser.fromJson(data![0].data());
               List<String> userIds =
                   snapshot.data?.docs.map((e) => e.id).toList() ?? [];
               return SizedBox(

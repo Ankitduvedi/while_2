@@ -146,6 +146,10 @@ class StoryScreenState extends State<StoryScreen>
                         title: Text(person['name']),
                         subtitle: Text(person['email']),
                         trailing: ElevatedButton(
+                          style: TextButton.styleFrom(
+                              elevation: 4,
+                              backgroundColor:
+                                  const Color.fromARGB(255, 235, 235, 235)),
                           onPressed: () async {
                             await APIs.addChatUser(person['email'])
                                 .then((value) {
@@ -154,7 +158,8 @@ class StoryScreenState extends State<StoryScreen>
                               }
                             });
                           },
-                          child: const Text('Follow'),
+                          child: const Text('Follow',
+                              style: TextStyle(color: Colors.black)),
                         ),
                       );
                     },
@@ -242,6 +247,10 @@ class StoryScreenState extends State<StoryScreen>
                         title: Text(page['name']),
                         subtitle: Text(page['domain']),
                         trailing: ElevatedButton(
+                          style: TextButton.styleFrom(
+                              elevation: 4,
+                              backgroundColor:
+                                  const Color.fromARGB(255, 235, 235, 235)),
                           onPressed: () async {
                             await APIs.addUserToCommunity(page['id'])
                                 .then((value) {
@@ -251,7 +260,10 @@ class StoryScreenState extends State<StoryScreen>
                               }
                             });
                           },
-                          child: const Text('Follow'),
+                          child: const Text(
+                            'Join',
+                            style: TextStyle(color: Colors.black),
+                          ),
                         ),
                       );
                     },
