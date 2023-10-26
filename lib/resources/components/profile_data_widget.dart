@@ -89,8 +89,8 @@ class _ProfileDataWidgetState extends State<ProfileDataWidget> {
                 ),
               )),
           Positioned(
-              top: nh + mq.height / 6.6,
-              left: mq.width / 1.6,
+              top: nh + mq.height / 6.5,
+              left: mq.width / 1.57,
               child: Text(
                 APIs.me.follower.toString(),
                 style: const TextStyle(fontWeight: FontWeight.w500),
@@ -131,8 +131,8 @@ class _ProfileDataWidgetState extends State<ProfileDataWidget> {
                     color: Colors.black,
                   ))),
           Positioned(
-              top: nh + mq.height / 5.4,
-              left: mq.width / 1.6,
+              top: nh + mq.height / 5.3,
+              left: mq.width / 1.57,
               child: Text(
                 APIs.me.following.toString(),
                 style: const TextStyle(fontWeight: FontWeight.w500),
