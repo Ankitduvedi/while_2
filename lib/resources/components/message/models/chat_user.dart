@@ -14,7 +14,9 @@ class ChatUser {
       required this.phoneNumber,
       required this.place,
       required this.profession,
-      required this.designation});
+      required this.designation,
+      required this.follower,
+      required this.following});
   late String image;
   late String about;
   late String name;
@@ -30,6 +32,8 @@ class ChatUser {
   late String profession;
   late String place;
   late String designation;
+  late int following;
+  late int follower;
 
   ChatUser.fromJson(Map<String, dynamic> json) {
     image = json['image'] ?? '';
@@ -47,6 +51,8 @@ class ChatUser {
     profession = json['profession'] ?? '';
     place = json['place'] ?? '';
     designation = json['designation'] ?? '';
+    following = json['following'] ?? 0;
+    follower = json['follower'] ?? 0;
   }
 
   Map<String, dynamic> toJson() {
@@ -66,6 +72,8 @@ class ChatUser {
     data['profession'] = profession;
     data['place'] = place;
     data['designation'] = designation;
+    data['following'] = following;
+    data['follower'] = follower;
 
     return data;
   }

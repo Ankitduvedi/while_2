@@ -44,6 +44,8 @@ class APIs {
     place: '',
     profession: '',
     designation: 'Member',
+    follower: 0,
+    following: 0,
   );
 
   // to return current user
@@ -194,6 +196,8 @@ class APIs {
       place: '',
       profession: '',
       designation: 'Member',
+      follower: 0,
+      following: 0,
     );
     log(' users given id is ///// : ${newUser.name}');
     await firestore.collection('users').doc(user.uid).set(chatUser.toJson());
@@ -219,6 +223,8 @@ class APIs {
       place: '',
       designation: 'Member',
       profession: '',
+      follower: 0,
+      following: 0,
     );
 
     return await firestore

@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:while_app/resources/components/communities/community_user.dart';
+import 'package:while_app/resources/components/message/models/community_user.dart';
 import 'package:while_app/resources/components/communities/opportunities/community_detail_opportunities_widget.dart';
 import 'package:uuid/uuid.dart';
 
@@ -34,7 +34,8 @@ class AddOpportunityScreenState extends State<AddOpportunityScreen> {
             ),
             TextField(
               controller: descriptionController,
-              decoration: const InputDecoration(labelText: 'Opportunity Description'),
+              decoration:
+                  const InputDecoration(labelText: 'Opportunity Description'),
             ),
             TextField(
               controller: urlController,
@@ -56,17 +57,22 @@ class AddOpportunityScreenState extends State<AddOpportunityScreen> {
 
   void _uploadOpportunity() {
     final newOpportunity = Opportunity(
-      id:uuid.v4(),
+      id: uuid.v4(),
       name: nameController.text,
       description: descriptionController.text,
       url: urlController.text,
     );
 
-    FirebaseFirestore.instance.collection('communities').doc(widget.user.id).collection('opportunities').doc(newOpportunity.id).set({
+    FirebaseFirestore.instance
+        .collection('communities')
+        .doc(widget.user.id)
+        .collection('opportunities')
+        .doc(newOpportunity.id)
+        .set({
       'name': newOpportunity.name,
       'description': newOpportunity.description,
       'url': newOpportunity.url,
-      'id' : newOpportunity.id,
+      'id': newOpportunity.id,
     }).then((_) {
       // After successful upload, clear the text fields
       nameController.clear();

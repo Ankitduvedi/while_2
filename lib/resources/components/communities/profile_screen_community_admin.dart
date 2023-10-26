@@ -14,7 +14,7 @@ import 'package:while_app/resources/components/message/models/chat_user.dart';
 import '../../../main.dart';
 import '../message/apis.dart';
 import '../message/helper/dialogs.dart';
-import 'community_user.dart';
+import '../message/models/community_user.dart';
 
 //profile screen -- to show signed in user info
 class ProfileScreen extends StatefulWidget {

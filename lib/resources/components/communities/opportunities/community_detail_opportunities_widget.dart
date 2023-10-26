@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:while_app/resources/components/communities/community_user.dart';
+import 'package:while_app/resources/components/message/models/community_user.dart';
 import 'package:while_app/resources/components/communities/opportunities/AddOpportunityScreen.dart';
 import 'package:while_app/resources/components/message/apis.dart';
 
@@ -27,7 +27,6 @@ class OpportunitiesScreen extends StatefulWidget {
 }
 
 class OpportunitiesScreenState extends State<OpportunitiesScreen> {
-  
   Future<void> _showOpportunityDetails(Opportunity opportunity) async {
     return showDialog<void>(
       context: context,
@@ -142,7 +141,7 @@ class OpportunitiesScreenState extends State<OpportunitiesScreen> {
                 title: Text(opportunity.name),
                 subtitle: Text(opportunity.description),
                 onTap: () {
-                    _showOpportunityDetails(opportunity);
+                  _showOpportunityDetails(opportunity);
                 },
               );
             },

@@ -9,7 +9,7 @@ import '../../../main.dart';
 import '../message/apis.dart';
 import '../message/helper/dialogs.dart';
 import '../message/helper/my_date_util.dart';
-import 'community_message.dart';
+import '../message/models/community_message.dart';
 
 // for showing single message details
 class CommunityMessageCard extends StatefulWidget {
