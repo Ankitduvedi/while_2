@@ -29,9 +29,6 @@ class _ProfileScreenState extends State<ProfileScreenClass> {
   final _formKey2 = GlobalKey<FormState>();
   String? _image;
 
-  // Initialize the TextEditingController in your state
-  TextEditingController _textFieldController = TextEditingController();
-
 // Later, when you want to access the edited text:
 
   @override

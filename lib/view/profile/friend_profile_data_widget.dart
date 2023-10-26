@@ -7,8 +7,6 @@ import 'package:while_app/resources/components/message/apis.dart';
 import 'package:while_app/resources/components/message/models/chat_user.dart';
 import 'package:while_app/view/profile/friend_profile_following_screen.dart';
 
-late Size mq;
-
 class FriendProfileDataWidget extends StatefulWidget {
   const FriendProfileDataWidget({super.key, required this.chatUser});
   final ChatUser chatUser;
@@ -22,7 +20,6 @@ class FriendProfileDataWidgetState extends State<FriendProfileDataWidget> {
 
   @override
   Widget build(BuildContext context) {
-    mq = MediaQuery.of(context).size;
     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
     var nh = MediaQuery.of(context).viewPadding.top;

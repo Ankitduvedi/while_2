@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:while_app/resources/components/classroom/class_detail_home.dart';
 import 'package:while_app/resources/components/message/models/classroom_user.dart';
-import '../message/models/community_message.dart';
 
 late Size mq;
 
@@ -18,9 +17,6 @@ class ClassroomCard extends ConsumerStatefulWidget {
 }
 
 class ClassroomCardState extends ConsumerState<ClassroomCard> {
-  //last message info (if null --> no message)
-  CommunityMessage? _message;
-
   @override
   Widget build(BuildContext context) {
     mq = MediaQuery.of(context).size;
