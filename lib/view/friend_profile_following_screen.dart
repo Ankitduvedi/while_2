@@ -6,7 +6,7 @@ import 'package:while_app/resources/components/message/helper/dialogs.dart';
 import 'package:while_app/resources/components/message/models/chat_user.dart';
 import 'package:while_app/resources/components/message/widgets/dialogs/profile_dialog.dart';
 
-late Size mq;
+import '../main.dart';
 
 //home screen -- where all available contacts are shown
 class FriendProfileFollowingScreen extends StatefulWidget {
@@ -23,21 +23,10 @@ class FriendProfileFollowingScreen extends StatefulWidget {
 class FriendProfileFollowingScreenState
     extends State<FriendProfileFollowingScreen> {
   // for storing all users
-
-  // for storing searched items
-
-  // for storing search status
   List<ChatUser> _list = [];
 
   @override
-  void initState() {
-    super.initState();
-    APIs.getSelfInfo();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    mq = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -126,6 +115,9 @@ class FriendProfileFollowingScreenState
                               title: Text(person.name),
                               subtitle: Text(person.email),
                               trailing: ElevatedButton(
+                                style: TextButton.styleFrom(
+                                    elevation: 4,
+                                    backgroundColor: Colors.white),
                                 onPressed: () async {
                                   await APIs.addChatUser(person.email)
                                       .then((value) {
@@ -135,9 +127,12 @@ class FriendProfileFollowingScreenState
                                     }
                                   });
                                 },
-                                child: Text(widget.userIds.contains(person.id)
-                                    ? 'unfollow'
-                                    : 'follow'),
+                                child: Text(
+                                  widget.userIds.contains(person.id)
+                                      ? 'unfollow'
+                                      : 'follow',
+                                  style: const TextStyle(color: Colors.black),
+                                ),
                               ),
                             );
                           },
