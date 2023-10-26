@@ -9,7 +9,6 @@ import 'bottom_options_sheet.dart';
 
 class ProfileDataWidget extends StatefulWidget {
   const ProfileDataWidget({super.key});
-
   @override
   State<ProfileDataWidget> createState() => _ProfileDataWidgetState();
 }
@@ -121,9 +120,7 @@ class _ProfileDataWidgetState extends State<ProfileDataWidget> {
                     showModalBottomSheet(
                         context: context,
                         builder: (context) {
-                          return MoreOptions(
-                            user: APIs.me,
-                          );
+                          return const MoreOptions();
                         });
                   },
                   icon: const Icon(

@@ -24,7 +24,7 @@ class Wrapper extends StatelessWidget {
         if (snapshot.hasData) {
           return const HomeScreen();
         } else {
-          return LoginScreen();
+          return const LoginScreen();
         }
       },
     );

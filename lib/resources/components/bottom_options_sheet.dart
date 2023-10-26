@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:while_app/resources/components/message/models/chat_user.dart';
+
 import 'package:while_app/utils/routes/routes_name.dart';
 
 import '../edit_profile_user.dart';
 
 class MoreOptions extends StatelessWidget {
-  const MoreOptions({super.key, required this.user});
-  final ChatUser user;
+  const MoreOptions({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +39,7 @@ class MoreOptions extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (_) => EditUserProfileScreen(user: user)));
+                        builder: (_) => const EditUserProfileScreen()));
               },
               leading: const Icon(
                 Icons.edit,

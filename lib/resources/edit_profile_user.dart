@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 
 import 'package:image_picker/image_picker.dart';
 import 'package:while_app/resources/components/message/models/chat_user.dart';
+import 'package:while_app/view/feed_screen.dart';
+import 'package:while_app/view/home_screen.dart';
 
 import 'components/message/apis.dart';
 import 'components/message/helper/dialogs.dart';
@@ -17,9 +19,7 @@ late Size mq;
 
 //profile screen -- to show signed in user info
 class EditUserProfileScreen extends StatefulWidget {
-  final ChatUser user;
-
-  const EditUserProfileScreen({super.key, required this.user});
+  const EditUserProfileScreen({super.key});
 
   @override
   State<EditUserProfileScreen> createState() => _ProfileScreenState();
@@ -31,14 +31,13 @@ class _ProfileScreenState extends State<EditUserProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    log('///user profile ${widget.user.image}');
     mq = MediaQuery.of(context).size;
     final ChatUser user = ChatUser(
-      image: widget.user.image,
+      image: APIs.me.image,
       about: '',
-      name: widget.user.name,
+      name: APIs.me.name,
       createdAt: '',
-      id: widget.user.id,
+      id: APIs.me.id,
       email: '',
       isOnline: true,
       lastActive: '',
@@ -59,7 +58,7 @@ class _ProfileScreenState extends State<EditUserProfileScreen> {
           //app bar
           appBar: AppBar(
               title: Text(
-            widget.user.name,
+            APIs.me.name,
             style: const TextStyle(color: Colors.black),
           )),
 
@@ -100,7 +99,7 @@ class _ProfileScreenState extends State<EditUserProfileScreen> {
                                   height: mq.height * .2,
                                   filterQuality: FilterQuality.low,
                                   fit: BoxFit.cover,
-                                  imageUrl: widget.user.image,
+                                  imageUrl: APIs.me.image,
                                   errorWidget: (context, url, error) =>
                                       const CircleAvatar(
                                           child: Icon(CupertinoIcons.person)),
@@ -128,7 +127,7 @@ class _ProfileScreenState extends State<EditUserProfileScreen> {
                     SizedBox(height: mq.height * .03),
 
                     // user email label
-                    Text(widget.user.email,
+                    Text(APIs.me.email,
                         style: const TextStyle(
                             color: Colors.black54, fontSize: 16)),
 
@@ -137,7 +136,7 @@ class _ProfileScreenState extends State<EditUserProfileScreen> {
 
                     // name input field
                     TextFormField(
-                      initialValue: widget.user.name,
+                      initialValue: APIs.me.name,
                       onSaved: (val) => user.name = val ?? '',
                       validator: (val) => val != null && val.isNotEmpty
                           ? null
@@ -155,7 +154,7 @@ class _ProfileScreenState extends State<EditUserProfileScreen> {
                     SizedBox(height: mq.height * .02),
                     // email input field
                     TextFormField(
-                      initialValue: widget.user.email,
+                      initialValue: APIs.me.email,
                       onSaved: (val) => user.email = val ?? '',
                       validator: (val) => val != null && val.isNotEmpty
                           ? null
@@ -171,7 +170,7 @@ class _ProfileScreenState extends State<EditUserProfileScreen> {
                     SizedBox(height: mq.height * .02),
                     // phone number input field
                     TextFormField(
-                      initialValue: widget.user.phoneNumber,
+                      initialValue: APIs.me.phoneNumber,
                       onSaved: (val) => user.phoneNumber = val ?? '',
                       validator: (val) => val != null && val.isNotEmpty
                           ? null
@@ -187,7 +186,7 @@ class _ProfileScreenState extends State<EditUserProfileScreen> {
                     SizedBox(height: mq.height * .02),
                     // about input field
                     TextFormField(
-                      initialValue: widget.user.about,
+                      initialValue: APIs.me.about,
                       onSaved: (val) => user.about = val ?? '',
                       validator: (val) => val != null && val.isNotEmpty
                           ? null
@@ -204,7 +203,7 @@ class _ProfileScreenState extends State<EditUserProfileScreen> {
 
                     // gender input field
                     TextFormField(
-                      initialValue: widget.user.gender,
+                      initialValue: APIs.me.gender,
                       onSaved: (val) => user.gender = val ?? '',
                       validator: (val) => val != null && val.isNotEmpty
                           ? null
@@ -221,7 +220,7 @@ class _ProfileScreenState extends State<EditUserProfileScreen> {
 
                     // PLACE  input field
                     TextFormField(
-                      initialValue: widget.user.place,
+                      initialValue: APIs.me.place,
                       onSaved: (val) => user.place = val ?? '',
                       validator: (val) => val != null && val.isNotEmpty
                           ? null
@@ -237,7 +236,7 @@ class _ProfileScreenState extends State<EditUserProfileScreen> {
                     SizedBox(height: mq.height * .02),
                     // profession input field
                     TextFormField(
-                      initialValue: widget.user.profession,
+                      initialValue: APIs.me.profession,
                       onSaved: (val) => user.profession = val ?? '',
                       validator: (val) => val != null && val.isNotEmpty
                           ? null
@@ -253,7 +252,7 @@ class _ProfileScreenState extends State<EditUserProfileScreen> {
                     SizedBox(height: mq.height * .02),
                     // DOB input field
                     TextFormField(
-                      initialValue: widget.user.dateOfBirth,
+                      initialValue: APIs.me.dateOfBirth,
                       onSaved: (val) => user.dateOfBirth = val ?? '',
                       validator: (val) => val != null && val.isNotEmpty
                           ? null
@@ -283,6 +282,12 @@ class _ProfileScreenState extends State<EditUserProfileScreen> {
                           APIs.updateUserInfo(user).then((value) {
                             Dialogs.showSnackbar(
                                 context, 'Profile Updated Successfully!');
+                            APIs.getSelfInfo().then((value) =>
+                                Navigator.of(context).pushAndRemoveUntil(
+                                    MaterialPageRoute(
+                                      builder: (_) => const HomeScreen(),
+                                    ),
+                                    (route) => false));
                           });
                         }
                       },
