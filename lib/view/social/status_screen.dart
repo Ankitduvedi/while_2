@@ -6,7 +6,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:while_app/resources/components/message/apis.dart';
 import 'package:while_app/view/social/full_screen_status.dart';
@@ -22,8 +21,6 @@ class StatusScreenn extends StatefulWidget {
 
 class StatusScreenState extends State<StatusScreenn> {
   final TextEditingController _statusTextController = TextEditingController();
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  late User _currentUser;
   List<String> friends = [];
   late String userId;
   late Stream<QuerySnapshot> peopleStream;
@@ -32,7 +29,6 @@ class StatusScreenState extends State<StatusScreenn> {
   @override
   void initState() {
     super.initState();
-    _currentUser = _auth.currentUser!;
     userId = APIs.me.id;
     peopleStream = FirebaseFirestore.instance
         .collection('statuses')

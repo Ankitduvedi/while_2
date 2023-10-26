@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:while_app/resources/components/message/apis.dart';
 import 'package:while_app/resources/components/message/models/chat_user.dart';
-import 'package:while_app/view/friend_profile_following_screen.dart';
+import 'package:while_app/view/profile/friend_profile_following_screen.dart';
 
 late Size mq;
 
