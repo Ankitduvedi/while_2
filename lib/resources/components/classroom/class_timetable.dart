@@ -24,7 +24,7 @@ class TimeTable extends StatelessWidget {
               cells: <DataCell>[
                 const DataCell(Text('Monday')),
                 DataCell(
-                  Text('25'),
+                  const Text('25'),
                   onTap: () {
                     _showDialog(context, 'Monday');
                   },

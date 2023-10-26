@@ -82,7 +82,7 @@ class MyApp extends river.ConsumerWidget {
       child: const MaterialApp(
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
-        initialRoute: RoutesName.splash,
+        initialRoute: RoutesName.wrapper,
         onGenerateRoute: Routes.generateRoute,
       ),
     );

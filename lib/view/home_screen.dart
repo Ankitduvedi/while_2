@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:while_app/theme/pallete.dart';
 import 'package:while_app/view/create_screen.dart';
 import 'package:while_app/view/feed_screen.dart';
-import 'package:while_app/view/user_profile_screen.dart';
+import 'package:while_app/view/profile/user_profile_screen.dart';
 import 'package:while_app/view/reels_screen.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 

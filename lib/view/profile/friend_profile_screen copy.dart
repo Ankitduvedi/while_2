@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:while_app/resources/components/message/models/chat_user.dart';
-import 'package:while_app/view/friend_profile_data_widget.dart';
+import 'package:while_app/view/profile/friend_profile_data_widget.dart';
 
 class FriendProfileScreen extends StatelessWidget {
   const FriendProfileScreen({super.key, required this.chatUser});

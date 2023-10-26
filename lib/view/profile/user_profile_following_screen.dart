@@ -6,7 +6,7 @@ import 'package:while_app/resources/components/message/helper/dialogs.dart';
 import 'package:while_app/resources/components/message/models/chat_user.dart';
 import 'package:while_app/resources/components/message/widgets/dialogs/profile_dialog.dart';
 
-import '../main.dart';
+import '../../main.dart';
 
 //home screen -- where all available contacts are shown
 class UserProfileFollowingScreen extends StatefulWidget {
