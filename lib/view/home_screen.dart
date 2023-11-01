@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'package:while_app/theme/pallete.dart';
 import 'package:while_app/view/create_screen.dart';
 import 'package:while_app/view/feed_screen.dart';
 import 'package:while_app/view/profile/user_profile_screen.dart';
 import 'package:while_app/view/reels_screen.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:while_app/view/social/social_home_screen.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -16,76 +15,85 @@ class HomeScreen extends ConsumerStatefulWidget {
 }
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
-  // ignore: non_constant_identifier_names
-  int CurrentIndex = 0;
+  int _currentIndex = 0;
 
-  void onTapChange(int index) {
+  void _onTabTapped(int index) {
     setState(() {
-      CurrentIndex = index;
+      _currentIndex = index;
     });
   }
 
-  void themeToggler(WidgetRef ref) {
-    ref.read(themeNotifierProvider.notifier).toggleTheme();
-  }
-
-  static final List<Widget> _widgetOptions = <Widget>[
+  final List<Widget> _screens = [
     const FeedScreen(),
-    const ReelsScreen(),
     const CreateScreen(),
+    const ReelsScreen(),
+    const SocialScreen(),
     const ProfileScreen()
   ];
+
   @override
   Widget build(BuildContext context) {
     final currentTheme = ref.watch(themeNotifierProvider);
-    return Scaffold(
-      body: Stack(children: [
-        Scaffold(
-          extendBody: true,
-          backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-          bottomNavigationBar: Container(
-            decoration: BoxDecoration(
-                color: Colors.black, borderRadius: BorderRadius.circular(0)),
-            margin: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: GNav(
-                  onTabChange: onTapChange,
-                  activeColor: Colors.black,
-                  tabBackgroundColor: currentTheme.primaryColor,
-                  padding: const EdgeInsets.all(5),
-                  tabs: const [
-                    GButton(
-                      iconColor: Colors.white,
-                      icon: Icons.home,
-                      text: 'Home',
-                    ),
 
-                    // textColor: currentTheme ==),
-                    GButton(
-                      iconColor: Colors.white,
-                      icon: Icons.movie_creation_outlined,
-                      text: 'Reels',
-                      iconSize: 25,
-                    ),
-                    GButton(
-                      iconColor: Colors.white,
-                      icon: Icons.add,
-                      text: 'Create',
-                    ),
-                    GButton(
-                      iconColor: Colors.white,
-                      icon: Icons.account_circle,
-                      text: 'User Profile',
-                    ),
-                  ]),
+    return Scaffold(
+      body: _screens[_currentIndex],
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     _onTabTapped(2);
+      //   },
+      //   backgroundColor: currentTheme.primaryColor,
+      //   child: Image.asset(
+      //     'assets/whilelogowithoutname.png',
+      //     width: 48,
+      //     fit: BoxFit.fill,
+      //   ),
+      // ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: BottomAppBar(
+        shape: const CircularNotchedRectangle(),
+        color: currentTheme.primaryColor,
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            IconButton(
+              onPressed: () {
+                _onTabTapped(0);
+              },
+              icon: const Icon(Icons.home, size: 30),
             ),
-          ),
-          body: Center(
-            child: _widgetOptions.elementAt(CurrentIndex),
-          ),
+            IconButton(
+              onPressed: () {
+                _onTabTapped(1);
+              },
+              icon: const Icon(Icons.movie_creation_outlined, size: 30),
+            ),
+            // const SizedBox(
+            //   width: 60, // Adjust as needed
+            // ),
+            IconButton(
+                iconSize: 55,
+                onPressed: () {
+                  _onTabTapped(2);
+                },
+                icon: Image.asset(
+                  'assets/whilelogowithoutname.png',
+                )),
+            IconButton(
+              onPressed: () {
+                _onTabTapped(3);
+              },
+              icon: const Icon(Icons.message, size: 30),
+            ),
+            IconButton(
+              onPressed: () {
+                _onTabTapped(4);
+              },
+              icon: const Icon(Icons.account_circle, size: 30),
+            ),
+          ],
         ),
-      ]),
+      ),
     );
   }
 }
