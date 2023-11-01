@@ -47,6 +47,7 @@ class StoryScreenState extends State<StoryScreen>
     return Scaffold(
       appBar: TabBar(
         controller: _tabController,
+        indicatorColor: Colors.black,
         tabs: const [
           Tab(
             text: 'People',
