@@ -51,17 +51,20 @@ class _SocialScreenState extends State<SocialScreen>
           },
           child: Scaffold(
             appBar: AppBar(
-              backgroundColor: Colors.deepPurpleAccent,
+              backgroundColor: Colors.white,
               title: isSearching
                   ? TextField(
                       decoration: const InputDecoration(
                           border: InputBorder.none,
                           hintText: 'Name, Email, ...',
                           hintStyle: TextStyle(
-                            color: Color.fromARGB(142, 255, 255, 255),
+                            color: Color.fromARGB(142, 73, 73, 73),
                           )),
                       autofocus: true,
-                      style: const TextStyle(fontSize: 17, letterSpacing: 0.5),
+                      style: const TextStyle(
+                          fontSize: 17,
+                          letterSpacing: 0.5,
+                          color: Colors.black),
                       //when search text changes then updated search list
                       onChanged: (val) {
                         //search logic
@@ -71,19 +74,28 @@ class _SocialScreenState extends State<SocialScreen>
                         });
                       },
                     )
-                  : const Text('Social'),
+                  : const Text(
+                      'Social',
+                      style: TextStyle(color: Colors.black),
+                    ),
               actions: [
                 IconButton(
                     onPressed: () {
                       AddCommunityScreen().addCommunityDialog(context);
                     },
-                    icon: const Icon(Icons.group_add)),
+                    icon: const Icon(
+                      Icons.group_add,
+                      color: Colors.black,
+                    )),
                 IconButton(
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (ctx) => const NotificationScreen()));
                     },
-                    icon: const Icon(Icons.notifications)),
+                    icon: const Icon(
+                      Icons.notifications,
+                      color: Colors.black,
+                    )),
                 IconButton(
                     onPressed: () {
                       // Navigator.of(context)
@@ -92,8 +104,12 @@ class _SocialScreenState extends State<SocialScreen>
                         isSearching = !isSearching;
                       });
                     },
-                    icon: const Icon(Icons.search)),
+                    icon: const Icon(
+                      Icons.search,
+                      color: Colors.black,
+                    )),
                 PopupMenuButton(
+                    color: Colors.black,
                     elevation: 10,
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(
@@ -103,24 +119,38 @@ class _SocialScreenState extends State<SocialScreen>
                     itemBuilder: (BuildContext context) {
                       return [
                         const PopupMenuItem(
+                          textStyle: TextStyle(color: Colors.white),
                           value: "newgroup",
-                          child: Text('New Group'),
+                          child: Text('New Group',
+                              style: TextStyle(
+                                color: Colors.black,
+                              )),
                         ),
                         PopupMenuItem(
-                          child: const Text('New community'),
+                          child: const Text('New community',
+                              style: TextStyle(color: Colors.black)),
                           onTap: () {
                             log('pop up button pressed');
                             AddCommunityScreen().addCommunityDialog(context);
                           },
                         ),
-                        const PopupMenuItem(child: Text('New Group')),
-                        const PopupMenuItem(child: Text('New Group')),
+                        const PopupMenuItem(
+                            child: Text(
+                          'New Group',
+                          style: TextStyle(color: Colors.black),
+                        )),
+                        const PopupMenuItem(
+                            child: Text(
+                          'New Group',
+                          style: TextStyle(color: Colors.black),
+                        )),
                       ];
                     })
               ],
               bottom: TabBar(
                 controller: _controller,
-                indicatorColor: Colors.white,
+                indicatorColor: Colors.black,
+                labelColor: Colors.black,
                 tabs: const [
                   Tab(
                     text: 'Connect',
