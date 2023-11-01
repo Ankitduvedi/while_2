@@ -37,22 +37,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
     return Scaffold(
       body: _screens[_currentIndex],
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     _onTabTapped(2);
-      //   },
-      //   backgroundColor: currentTheme.primaryColor,
-      //   child: Image.asset(
-      //     'assets/whilelogowithoutname.png',
-      //     width: 48,
-      //     fit: BoxFit.fill,
-      //   ),
-      // ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
-        shape: const CircularNotchedRectangle(),
+        height: 50,
+        // shape: const CircularNotchedRectangle(),
         color: currentTheme.primaryColor,
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
@@ -68,16 +59,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               },
               icon: const Icon(Icons.movie_creation_outlined, size: 30),
             ),
-            // const SizedBox(
-            //   width: 60, // Adjust as needed
-            // ),
             IconButton(
-                iconSize: 55,
+                iconSize: 65,
                 onPressed: () {
                   _onTabTapped(2);
                 },
                 icon: Image.asset(
                   'assets/whilelogowithoutname.png',
+                  fit: BoxFit.fill,
                 )),
             IconButton(
               onPressed: () {
