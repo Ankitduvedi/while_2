@@ -11,8 +11,6 @@ import 'package:while_app/resources/components/message/apis.dart';
 import 'package:while_app/view/social/full_screen_status.dart';
 import 'package:intl/intl.dart';
 
-late Size mq;
-
 class StatusScreenn extends StatefulWidget {
   const StatusScreenn({super.key});
   @override

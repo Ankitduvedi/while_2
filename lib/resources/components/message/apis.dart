@@ -112,32 +112,37 @@ class APIs {
   }
 
   // for adding an chat user for our conversation
-  static Future<bool> addChatUser(String email) async {
-    final data = await firestore
+  static Future<bool> addChatUser(String id) async {
+    firestore
         .collection('users')
-        .where('email', isEqualTo: email)
-        .get();
+        .doc(user.uid)
+        .collection('my_users')
+        .doc(id)
+        .set({});
+    firestore
+        .collection('users')
+        .doc(user.uid)
+        .collection('following')
+        .doc(id)
+        .set({})
+        .then((value) => firestore
+            .collection('users')
+            .doc(user.uid)
+            .update({'following': APIs.me.following + 1}))
+        .then((value) => APIs.getSelfInfo());
+    //  firestore
+    //   .collection('users')
+    //   .doc(id)
+    //   .collection('following')
+    //   .doc(user.uid)
+    //   .set({})
+    //   .then((value) => firestore
+    //       .collection('users')
+    //       .doc(user.uid)
+    //       .update({'followers': APIs.me.following + 1}))
+    //   .then((value) => APIs.getSelfInfo());
 
-    log('data: ${data.docs}');
-
-    if (data.docs.isNotEmpty && data.docs.first.id != user.uid) {
-      //user exists
-
-      log('user exists: ${data.docs.first.data()}');
-
-      firestore
-          .collection('users')
-          .doc(user.uid)
-          .collection('my_users')
-          .doc(data.docs.first.id)
-          .set({});
-
-      return true;
-    } else {
-      //user doesn't exists
-
-      return false;
-    }
+    return true;
   }
 
   static Future<bool> addUserToCommunity(String id) async {
@@ -160,12 +165,10 @@ class APIs {
 
   // for getting current user info
   static Future<void> getSelfInfo() async {
-    print('executed//////////////////');
     await firestore.collection('users').doc(user.uid).get().then((user) async {
       if (user.exists) {
         me = ChatUser.fromJson(user.data()!);
         await getFirebaseMessagingToken();
-
         //for setting user status to active
         APIs.updateActiveStatus(true);
         log('My Data: ${user.data()}');

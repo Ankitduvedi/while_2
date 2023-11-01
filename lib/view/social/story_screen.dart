@@ -149,8 +149,7 @@ class StoryScreenState extends State<StoryScreen>
                               backgroundColor:
                                   const Color.fromARGB(255, 235, 235, 235)),
                           onPressed: () async {
-                            await APIs.addChatUser(person['email'])
-                                .then((value) {
+                            await APIs.addChatUser(person['id']).then((value) {
                               if (value) {
                                 Dialogs.showSnackbar(context, 'User Added');
                               }
