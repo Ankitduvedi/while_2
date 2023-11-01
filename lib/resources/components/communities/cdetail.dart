@@ -51,7 +51,7 @@ class _CCommunityDetailScreenState extends State<CCommunityDetailScreen> {
 
       /// APPBAR
       appBar: AppBar(
-        backgroundColor: Colors.deepPurpleAccent,
+        backgroundColor: Colors.white,
         title: GestureDetector(
           onTap: () {
             if (widget.user.email == APIs.me.email) {
@@ -88,7 +88,9 @@ class _CCommunityDetailScreenState extends State<CCommunityDetailScreen> {
               const SizedBox(
                 width: 15,
               ),
-              Text(widget.user.name),
+              Text(widget.user.name,
+                  style: const TextStyle(
+                      color: Colors.black, fontWeight: FontWeight.w400)),
             ],
           ),
         ),
