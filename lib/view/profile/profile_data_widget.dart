@@ -135,18 +135,26 @@ class _ProfileDataWidgetState extends State<ProfileDataWidget> {
                 style: const TextStyle(fontWeight: FontWeight.w500),
               )),
           Positioned(
-            top: nh + mq.height / 7 + mq.width / 8 + 30,
+            top: nh + mq.height / 7 + mq.width / 8,
             child: Container(
-              padding: const EdgeInsets.only(left: 20, right: 20),
+              width: mq.width / 1.1,
+              padding: const EdgeInsets.only(
+                left: 20,
+              ),
+              margin: const EdgeInsets.only(right: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     APIs.me.name,
+                    softWrap: true,
+                    maxLines: 2,
                     style: const TextStyle(
                         fontSize: 25, fontWeight: FontWeight.w500),
                   ),
                   Text(APIs.me.about,
+                      softWrap: true,
+                      maxLines: 4,
                       style: const TextStyle(
                           fontSize: 15, fontWeight: FontWeight.w500))
                 ],
