@@ -133,7 +133,7 @@ class _ProfileDataWidgetState extends State<ProfileDataWidget> {
                 style: const TextStyle(fontWeight: FontWeight.w500),
               )),
           Positioned(
-            top: nh + mq.height / 7 + mq.width / 8,
+            top: nh + mq.height / 6 + mq.width / 8,
             child: Container(
               width: mq.width / 1.1,
               padding: const EdgeInsets.only(
