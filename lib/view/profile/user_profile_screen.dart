@@ -45,6 +45,7 @@ class ProfileScreen extends StatelessWidget {
               ];
             },
             body: const Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Material(
                   child: TabBar(

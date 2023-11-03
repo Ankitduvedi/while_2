@@ -15,7 +15,6 @@ class ProfileDataWidget extends StatefulWidget {
 
 class _ProfileDataWidgetState extends State<ProfileDataWidget> {
   String? _image;
-
   @override
   Widget build(BuildContext context) {
     var nh = MediaQuery.of(context).viewPadding.top;
@@ -24,7 +23,7 @@ class _ProfileDataWidgetState extends State<ProfileDataWidget> {
       child: Stack(
         children: [
           Container(
-            height: mq.height / 2.5,
+            height: mq.height / 3,
           ),
           Positioned(
             top: nh,
@@ -44,7 +43,6 @@ class _ProfileDataWidgetState extends State<ProfileDataWidget> {
           Positioned(
             top: nh + mq.height / 7 - mq.width / 8,
             left: mq.width / 12,
-
             //profile picture
             child: _image != null
                 ?
@@ -141,7 +139,6 @@ class _ProfileDataWidgetState extends State<ProfileDataWidget> {
               padding: const EdgeInsets.only(
                 left: 20,
               ),
-              margin: const EdgeInsets.only(right: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
