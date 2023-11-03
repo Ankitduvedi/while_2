@@ -29,7 +29,7 @@ class _ProfileDataWidgetState extends State<ProfileDataWidget> {
             top: nh,
             child: InkWell(
                 child: ClipRRect(
-              // borderRadius: BorderRadius.circular(h * .13),
+              // borderRadius: BorderRadius.circular(mq.height * .13),
               child: CachedNetworkImage(
                 width: mq.height,
                 fit: BoxFit.cover,
@@ -142,6 +142,7 @@ class _ProfileDataWidgetState extends State<ProfileDataWidget> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  //name
                   Text(
                     APIs.me.name,
                     softWrap: true,
