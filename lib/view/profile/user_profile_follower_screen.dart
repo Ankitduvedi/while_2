@@ -150,7 +150,7 @@ class UserProfileFollowingScreenState extends State<UserProfileFollowerScreen> {
                                       });
                                     },
                                     child: const Text(
-                                      'Unfollow',
+                                      'Remove',
                                       style: TextStyle(color: Colors.black),
                                     ),
                                   ),

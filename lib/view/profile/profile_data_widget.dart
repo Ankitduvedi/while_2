@@ -81,17 +81,10 @@ class _ProfileDataWidgetState extends State<ProfileDataWidget> {
                                 chatUser: APIs.me,
                               ))));
                 },
-                child: const Text(
-                  'Followers',
-                  style: TextStyle(color: Colors.black),
+                child: Text(
+                  'Followers  ${APIs.me.follower}',
+                  style: const TextStyle(color: Colors.black),
                 ),
-              )),
-          Positioned(
-              top: nh + mq.height / 6.5,
-              left: mq.width / 1.57,
-              child: Text(
-                APIs.me.follower.toString(),
-                style: const TextStyle(fontWeight: FontWeight.w500),
               )),
           Positioned(
               top: nh + mq.height / 6,
@@ -105,9 +98,9 @@ class _ProfileDataWidgetState extends State<ProfileDataWidget> {
                                 chatUser: APIs.me,
                               ))));
                 },
-                child: const Text(
-                  'Following',
-                  style: TextStyle(color: Colors.black),
+                child: Text(
+                  'Following  ${APIs.me.following}',
+                  style: const TextStyle(color: Colors.black),
                 ),
               )),
           Positioned(
@@ -125,13 +118,6 @@ class _ProfileDataWidgetState extends State<ProfileDataWidget> {
                     Icons.more_vert,
                     color: Colors.black,
                   ))),
-          Positioned(
-              top: nh + mq.height / 5.3,
-              left: mq.width / 1.57,
-              child: Text(
-                APIs.me.following.toString(),
-                style: const TextStyle(fontWeight: FontWeight.w500),
-              )),
           Positioned(
             top: nh + mq.height / 6 + mq.width / 8,
             child: Container(
