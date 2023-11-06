@@ -20,11 +20,6 @@ class UserProfileFollowerScreen extends StatefulWidget {
 }
 
 class UserProfileFollowingScreenState extends State<UserProfileFollowerScreen> {
-  // for storing all users
-
-  // for storing searched items
-
-  // for storing search status
   List<ChatUser> _list = [];
 
   @override
