@@ -55,11 +55,11 @@ class _ChatScreenState extends State<ChatScreen> {
           appBar: AppBar(
             automaticallyImplyLeading: false,
             flexibleSpace: _appBar(),
-            backgroundColor: Colors.deepPurpleAccent,
+            backgroundColor: Colors.white,
             toolbarHeight: 60,
           ),
 
-          backgroundColor: const Color.fromARGB(255, 234, 248, 255),
+          backgroundColor: Colors.white,
 
           //body
           body: Column(
