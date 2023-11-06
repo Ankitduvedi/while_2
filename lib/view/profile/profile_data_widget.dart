@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:while_app/resources/components/message/apis.dart';
+import 'package:while_app/view/profile/user_profile_follower_screen.dart';
 import 'package:while_app/view/profile/user_profile_following_screen.dart';
 import '../../main.dart';
 import '../../resources/components/bottom_options_sheet.dart';
@@ -76,7 +77,7 @@ class _ProfileDataWidgetState extends State<ProfileDataWidget> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (_) => (UserProfileFollowingScreen(
+                          builder: (_) => (UserProfileFollowerScreen(
                                 chatUser: APIs.me,
                               ))));
                 },
