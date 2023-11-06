@@ -117,17 +117,8 @@ class APIs {
         .collection('my_users')
         .doc(id)
         .set({'timeStamp': FieldValue.serverTimestamp()});
-    firestore
-        .collection('users')
-        .doc(user.uid)
-        .collection('following')
-        .doc(id)
-        .set({})
-        .then((value) => firestore
-            .collection('users')
-            .doc(user.uid)
-            .update({'following': APIs.me.following + 1}))
-        .then((value) => APIs.getSelfInfo());
+    following(id);
+    follower(id);
     //  firestore
     //   .collection('users')
     //   .doc(id)
@@ -139,6 +130,46 @@ class APIs {
     //       .doc(user.uid)
     //       .update({'followers': APIs.me.following + 1}))
     //   .then((value) => APIs.getSelfInfo());
+
+    return true;
+  }
+
+  static Future<bool> following(String id) async {
+    firestore
+        .collection('users')
+        .doc(user.uid)
+        .collection('following')
+        .doc(id)
+        .set({})
+        .then((value) => firestore
+            .collection('users')
+            .doc(user.uid)
+            .update({'following': APIs.me.following + 1}))
+        .then((value) => APIs.getSelfInfo());
+    // firestore
+    //     .collection('users')
+    //     .doc(id)
+    //     .update({'follower': APIs.me.follower + 1});
+    return true;
+  }
+
+  static Future<bool> follower(String id) async {
+    firestore
+        .collection('users')
+        .doc(id)
+        .collection('follower')
+        .doc(user.uid)
+        .set({});
+    await firestore.collection('users').doc(id).get().then((user) async {
+      if (user.exists) {
+        final data = ChatUser.fromJson(user.data()!);
+        firestore
+            .collection('users')
+            .doc(id)
+            .update({'follower': data.follower + 1});
+        // log('My Data: ${user.data()}');
+      }
+    });
 
     return true;
   }
