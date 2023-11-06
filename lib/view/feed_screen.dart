@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:while_app/resources/components/classroom/classroom_home_screen.dart';
 import 'package:while_app/theme/pallete.dart';
-import 'package:while_app/view/social/social_home_screen.dart';
 
 class FeedScreen extends ConsumerStatefulWidget {
   const FeedScreen({Key? key}) : super(key: key);
