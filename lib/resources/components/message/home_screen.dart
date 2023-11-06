@@ -23,7 +23,7 @@ class HomeScreenFinal extends StatefulWidget {
 }
 
 class _HomeScreenFinalState extends State<HomeScreenFinal> {
-  List<ChatUser> _list = [];
+  List<ChatUser> list = [];
   final List<ChatUser> _searchList = [];
 
   @override
@@ -55,7 +55,7 @@ class _HomeScreenFinalState extends State<HomeScreenFinal> {
       log(widget.value);
       _searchList.clear();
 
-      for (var i in _list) {
+      for (var i in list) {
         if (i.name.toLowerCase().contains(widget.value.toLowerCase()) ||
             i.email.toLowerCase().contains(widget.value.toLowerCase())) {
           _searchList.add(i);

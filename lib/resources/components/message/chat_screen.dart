@@ -1,14 +1,11 @@
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:while_app/resources/components/message/widgets/message_card.dart';
-
 import '../../../main.dart';
 import 'apis.dart';
 import 'helper/my_date_util.dart';
