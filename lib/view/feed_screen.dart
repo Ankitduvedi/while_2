@@ -38,16 +38,16 @@ class _FeedScreenState extends ConsumerState<FeedScreen> {
                 Icons.menu_book,
                 color: Colors.black,
               )),
-          IconButton(
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const SocialScreen(),
-                ));
-              },
-              icon: const Icon(
-                Icons.message,
-                color: Colors.black,
-              )),
+          // IconButton(
+          //     onPressed: () {
+          //       Navigator.of(context).push(MaterialPageRoute(
+          //         builder: (context) => const SocialScreen(),
+          //       ));
+          //     },
+          //     icon: const Icon(
+          //       Icons.message,
+          //       color: Colors.black,
+          //     )),
         ],
       ),
       body: const Center(

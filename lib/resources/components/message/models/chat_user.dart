@@ -77,4 +77,25 @@ class ChatUser {
 
     return data;
   }
+
+  factory ChatUser.empty() {
+    return ChatUser(
+        image: '',
+        about: '',
+        name: '',
+        createdAt: '',
+        isOnline: false,
+        id: '',
+        lastActive: '',
+        email: '',
+        pushToken: '',
+        dateOfBirth: '',
+        gender: '',
+        phoneNumber: '',
+        place: '',
+        profession: '',
+        designation: '',
+        follower: 0,
+        following: 0);
+  }
 }

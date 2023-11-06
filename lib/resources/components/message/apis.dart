@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -10,7 +9,6 @@ import 'package:http/http.dart';
 // import 'package:while_app/data/model/message.dart';
 import 'package:while_app/resources/components/message/models/chat_user.dart';
 import 'package:while_app/resources/components/message/models/classroom_user.dart';
-
 import 'models/community_message.dart';
 import 'models/community_user.dart';
 import 'models/message.dart';
@@ -118,7 +116,7 @@ class APIs {
         .doc(user.uid)
         .collection('my_users')
         .doc(id)
-        .set({});
+        .set({'timeStamp': FieldValue.serverTimestamp()});
     firestore
         .collection('users')
         .doc(user.uid)
@@ -242,6 +240,10 @@ class APIs {
         .collection('users')
         .doc(user.uid)
         .collection('my_users')
+        .orderBy(
+          'timeStamp',
+          descending: true,
+        )
         .snapshots();
   }
 
@@ -258,7 +260,7 @@ class APIs {
   // for getting all users from firestore database
   static Stream<QuerySnapshot<Map<String, dynamic>>> getAllUsers(
       List<String> userIds) {
-    log('\nUserIds: $userIds');
+    print('\nUserIds: $userIds');
 
     return firestore
         .collection('users')
