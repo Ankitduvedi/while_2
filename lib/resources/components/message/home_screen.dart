@@ -82,7 +82,10 @@ class _HomeScreenFinalState extends State<HomeScreenFinal> {
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(
+                child: CircularProgressIndicator(
+              backgroundColor: Colors.white,
+            ));
           }
           if (!snapshot.hasData) {
             return const Center(child: Text('No data available.'));
@@ -102,7 +105,10 @@ class _HomeScreenFinalState extends State<HomeScreenFinal> {
                     .snapshots(),
                 builder: (context, userSnapshot) {
                   if (userSnapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
+                    return const Center(
+                        child: CircularProgressIndicator(
+                      color: Colors.white,
+                    ));
                   }
                   if (!userSnapshot.hasData) {
                     return const Center(child: Text('No user data available.'));
