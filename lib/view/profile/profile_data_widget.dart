@@ -97,13 +97,12 @@ class _ProfileDataWidgetState extends State<ProfileDataWidget> {
               left: mq.width / 2.25,
               child: TextButton(
                 onPressed: () {
-                  // Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //         builder: (_) =>
-                  //             (FriendProfileFollowingScreen(
-                  //               chatUser: APIs.me,
-                  //             ))));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => (UserProfileFollowingScreen(
+                                chatUser: APIs.me,
+                              ))));
                 },
                 child: const Text(
                   'Following',

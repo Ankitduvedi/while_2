@@ -5,6 +5,7 @@ import 'package:while_app/resources/components/message/apis.dart';
 import 'package:while_app/resources/components/message/helper/dialogs.dart';
 import 'package:while_app/resources/components/message/models/chat_user.dart';
 import 'package:while_app/resources/components/message/widgets/dialogs/profile_dialog.dart';
+import 'package:while_app/view/profile/friend_profile_screen%20copy.dart';
 
 import '../../main.dart';
 
@@ -98,47 +99,57 @@ class UserProfileFollowingScreenState
                             itemBuilder: (context, index) {
                               final person = _list[index];
 
-                              return ListTile(
-                                leading: InkWell(
-                                  onTap: () {
-                                    showDialog(
-                                        context: context,
-                                        builder: (_) =>
-                                            ProfileDialog(user: person));
-                                  },
-                                  child: ClipRRect(
-                                    borderRadius:
-                                        BorderRadius.circular(mq.height * .03),
-                                    child: CachedNetworkImage(
-                                      width: mq.height * .055,
-                                      fit: BoxFit.fill,
-                                      height: mq.height * .055,
-                                      imageUrl: person.image,
-                                      errorWidget: (context, url, error) =>
-                                          const CircleAvatar(
-                                              child:
-                                                  Icon(CupertinoIcons.person)),
+                              return InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (_) => FriendProfileScreen(
+                                                chatUser: person,
+                                              )));
+                                },
+                                child: ListTile(
+                                  leading: InkWell(
+                                    onTap: () {
+                                      showDialog(
+                                          context: context,
+                                          builder: (_) =>
+                                              ProfileDialog(user: person));
+                                    },
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(
+                                          mq.height * .03),
+                                      child: CachedNetworkImage(
+                                        width: mq.height * .055,
+                                        fit: BoxFit.fill,
+                                        height: mq.height * .055,
+                                        imageUrl: person.image,
+                                        errorWidget: (context, url, error) =>
+                                            const CircleAvatar(
+                                                child: Icon(
+                                                    CupertinoIcons.person)),
+                                      ),
                                     ),
                                   ),
-                                ),
-                                title: Text(person.name),
-                                subtitle: Text(person.email),
-                                trailing: ElevatedButton(
-                                  style: TextButton.styleFrom(
-                                      elevation: 2,
-                                      backgroundColor: Colors.white),
-                                  onPressed: () async {
-                                    await APIs.addChatUser(person.email)
-                                        .then((value) {
-                                      if (value) {
-                                        Dialogs.showSnackbar(
-                                            context, 'User Added');
-                                      }
-                                    });
-                                  },
-                                  child: const Text(
-                                    'Unfollow',
-                                    style: TextStyle(color: Colors.black),
+                                  title: Text(person.name),
+                                  subtitle: Text(person.email),
+                                  trailing: ElevatedButton(
+                                    style: TextButton.styleFrom(
+                                        elevation: 2,
+                                        backgroundColor: Colors.white),
+                                    onPressed: () async {
+                                      await APIs.addChatUser(person.email)
+                                          .then((value) {
+                                        if (value) {
+                                          Dialogs.showSnackbar(
+                                              context, 'User Added');
+                                        }
+                                      });
+                                    },
+                                    child: const Text(
+                                      'Unfollow',
+                                      style: TextStyle(color: Colors.black),
+                                    ),
                                   ),
                                 ),
                               );

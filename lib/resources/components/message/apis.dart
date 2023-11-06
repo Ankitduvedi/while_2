@@ -253,7 +253,7 @@ class APIs {
     return firestore
         .collection('users')
         .doc(users.id)
-        .collection('my_users')
+        .collection('following')
         .snapshots();
   }
 
