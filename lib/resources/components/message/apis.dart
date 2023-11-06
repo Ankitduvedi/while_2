@@ -399,7 +399,13 @@ class APIs {
     final ref = firestore
         .collection('chats/${getConversationID(chatUser.id)}/messages/');
     await ref.doc(time).set(message.toJson()).then((value) =>
-        sendPushNotification(chatUser, type == Type.text ? msg : 'image'));
+        sendPushNotification(chatUser, type == Type.text ? msg : 'image').then(
+            (value) => firestore
+                .collection('users')
+                .doc(user.uid)
+                .collection('my_users')
+                .doc(chatUser.id)
+                .update({'timeStamp': FieldValue.serverTimestamp()})));
   }
 
   //update read status of message
