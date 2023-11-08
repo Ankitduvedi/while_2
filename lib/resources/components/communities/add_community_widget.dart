@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:uuid/uuid.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -181,6 +182,7 @@ class AddCommunityScreen {
                         final time =
                             DateTime.now().millisecondsSinceEpoch.toString();
                         final String id = uuid.v4();
+                        // final time = DateTime.now().millisecondsSinceEpoch.toString();
                         final CommunityUser community = CommunityUser(
                             image: '',
                             about: about,
@@ -191,6 +193,7 @@ class AddCommunityScreen {
                             type: type,
                             noOfUsers: '1',
                             domain: domain,
+                            timeStamp: time,
                             admin: APIs.me.name);
                         APIs.addCommunities(community, File(image!.path));
 

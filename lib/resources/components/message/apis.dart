@@ -735,6 +735,7 @@ class APIs {
           type: event.data()!['type'],
           noOfUsers: event.data()!['noOfUsers'],
           domain: event.data()!['domain'],
+          timeStamp: event.data()!['timeStamp'],
           admin: event.data()!['admin']);
     });
   }

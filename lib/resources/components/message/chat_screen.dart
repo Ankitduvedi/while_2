@@ -223,6 +223,8 @@ class _ChatScreenState extends State<ChatScreen> {
           //input field & buttons
           Expanded(
             child: Card(
+              color: Color.fromARGB(255, 228, 228, 228),
+              elevation: 4,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15)),
               child: Row(
@@ -234,7 +236,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         setState(() => _showEmoji = !_showEmoji);
                       },
                       icon: const Icon(Icons.emoji_emotions,
-                          color: Colors.blueAccent, size: 25)),
+                          color: Colors.black, size: 25)),
 
                   Expanded(
                       child: TextField(
@@ -246,7 +248,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     },
                     decoration: const InputDecoration(
                         hintText: 'Type Something...',
-                        hintStyle: TextStyle(color: Colors.blueAccent),
+                        hintStyle: TextStyle(color: Colors.black),
                         border: InputBorder.none),
                   )),
 
@@ -268,7 +270,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         }
                       },
                       icon: const Icon(Icons.image,
-                          color: Colors.blueAccent, size: 26)),
+                          color: Colors.black, size: 26)),
 
                   //take image from camera button
                   IconButton(
@@ -288,7 +290,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         }
                       },
                       icon: const Icon(Icons.camera_alt_rounded,
-                          color: Colors.blueAccent, size: 26)),
+                          color: Colors.black, size: 26)),
 
                   //adding some space
                   SizedBox(width: mq.width * .02),

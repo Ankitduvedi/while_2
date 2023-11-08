@@ -16,6 +16,7 @@ class CommunityProviders extends StateNotifier<CommunityUser> {
             type: 'type',
             noOfUsers: 'noOfUsers',
             domain: 'domain',
+            timeStamp: 'timeStamp',
             admin: 'admin'));
 
   void changeName(CommunityUser community) {
@@ -31,6 +32,7 @@ class CommunityProviders extends StateNotifier<CommunityUser> {
         type: data.type,
         noOfUsers: data.noOfUsers,
         domain: data.domain,
+        timeStamp: data.timeStamp,
         admin: data.admin);
     log('//image');
     log(state.image);
