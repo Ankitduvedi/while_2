@@ -223,7 +223,7 @@ class _ChatScreenState extends State<ChatScreen> {
           //input field & buttons
           Expanded(
             child: Card(
-              color: Color.fromARGB(255, 228, 228, 228),
+              color: const Color.fromARGB(255, 228, 228, 228),
               elevation: 4,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15)),
