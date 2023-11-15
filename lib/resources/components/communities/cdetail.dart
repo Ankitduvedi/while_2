@@ -2,7 +2,7 @@ import 'dart:developer';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:while_app/resources/components/communities/opportunities/community_detail_opportunities_widget.dart';
-import 'package:while_app/resources/components/communities/community_detail_quiz_widget.dart';
+import 'package:while_app/resources/components/communities/quiz/community_detail_quiz_widget.dart';
 import 'package:while_app/resources/components/communities/community_detail_resources_widget%20.dart';
 import 'package:while_app/resources/components/message/apis.dart';
 import 'package:while_app/resources/components/communities/profile_screen_community_admin.dart';
@@ -42,7 +42,7 @@ class _CCommunityDetailScreenState extends State<CCommunityDetailScreen> {
       OpportunitiesScreen(
         user: widget.user,
       ),
-      const CommunityDetailQuiz(),
+      QuizScreen(user: widget.user,),
     ];
     return Scaffold(
       backgroundColor: Colors.white,
