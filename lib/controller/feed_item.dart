@@ -1,3 +1,4 @@
+import 'package:another_flushbar/flushbar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -7,8 +8,14 @@ import 'package:while_app/data/model/video_model.dart';
 import 'package:while_app/utils/circle_animation.dart';
 
 class FeedItem extends StatefulWidget {
-  const FeedItem({super.key, required this.video});
+  const FeedItem(
+      {super.key,
+      required this.video,
+      required this.index,
+      required this.controller});
   final Video video;
+  final int index;
+  final VideoPlayerController controller;
   @override
   State<FeedItem> createState() => _FeedItemState();
 }
@@ -25,12 +32,6 @@ class _FeedItemState extends State<FeedItem> {
 
   @override
   void initState() {
-    _controller =
-        VideoPlayerController.networkUrl(Uri.parse(widget.video.videoUrl))
-          ..initialize().then((value) {
-            _controller.play();
-            _controller.setVolume(1);
-          });
     likeTapped = false;
     super.initState();
   }
@@ -61,18 +62,16 @@ class _FeedItemState extends State<FeedItem> {
 
   @override
   Widget build(BuildContext context) {
+    _controller = widget.controller;
     final size = MediaQuery.of(context).size;
     return Container(
       width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height,
       decoration: const BoxDecoration(color: Colors.black),
       child: Stack(children: [
         VideoPlayer(_controller),
         Column(
           children: [
-            // const SizedBox(
-            //   height: 100,
-            // ),
             Expanded(
               child: Row(
                 mainAxisSize: MainAxisSize.max,
@@ -115,12 +114,13 @@ class _FeedItemState extends State<FeedItem> {
                     ),
                   ),
                   Container(
+                    height: 350,
                     width: 100,
                     margin: EdgeInsets.only(top: size.height / 5),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        buildProfile('profilePhoto'),
+                        // buildProfile('profilePhoto'),
                         Column(
                           children: [
                             InkWell(
@@ -197,35 +197,35 @@ class _FeedItemState extends State<FeedItem> {
     );
   }
 
-  buildProfile(String profilePhoto) {
-    return SizedBox(
-      width: 60,
-      height: 60,
-      child: Stack(
-        children: [
-          Positioned(
-              left: 5,
-              child: Container(
-                width: 50,
-                height: 50,
-                padding: const EdgeInsets.all(11),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(25.0),
-                ),
-                child: ClipRRect(
-                    borderRadius: BorderRadius.circular(25.0),
-                    child: const Image(
-                      image: NetworkImage(
-                        "https://images.unsplash.com/photo-1682685797498-3bad2c6e161a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
-                      ),
-                      fit: BoxFit.cover,
-                    )),
-              ))
-        ],
-      ),
-    );
-  }
+  // buildProfile(String profilePhoto) {
+  //   return SizedBox(
+  //     width: 60,
+  //     height: 60,
+  //     child: Stack(
+  //       children: [
+  //         Positioned(
+  //             left: 5,
+  //             child: Container(
+  //               width: 50,
+  //               height: 50,
+  //               padding: const EdgeInsets.all(11),
+  //               decoration: BoxDecoration(
+  //                 color: Colors.white,
+  //                 borderRadius: BorderRadius.circular(25.0),
+  //               ),
+  //               child: ClipRRect(
+  //                   borderRadius: BorderRadius.circular(25.0),
+  //                   child: const Image(
+  //                     image: NetworkImage(
+  //                       "https://images.unsplash.com/photo-1682685797498-3bad2c6e161a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+  //                     ),
+  //                     fit: BoxFit.cover,
+  //                   )),
+  //             ))
+  //       ],
+  //     ),
+  //   );
+  // }
 
   buildMusicAlbum(String profilePhoto) {
     return SizedBox(

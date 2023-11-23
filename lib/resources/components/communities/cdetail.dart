@@ -50,6 +50,7 @@ class _CCommunityDetailScreenState extends State<CCommunityDetailScreen> {
       /// APPBAR
       appBar: AppBar(
         backgroundColor: Colors.white,
+        automaticallyImplyLeading: false,
         title: GestureDetector(
           onTap: () {
             if (widget.user.email == APIs.me.email) {
@@ -68,6 +69,9 @@ class _CCommunityDetailScreenState extends State<CCommunityDetailScreen> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              IconButton(
+                  onPressed: () => Navigator.pop(context),
+                  icon: const Icon(Icons.arrow_back, color: Colors.black)),
               ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: CachedNetworkImage(

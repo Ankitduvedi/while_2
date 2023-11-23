@@ -18,16 +18,42 @@ class ReelsScreen extends ConsumerStatefulWidget {
 class _ReelsScreenState extends ConsumerState<ReelsScreen> {
   int _currentPage = 0;
   final PageController _pageController = PageController(viewportFraction: 1.0);
+  late VideoPlayerController _controller0;
+  late VideoPlayerController _controller1;
+  late VideoPlayerController _controller2;
 
   @override
   void dispose() {
     _pageController.dispose();
+    _controller0.dispose();
     super.dispose();
+  }
+
+  Widget text(VideoPlayerController controller1, int index, List<Video> video) {
+    controller1.play().whenComplete(
+      () {
+        _controller2 = VideoPlayerController.networkUrl(
+            Uri.parse(video[index + 1].videoUrl))
+          ..initialize();
+      },
+    );
+    return FeedItem(video: video[index], index: index, controller: controller1);
+  }
+
+  Widget text2(
+      VideoPlayerController controller2, int index, List<Video> video) {
+    // _controller1.dispose();
+    // _controller0.dispose();
+    controller2.play().then((value) {
+      _controller1 =
+          VideoPlayerController.networkUrl(Uri.parse(video[index + 1].videoUrl))
+            ..initialize();
+    });
+    return FeedItem(video: video[index], index: index, controller: controller2);
   }
 
   @override
   Widget build(BuildContext context) {
-    // final currentTheme = ref.watch(themeNotifierProvider);
     List<VideoPlayerController> videoControllers = [];
     Stream<QuerySnapshot> str =
         provi.Provider.of<DataProvider>(context).videoStream;
@@ -55,14 +81,24 @@ class _ReelsScreenState extends ConsumerState<ReelsScreen> {
             scrollDirection: Axis.vertical,
             itemCount: videoList.length,
             onPageChanged: (int newIndex) {
-              videoControllers[_currentPage].pause();
+              videoControllers[_currentPage].dispose();
               setState(() {
                 _currentPage = newIndex;
               });
             },
             itemBuilder: (context, index) {
-              final videoData = videoList[index];
-              return FeedItem(video: videoData);
+              // final videoData = videoList;
+              // return FeedItem(
+              //   video: videoList,
+              //   index: index,
+              // );
+              _controller0 = VideoPlayerController.networkUrl(
+                  Uri.parse(videoList[index].videoUrl))
+                ..initialize();
+              return (index % 2 == 0)
+                  ? text(index == 0 ? _controller0 : _controller1, index,
+                      videoList)
+                  : text2(_controller2, index, videoList);
             },
           );
         });

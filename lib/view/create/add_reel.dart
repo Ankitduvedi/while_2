@@ -1,14 +1,17 @@
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:path/path.dart';
 import 'package:video_compress/video_compress.dart';
 import 'package:while_app/resources/components/round_button.dart';
 import 'package:while_app/resources/components/text_container_widget.dart';
 import 'package:while_app/resources/components/video_player.dart';
-
+import 'package:http/http.dart' as http;
 import 'package:while_app/utils/utils.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:while_app/view_model/session_controller.dart';
+import 'dart:async';
 
 class AddReel extends StatefulWidget {
   final String video;
@@ -45,13 +48,23 @@ class _AddReelState extends State<AddReel> {
         quality: VideoQuality.LowQuality, deleteOrigin: false);
     return compressedVideo!.file;
   }
+
   void uploadVideo(BuildContext context, String title, String des, String path,
       List likes, int shares) async {
     setState(() {
       isloading = true;
     });
-
+    print('//////////////////////////entered');
     DateTime now = DateTime.now();
+    File video = _compressVideo(path);
+    var stream = http.ByteStream(video.openRead().cast());
+    var length = video.lengthSync();
+    var uri = Uri.parse('http://localhost:3000/reels');
+    var request = http.MultipartRequest('POST', uri)
+      ..files.add(http.MultipartFile('video', stream, length,
+          filename: basename(video.path)));
+    await request.send();
+
     firebase_storage.Reference storageRef = firebase_storage
         .FirebaseStorage.instance
         .ref('content/${FirebaseSessionController().uid!}/video/$now');

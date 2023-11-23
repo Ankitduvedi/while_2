@@ -50,10 +50,8 @@ class _FeedScreenState extends ConsumerState<FeedScreen> {
         ],
       ),
       body: const Center(
-          child: Text("Coming soon...",
-              style: TextStyle(
-                fontSize: 30,
-              ))),
+        child: Text('Coming soon'),
+      ),
     );
   }
 }
