@@ -78,6 +78,8 @@ dependencies:
   sqflite: ^2.3.0
   google_sign_in: ^6.1.5
   pinput: ^3.0.1
+  chewie: ^1.5.0
+  carousel_slider: ^4.2.1
   # gradient_text:
   
 
