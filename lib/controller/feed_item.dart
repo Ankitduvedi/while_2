@@ -144,44 +144,15 @@ class _FeedItemState extends State<FeedItem> {
                             ),
                           ],
                         ),
-                        const Column(
-                          children: [
-                            InkWell(
-                                child: Icon(
-                              Icons.comment,
-                              color: Colors.white,
-                              size: 30,
-                            )),
-                            SizedBox(
-                              height: 7,
-                            ),
-                            Text(
-                              "22 ",
-                              style:
-                                  TextStyle(fontSize: 20, color: Colors.white),
-                            ),
-                          ],
-                        ),
-                        const Column(
-                          children: [
-                            InkWell(
-                                child: Icon(
-                              Icons.share,
-                              color: Colors.white,
-                              size: 30,
-                            )),
-                            SizedBox(
-                              height: 7,
-                            ),
-                            Text(
-                              "20",
-                              style:
-                                  TextStyle(fontSize: 20, color: Colors.white),
-                            ),
-                          ],
-                        ),
-                        CircleAnimation(
-                            child: buildMusicAlbum('profile photo')),
+                        const InkWell(
+                            child: Icon(
+                          Icons.share,
+                          color: Colors.white,
+                          size: 30,
+                        )),
+
+                        // CircleAnimation(
+                        //     child: buildMusicAlbum('profile photo')),
                       ],
                     ),
                   ),

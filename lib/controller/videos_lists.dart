@@ -15,7 +15,7 @@ class VideoList {
           title: docu.get('title'),
           description: docu.get('description'),
           likes: docu.get('likes'),
-          shares: docu.get('shares'));
+          views: docu.get('views'));
       videoList.add(video);
     }
     return videoList;

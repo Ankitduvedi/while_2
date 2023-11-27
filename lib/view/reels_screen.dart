@@ -75,6 +75,7 @@ class _ReelsScreenState extends ConsumerState<ReelsScreen> {
           }
 
           final List<Video> videoList = VideoList.getVideoList(snapshot.data!);
+          videoList.shuffle();
           // print(videoList);
           return PageView.builder(
             controller: _pageController,

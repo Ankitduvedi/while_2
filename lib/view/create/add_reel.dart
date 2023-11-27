@@ -1,9 +1,13 @@
 import 'dart:io';
+import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:video_compress/video_compress.dart';
+import 'package:while_app/resources/components/message/apis.dart';
+import 'package:while_app/resources/components/message/helper/dialogs.dart';
+import 'package:while_app/resources/components/message/models/reels_models.dart';
 import 'package:while_app/resources/components/round_button.dart';
 import 'package:while_app/resources/components/text_container_widget.dart';
 import 'package:while_app/resources/components/video_player.dart';
@@ -54,47 +58,68 @@ class _AddReelState extends State<AddReel> {
     setState(() {
       isloading = true;
     });
-    print('//////////////////////////entered');
+
     DateTime now = DateTime.now();
-    File video = _compressVideo(path);
+    // File video = _compressVideo(path);
+    File video = File(path);
     var stream = http.ByteStream(video.openRead().cast());
     var length = video.lengthSync();
-    var uri = Uri.parse('http://localhost:3000/reels');
+    var uri = Uri.parse('http://13.233.151.213:3000/reels');
     var request = http.MultipartRequest('POST', uri)
       ..files.add(http.MultipartFile('video', stream, length,
           filename: basename(video.path)));
-    await request.send();
+    // await request.send();
+    try {
+      final response = await http.Response.fromStream(await request.send());
 
-    firebase_storage.Reference storageRef = firebase_storage
-        .FirebaseStorage.instance
-        .ref('content/${FirebaseSessionController().uid!}/video/$now');
-    firebase_storage.UploadTask uploadTask =
-        storageRef.putFile(await _compressVideo(path));
+      if (response.statusCode == 200) {
+        // Parse the URL from the response
+        // final Map<String, dynamic> jsonResponse =
+        String videoUrl = json.decode(response.body);
+        Dialogs.showSnackbar(context, videoUrl);
+        final CollectionReference collectionReference =
+            FirebaseFirestore.instance.collection('videos');
+        final Map<String, dynamic> vid = {
+          "uploadedBy": APIs.me.id,
+          'videoUrl': videoUrl,
+          'title': title,
+          'description': des,
+          'likes': [],
+          'views': 0
+        };
+        collectionReference.add(vid).then((value) {
+          // Utils.toastMessage('Your video is uploaded!');
+          setState(() {
+            isloading = false;
+          });
+          Navigator.pop(context);
+        }).onError((error, stackTrace) {
+          Utils.toastMessage(error.toString());
+        });
+        // Now you can use the videoUrl as needed, for example, storing it in a variable or database
+        print('Uploaded video URL: $videoUrl');
 
-    await Future.value(uploadTask);
+        // You can use the videoUrl as needed, for example, store it in a variable, database, etc.
+        // You can then use this URL to display the video or perform other operations.
+      } else {
+        print('Failed to upload video. Status code: ${response.statusCode}');
+      }
+    } catch (error) {
+      print('Error uploading video: $error');
+    }
 
-    final newUrl = await storageRef.getDownloadURL();
+    print(url);
+
+    // firebase_storage.Reference storageRef = firebase_storage
+    //     .FirebaseStorage.instance
+    //     .ref('content/${FirebaseSessionController().uid!}/video/$now');
+    // firebase_storage.UploadTask uploadTask =
+    //     storageRef.putFile(await _compressVideo(path));
+
+    // await Future.value(uploadTask);
+
+    // final newUrl = await storageRef.getDownloadURL();
     final user = FirebaseAuth.instance.currentUser!;
-    final CollectionReference collectionReference =
-        FirebaseFirestore.instance.collection('videos');
-
-    final Map<String, dynamic> vid = {
-      "uploadedBy": user.uid,
-      'videoUrl': newUrl,
-      'title': title,
-      'description': des,
-      'likes': [],
-      'shares': 0
-    };
-    collectionReference.add(vid).then((value) {
-      Utils.toastMessage('Your video is uploaded!');
-      setState(() {
-        isloading = false;
-      });
-      Navigator.pop(context);
-    }).onError((error, stackTrace) {
-      Utils.toastMessage(error.toString());
-    });
   }
 
   @override

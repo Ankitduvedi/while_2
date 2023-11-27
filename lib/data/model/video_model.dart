@@ -5,7 +5,7 @@ class Video {
   final String title;
   final String description;
   final List likes;
-  final int shares;
+  final int views;
 
   Video({
     required this.videoRef,
@@ -14,7 +14,7 @@ class Video {
     required this.title,
     required this.description,
     required this.likes,
-    required this.shares,
+    required this.views,
   });
 
   factory Video.fromMap(Map<String, dynamic> map) {
@@ -25,7 +25,7 @@ class Video {
       title: map['title'] as String,
       description: map['description'] as String,
       likes: List.from(map['likes']),
-      shares: map['shares'] as int,
+      views: map['views'] as int,
     );
   }
 }
