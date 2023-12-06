@@ -34,7 +34,7 @@ class _ProfileDataWidgetState extends State<ProfileDataWidget> {
               child: CachedNetworkImage(
                 width: mq.height,
                 fit: BoxFit.cover,
-                height: mq.height * .13,
+                height: mq.height * .16,
                 imageUrl: APIs.me.image,
                 errorWidget: (context, url, error) =>
                     const CircleAvatar(child: Icon(CupertinoIcons.person)),
@@ -70,7 +70,7 @@ class _ProfileDataWidgetState extends State<ProfileDataWidget> {
                   ),
           ),
           Positioned(
-              top: nh + mq.height / 7.5,
+              top: nh + mq.height / 6.6,
               left: mq.width / 2.25,
               child: TextButton(
                 onPressed: () {
@@ -83,11 +83,11 @@ class _ProfileDataWidgetState extends State<ProfileDataWidget> {
                 },
                 child: Text(
                   'Followers  ${APIs.me.follower}',
-                  style: const TextStyle(color: Colors.black),
+                  style: const TextStyle(color: Colors.white),
                 ),
               )),
           Positioned(
-              top: nh + mq.height / 6,
+              top: nh + mq.height / 5.5,
               left: mq.width / 2.25,
               child: TextButton(
                 onPressed: () {
@@ -100,11 +100,11 @@ class _ProfileDataWidgetState extends State<ProfileDataWidget> {
                 },
                 child: Text(
                   'Following  ${APIs.me.following}',
-                  style: const TextStyle(color: Colors.black),
+                  style: const TextStyle(color: Colors.white),
                 ),
               )),
           Positioned(
-              top: nh + mq.height / 7.5,
+              top: nh + mq.height / 6.6,
               left: mq.width / 1.15,
               child: IconButton(
                   onPressed: () {
@@ -116,14 +116,14 @@ class _ProfileDataWidgetState extends State<ProfileDataWidget> {
                   },
                   icon: const Icon(
                     Icons.more_vert,
-                    color: Colors.black,
+                    color: Colors.white,
                   ))),
           Positioned(
-            top: nh + mq.height / 6 + mq.width / 8,
+            top: nh + mq.height / 5 + mq.width / 8,
             child: Container(
               width: mq.width / 1.1,
               padding: const EdgeInsets.only(
-                left: 20,
+                left: 40,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -134,13 +134,17 @@ class _ProfileDataWidgetState extends State<ProfileDataWidget> {
                     softWrap: true,
                     maxLines: 2,
                     style: const TextStyle(
-                        fontSize: 25, fontWeight: FontWeight.w500),
+                        fontSize: 25,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white),
                   ),
                   Text(APIs.me.about,
                       softWrap: true,
-                      maxLines: 4,
+                      maxLines: 3,
                       style: const TextStyle(
-                          fontSize: 15, fontWeight: FontWeight.w500))
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white))
                 ],
               ),
             ),

@@ -64,6 +64,7 @@ class _HomeScreenFinalState extends State<HomeScreenFinal> {
     }
 
     return Scaffold(
+      backgroundColor: Colors.black,
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 10),
         child: FloatingActionButton(
@@ -84,7 +85,7 @@ class _HomeScreenFinalState extends State<HomeScreenFinal> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
                 child: CircularProgressIndicator(
-              backgroundColor: Colors.white,
+              backgroundColor: Colors.black,
             ));
           }
           if (!snapshot.hasData) {
@@ -107,7 +108,7 @@ class _HomeScreenFinalState extends State<HomeScreenFinal> {
                   if (userSnapshot.connectionState == ConnectionState.waiting) {
                     return const Center(
                         child: CircularProgressIndicator(
-                      color: Colors.white,
+                      color: Colors.black,
                     ));
                   }
                   if (!userSnapshot.hasData) {

@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart' as river;
 import 'package:provider/provider.dart';
-import 'package:video_player/video_player.dart';
 import 'package:while_app/repository/firebase_repository.dart';
 import 'package:while_app/resources/components/message/apis.dart';
 import 'package:while_app/utils/data_provider.dart';
@@ -81,7 +80,7 @@ class MyApp extends river.ConsumerWidget {
         )
       ],
       child: const MaterialApp(
-        title: 'Flutter Demo',
+        title: 'While',
         debugShowCheckedModeBanner: false,
         initialRoute: RoutesName.wrapper,
         onGenerateRoute: Routes.generateRoute,

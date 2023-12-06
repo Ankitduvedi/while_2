@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart' as river;
 import 'package:provider/provider.dart';
 import 'package:while_app/resources/colors.dart';
 import 'package:while_app/resources/components/create_container.dart';
-import 'package:while_app/theme/pallete.dart';
 import 'package:while_app/view_model/post_provider.dart';
 import 'package:while_app/view_model/reel_controller.dart';
 
@@ -17,19 +16,14 @@ class CreateScreen extends river.ConsumerStatefulWidget {
 class _CreateScreenState extends river.ConsumerState<CreateScreen> {
   @override
   Widget build(BuildContext context) {
-    final currentTheme = ref.watch(themeNotifierProvider);
     final provider = Provider.of<ReelController>(context, listen: false);
-    final postProvider=Provider.of<PostProvider>(context, listen: false);
-    return Padding(
-      padding: const EdgeInsets.only(top: 28.0),
-      child: Container(
-        height: MediaQuery.of(context).size.height,
-        decoration: BoxDecoration(
-            color: currentTheme.primaryColor,
-            borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(20), topRight: Radius.circular(20))),
+    final postProvider = Provider.of<PostProvider>(context, listen: false);
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: SafeArea(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const SizedBox(
               height: 30,
@@ -39,7 +33,7 @@ class _CreateScreenState extends river.ConsumerState<CreateScreen> {
                 SizedBox(
                   width: 20,
                 ),
-                Text("Create Screen",
+                Text("Upload",
                     style: TextStyle(
                         color: AppColors.buttonColor,
                         fontWeight: FontWeight.bold,
@@ -60,11 +54,6 @@ class _CreateScreenState extends river.ConsumerState<CreateScreen> {
                 text: "Reels",
                 function: () {
                   provider.selectVideo(context);
-                }),
-            CreateContainer(
-                text: "Post",
-                function: () {
-                  postProvider.selectPost(context);
                 }),
           ],
         ),

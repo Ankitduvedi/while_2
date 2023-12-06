@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:while_app/theme/pallete.dart';
 import 'package:while_app/view/create_screen.dart';
 import 'package:while_app/view/feed_screen.dart';
 import 'package:while_app/view/profile/user_profile_screen.dart';
@@ -33,15 +32,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final currentTheme = ref.watch(themeNotifierProvider);
-
     return Scaffold(
       body: _screens[_currentIndex],
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
         height: 50,
         // shape: const CircularNotchedRectangle(),
-        color: currentTheme.primaryColor,
+        color: Colors.black,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
@@ -51,13 +48,23 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               onPressed: () {
                 _onTabTapped(0);
               },
-              icon: const Icon(Icons.home, size: 30),
+              icon: Icon(
+                _currentIndex == 0 ? Icons.home : Icons.home_outlined,
+                size: 30,
+                color: Colors.white,
+              ),
             ),
             IconButton(
               onPressed: () {
                 _onTabTapped(1);
               },
-              icon: const Icon(Icons.movie_creation_outlined, size: 30),
+              icon: Icon(
+                _currentIndex == 1
+                    ? Icons.add_circle
+                    : Icons.add_circle_outline_sharp,
+                size: 30,
+                color: Colors.white,
+              ),
             ),
             IconButton(
                 iconSize: 65,
@@ -65,20 +72,30 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   _onTabTapped(2);
                 },
                 icon: Image.asset(
-                  'assets/whilelogowithoutname.png',
+                  'assets/while.png',
                   fit: BoxFit.fill,
                 )),
             IconButton(
               onPressed: () {
                 _onTabTapped(3);
               },
-              icon: const Icon(Icons.message, size: 30),
+              icon: Icon(
+                _currentIndex == 3 ? Icons.message : Icons.message_outlined,
+                size: 30,
+                color: Colors.white,
+              ),
             ),
             IconButton(
               onPressed: () {
                 _onTabTapped(4);
               },
-              icon: const Icon(Icons.account_circle, size: 30),
+              icon: Icon(
+                _currentIndex == 4
+                    ? Icons.account_circle
+                    : Icons.account_circle_outlined,
+                size: 30,
+                color: Colors.white,
+              ),
             ),
           ],
         ),

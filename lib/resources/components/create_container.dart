@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:while_app/theme/pallete.dart';
 
 import '../colors.dart';
 
@@ -12,7 +11,6 @@ class CreateContainer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final currentTheme = ref.watch(themeNotifierProvider);
     var w = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
@@ -33,8 +31,7 @@ class CreateContainer extends ConsumerWidget {
             onTap: function,
             leading: Text(
               text,
-              style:
-                  TextStyle(fontSize: 15, color: currentTheme.primaryColorDark),
+              style: const TextStyle(fontSize: 15, color: Colors.black),
             ),
             trailing: Container(
               decoration: BoxDecoration(

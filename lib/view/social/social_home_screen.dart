@@ -51,20 +51,20 @@ class _SocialScreenState extends State<SocialScreen>
           },
           child: Scaffold(
             appBar: AppBar(
-              backgroundColor: Colors.white,
+              backgroundColor: Colors.black,
               title: isSearching
                   ? TextField(
                       decoration: const InputDecoration(
                           border: InputBorder.none,
                           hintText: 'Name, Email, ...',
                           hintStyle: TextStyle(
-                            color: Color.fromARGB(142, 73, 73, 73),
+                            color: Color.fromARGB(142, 220, 216, 216),
                           )),
                       autofocus: true,
                       style: const TextStyle(
                           fontSize: 17,
                           letterSpacing: 0.5,
-                          color: Colors.black),
+                          color: Colors.white),
                       //when search text changes then updated search list
                       onChanged: (val) {
                         //search logic
@@ -76,7 +76,7 @@ class _SocialScreenState extends State<SocialScreen>
                     )
                   : const Text(
                       'Social',
-                      style: TextStyle(color: Colors.black),
+                      style: TextStyle(color: Colors.white),
                     ),
               actions: [
                 IconButton(
@@ -85,7 +85,7 @@ class _SocialScreenState extends State<SocialScreen>
                     },
                     icon: const Icon(
                       Icons.group_add,
-                      color: Colors.black,
+                      color: Colors.white,
                     )),
                 IconButton(
                     onPressed: () {
@@ -94,7 +94,7 @@ class _SocialScreenState extends State<SocialScreen>
                     },
                     icon: const Icon(
                       Icons.notifications,
-                      color: Colors.black,
+                      color: Colors.white,
                     )),
                 IconButton(
                     onPressed: () {
@@ -106,10 +106,10 @@ class _SocialScreenState extends State<SocialScreen>
                     },
                     icon: const Icon(
                       Icons.search,
-                      color: Colors.black,
+                      color: Colors.white,
                     )),
                 PopupMenuButton(
-                    color: Colors.black,
+                    color: Colors.white,
                     elevation: 10,
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(
@@ -123,7 +123,7 @@ class _SocialScreenState extends State<SocialScreen>
                           value: "newgroup",
                           child: Text('New Group',
                               style: TextStyle(
-                                color: Colors.black,
+                                color: Colors.white,
                               )),
                         ),
                         PopupMenuItem(
@@ -149,8 +149,8 @@ class _SocialScreenState extends State<SocialScreen>
               ],
               bottom: TabBar(
                 controller: _controller,
-                indicatorColor: Colors.black,
-                labelColor: Colors.black,
+                indicatorColor: Colors.white,
+                labelColor: Colors.white,
                 tabs: const [
                   Tab(
                     text: 'Connect',

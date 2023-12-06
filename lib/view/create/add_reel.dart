@@ -7,13 +7,11 @@ import 'package:path/path.dart';
 import 'package:video_compress/video_compress.dart';
 import 'package:while_app/resources/components/message/apis.dart';
 import 'package:while_app/resources/components/message/helper/dialogs.dart';
-import 'package:while_app/resources/components/message/models/reels_models.dart';
 import 'package:while_app/resources/components/round_button.dart';
 import 'package:while_app/resources/components/text_container_widget.dart';
 import 'package:while_app/resources/components/video_player.dart';
 import 'package:http/http.dart' as http;
 import 'package:while_app/utils/utils.dart';
-import 'package:while_app/view_model/session_controller.dart';
 import 'dart:async';
 
 class AddReel extends StatefulWidget {
@@ -46,10 +44,10 @@ class _AddReelState extends State<AddReel> {
     _subscription.unsubscribe();
   }
 
-  _compressVideo(String videoPath) async {
+  compressVideo(String videoPath) async {
     final compressedVideo = await VideoCompress.compressVideo(videoPath,
-        quality: VideoQuality.LowQuality, deleteOrigin: false);
-    return compressedVideo!.file;
+        quality: VideoQuality.MediumQuality, deleteOrigin: false);
+    return compressedVideo?.file;
   }
 
   void uploadVideo(BuildContext context, String title, String des, String path,
@@ -57,55 +55,135 @@ class _AddReelState extends State<AddReel> {
     setState(() {
       isloading = true;
     });
-
-    DateTime now = DateTime.now();
+    File vid = await compressVideo(path);
+    Dialogs.showSnackbar(context, vid.path.split(".").last);
+    // DateTime now = DateTime.now();
     // File video = _compressVideo(path);
     File video = File(path);
-    var stream = http.ByteStream(video.openRead().cast());
-    var length = video.lengthSync();
-    var uri = Uri.parse('http://13.233.151.213:3000/reels');
-    var request = http.MultipartRequest('POST', uri)
-      ..files.add(http.MultipartFile('video', stream, length,
-          filename: basename(video.path)));
-    // await request.send();
-    try {
-      final response = await http.Response.fromStream(await request.send());
+    // var stream = http.ByteStream(video.openRead().cast());
+    // var length = video.lengthSync();
+    // var uri = Uri.parse('http://13.233.151.213:3000/reels');
+    // var request = http.MultipartRequest('POST', uri)
+    //   ..files.add(http.MultipartFile('video', stream, length,
+    //       filename: basename(video.path)));
+    // // await request.send();
+    // try {
+    //   final response = await http.Response.fromStream(await request.send());
 
-      if (response.statusCode == 200) {
-        // Parse the URL from the response
-        // final Map<String, dynamic> jsonResponse =
-        String videoUrl = json.decode(response.body);
-        Dialogs.showSnackbar(context, videoUrl);
-        final CollectionReference collectionReference =
-            FirebaseFirestore.instance.collection('videos');
-        final Map<String, dynamic> vid = {
-          "uploadedBy": APIs.me.id,
-          'videoUrl': videoUrl,
-          'title': title,
-          'description': des,
-          'likes': [],
-          'views': 0
-        };
-        collectionReference.add(vid).then((value) {
-          // Utils.toastMessage('Your video is uploaded!');
-          setState(() {
-            isloading = false;
+    //   if (response.statusCode == 200) {
+    //     // Parse the URL from the response
+    //     // final Map<String, dynamic> jsonResponse =
+    //     String videoUrl = json.decode(response.body);
+    //     Dialogs.showSnackbar(context, videoUrl);
+    //     final CollectionReference collectionReference =
+    //         FirebaseFirestore.instance.collection('videos');
+    //     final Map<String, dynamic> vid = {
+    //       "uploadedBy": APIs.me.id,
+    //       'videoUrl': videoUrl,
+    //       'title': title,
+    //       'description': des,
+    //       'likes': [],
+    //       'views': 0
+    //     };
+    //     collectionReference.add(vid).then((value) {
+    //       // Utils.toastMessage('Your video is uploaded!');
+    //       setState(() {
+    //         isloading = false;
+    //       });
+    //       Navigator.pop(context);
+    //     }).onError((error, stackTrace) {
+    //       Utils.toastMessage(error.toString());
+    //     });
+    //     // Now you can use the videoUrl as needed, for example, storing it in a variable or database
+    //     print('Uploaded video URL: $videoUrl');
+
+    //     // You can use the videoUrl as needed, for example, store it in a variable, database, etc.
+    //     // You can then use this URL to display the video or perform other operations.
+    //   } else {
+    //     print('Failed to upload video. Status code: ${response.statusCode}');
+    //   }
+    // } catch (error) {
+    //   print('Error uploading video: $error');
+    // }
+// Api.video
+    uploadVideo(File videoFile, String id) async {
+      Dialogs.showSnackbar(context, 'Function called');
+      const apiKey = 'LJd5487BMFq2YdiDxjNWeoJBPY3eqm3M0YHiw1qj7g6';
+      const apiUrl = 'https://sandbox.api.video/videos';
+
+      var request = http.MultipartRequest(
+          'POST', Uri.parse('$apiUrl/$id/source'))
+        ..headers['Authorization'] = 'Bearer $apiKey'
+        ..files.add(await http.MultipartFile.fromPath('file', videoFile.path));
+
+      try {
+        var response = await request.send();
+        Dialogs.showSnackbar(context, 'Trying');
+        if (response.statusCode == 201) {
+          // Video uploaded successfully
+          final Map<String, dynamic> data =
+              json.decode(await response.stream.bytesToString());
+          Dialogs.showSnackbar(context, data['videoId']);
+
+          final CollectionReference collectionReference =
+              FirebaseFirestore.instance.collection('videos');
+          final Map<String, dynamic> vid = {
+            "uploadedBy": APIs.me.id,
+            'videoUrl': data['assets']['mp4'],
+            'title': title,
+            'description': des,
+            'likes': [],
+            'views': 0
+          };
+          collectionReference.add(vid).then((value) {
+            // Utils.toastMessage('Your video is uploaded!');
+            setState(() {
+              isloading = false;
+            });
+            Navigator.pop(context);
+            return data['videoId'];
           });
-          Navigator.pop(context);
-        }).onError((error, stackTrace) {
-          Utils.toastMessage(error.toString());
-        });
-        // Now you can use the videoUrl as needed, for example, storing it in a variable or database
-        print('Uploaded video URL: $videoUrl');
-
-        // You can use the videoUrl as needed, for example, store it in a variable, database, etc.
-        // You can then use this URL to display the video or perform other operations.
-      } else {
-        print('Failed to upload video. Status code: ${response.statusCode}');
+        } else {
+          // Handle upload failure
+          Dialogs.showSnackbar(context, 'Failed');
+          throw Exception('Failed to upload video');
+        }
+      } catch (e) {
+        // Handle exceptions
+        Dialogs.showSnackbar(context, e.toString());
+        print('Error uploading video: $e');
+        throw Exception('Failed to upload video');
       }
-    } catch (error) {
-      print('Error uploading video: $error');
     }
+
+    createVideo(String title, String description) async {
+      Dialogs.showSnackbar(context, 'Called');
+      const apiKey = 'LJd5487BMFq2YdiDxjNWeoJBPY3eqm3M0YHiw1qj7g6';
+      const apiUrl = 'https://sandbox.api.video';
+      final response = await http.post(
+        Uri.parse('$apiUrl/videos'),
+        headers: {
+          'Authorization': 'Bearer $apiKey',
+          'Content-Type': 'application/json',
+          // 'Content-Length': '', // Add the length of the request body here
+          // 'Host': 'sandbox.api.video',
+        },
+        body: jsonEncode({
+          'title': title,
+          'description': description,
+        }),
+      );
+
+      if (response.statusCode == 201) {
+        final Map<String, dynamic> data = jsonDecode(response.body);
+        uploadVideo(vid, data['videoId']);
+      } else {
+        Dialogs.showSnackbar(context, 'Failed');
+        throw Exception('Failed to create video');
+      }
+    }
+
+    createVideo(title, des);
 
     print(url);
 

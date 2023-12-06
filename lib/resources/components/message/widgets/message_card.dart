@@ -53,7 +53,8 @@ class _MessageCardState extends State<MessageCard> {
                 horizontal: mq.width * .04, vertical: mq.height * .01),
             decoration: BoxDecoration(
                 color: const Color.fromARGB(255, 221, 245, 255),
-                border: Border.all(color: Colors.lightBlue),
+                border:
+                    Border.all(color: const Color.fromARGB(255, 244, 119, 3)),
                 //making borders curved
                 borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(30),
@@ -84,14 +85,14 @@ class _MessageCardState extends State<MessageCard> {
         ),
 
         //message time
-        Padding(
-          padding: EdgeInsets.only(right: mq.width * .04),
-          child: Text(
-            MyDateUtil.getFormattedTime(
-                context: context, time: widget.message.sent),
-            style: const TextStyle(fontSize: 13, color: Colors.black54),
-          ),
-        ),
+        // Padding(
+        //   padding: EdgeInsets.only(right: mq.width * .04),
+        //   child: Text(
+        //     MyDateUtil.getFormattedTime(
+        //         context: context, time: widget.message.sent),
+        //     style: const TextStyle(fontSize: 13, color: Colors.black54),
+        //   ),
+        // ),
       ],
     );
   }
@@ -129,23 +130,23 @@ class _MessageCardState extends State<MessageCard> {
           child: Container(
             padding: EdgeInsets.all(widget.message.type == Type.image
                 ? mq.width * .03
-                : mq.width * .04),
+                : mq.width * .02),
             margin: EdgeInsets.symmetric(
-                horizontal: mq.width * .04, vertical: mq.height * .01),
+                horizontal: mq.width * .04, vertical: mq.height * .003),
             decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 218, 255, 176),
+                color: Color.fromARGB(255, 47, 107, 192),
                 border: Border.all(color: Colors.lightGreen),
                 //making borders curved
                 borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30),
-                    bottomLeft: Radius.circular(30))),
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10),
+                    bottomLeft: Radius.circular(10))),
             child: widget.message.type == Type.text
                 ?
                 //show text
                 Text(
                     widget.message.msg,
-                    style: const TextStyle(fontSize: 15, color: Colors.black87),
+                    style: const TextStyle(fontSize: 15, color: Colors.white),
                   )
                 :
                 //show image
